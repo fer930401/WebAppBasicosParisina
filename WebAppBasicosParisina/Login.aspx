@@ -1,17 +1,19 @@
-﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="WebAppBasicosParisina.Contact" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="WebAppBasicosParisina.Contact" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%: Title %>.</h2>
-    <h3>Your contact page.</h3>
-    <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
-    </address>
 
-    <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-    </address>
+    <div class="container">
+        <div class="container-fluid">
+            <div class="form-group">
+                <asp:Label ID="lblUsuario" runat="server" Text="Usuario:"></asp:Label>
+                <asp:DropDownList ID="ddlUser_cve" runat="server" CssClass="form-control"></asp:DropDownList>
+            </div>
+            <div class="form-group">
+                <asp:Label ID="lblPass" runat="server" Text="Contraseña:"></asp:Label>
+                <asp:TextBox ID="txtPass" runat="server" CssClass="form-control" TextMode="Password"></asp:TextBox>
+            </div>
+            <asp:Button ID="btnEntrar" runat="server" Text="Entrar" CssClass="btn btn-success" OnClick="btnEntrar_Click" />
+        </div>
+    </div>
+
 </asp:Content>
