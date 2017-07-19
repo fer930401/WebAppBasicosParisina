@@ -9,7 +9,10 @@
                     <img src="Media/Imagenes/logo_skytex.png" width="50" height="50" />
                 </div>
                 <div class="form-group">
-                    <h2>Basicos Parisina</h2>
+                    <h2>Resurtido Parisina</h2>
+                </div>
+                <div class="form-group">
+                    <asp:Button ID="btnGenPed" runat="server" Text="Genera Pedido" CssClass="btn btn-success" />
                 </div>
             </div>
         </div>

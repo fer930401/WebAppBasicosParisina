@@ -49,26 +49,31 @@ namespace WebAppBasicosParisina
         }
 
         string currentId = "";
-        decimal subTotal = 0;
-        decimal total = 0;
+        /* Totales */
+        decimal Sub_Totales = 0; 
+
+        /* Grand Totales */
+        decimal Grand_Total = 0;
+
+
         int subTotalRowIndex = 0;
         protected void OnRowCreated(object sender, GridViewRowEventArgs e)
         {
-            subTotal = 0;
+            Sub_Totales = 0;
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 DataTable dt = (e.Row.DataItem as DataRowView).DataView.Table;
                 string orderId = dt.Rows[e.Row.RowIndex]["telanom"].ToString();
-                total += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir"]);
+                Grand_Total += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir"]);
                 if (orderId.Equals(currentId) == false)
                 {
                     if (e.Row.RowIndex > 0)
                     {
                         for (int i = subTotalRowIndex; i < e.Row.RowIndex; i++)
                         {
-                            subTotal += Convert.ToDecimal(gvBP.Rows[i].Cells[4].Text);
+                            Sub_Totales += Convert.ToDecimal(gvBP.Rows[i].Cells[4].Text);
                         }
-                        AddTotalRow("Total", subTotal.ToString("N2"));
+                        AddTotalRow("Total", Sub_Totales.ToString("N2"));
                         subTotalRowIndex = e.Row.RowIndex;
                     }
                     currentId = orderId;
@@ -123,10 +128,10 @@ namespace WebAppBasicosParisina
             }
             for (int i = subTotalRowIndex; i < gvBP.Rows.Count; i++)
             {
-                subTotal += Convert.ToDecimal(gvBP.Rows[i].Cells[4].Text);
+                Sub_Totales += Convert.ToDecimal(gvBP.Rows[i].Cells[4].Text);
             }
-            AddTotalRow("Total", subTotal.ToString("N2"));
-            AddTotalRow("Grand Total", total.ToString("N2"));
+            AddTotalRow("Total", Sub_Totales.ToString("N2"));
+            AddTotalRow("Grand Total", Grand_Total.ToString("N2"));
         }
 
         private void AddTotalRow(string labelText, string value)
@@ -167,7 +172,7 @@ namespace WebAppBasicosParisina
                                     new TableCell (), //Empty Cell
                                     new TableCell (), //Empty Cell
                                 });
-            row.BorderColor = System.Drawing.Color.LightGray;
+            row.BorderColor = System.Drawing.Color.FromArgb(201,225,246);
 
             gvBP.Controls[0].Controls.Add(row);
         }
