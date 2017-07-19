@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BasicosParisinaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="WebAppBasicosParisina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ef_cve" Type="nchar" Mode="In" />
+          <Parameter Name="tipdoc_cve" Type="nchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="BasicosParisinaModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BasicosParisinaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BasicosParisinaEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="WebAppBasicosParisina" ReturnType="Collection(BasicosParisinaModel.WebAppBasicosParisina_Result)">
+            <Parameter Name="ef_cve" Mode="In" Type="String" />
+            <Parameter Name="tipdoc_cve" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="WebAppBasicosParisina_Result">
+          <Property Type="String" Name="sku_cve" Nullable="false" MaxLength="32" />
+          <Property Type="String" Name="art_tip" Nullable="false" MaxLength="3" />
+          <Property Type="Int32" Name="sw_fabricado" Nullable="false" />
+          <Property Type="String" Name="code_bar" Nullable="true" MaxLength="32" />
+          <Property Type="Int32" Name="secuencia" Nullable="true" />
+          <Property Type="String" Name="tela" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="color" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="color_cliente" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="minimo" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="stock" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="pedido" Nullable="true" />
+          <Property Type="Decimal" Name="rollos_ped" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="String" Name="Saldo_origen" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="art_tipPD" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="acabado" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="telanom" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="code_barPD" Nullable="true" MaxLength="32" />
+          <Property Type="String" Name="desc_cliente" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="max_tarima" Nullable="true" />
+          <Property Type="Int16" Name="preorden_tarima" Nullable="true" />
+          <Property Type="Int16" Name="casillero_tarima" Nullable="true" />
+          <Property Type="Int16" Name="rollos_tarima" Nullable="true" />
+          <Property Type="Int16" Name="dispo_tarima" Nullable="true" />
+          <Property Type="Int16" Name="temporada_tarima" Nullable="true" />
+          <Property Type="Int16" Name="min_tarima" Nullable="true" />
+          <Property Type="Decimal" Name="rollos_ped_xsurtir" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="rollos_ped_xsurtir_old" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="rollos_ped_surtidos" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="rollo_yardas" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="String" Name="sku_cvePD" Nullable="true" MaxLength="32" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BasicosParisinaModelStoreContainer" CdmEntityContainer="BasicosParisinaEntities" >
+          <FunctionImportMapping FunctionImportName="WebAppBasicosParisina" FunctionName="BasicosParisinaModel.Store.WebAppBasicosParisina">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BasicosParisinaModel.WebAppBasicosParisina_Result">
+                <ScalarProperty Name="sku_cve" ColumnName="sku_cve" />
+                <ScalarProperty Name="art_tip" ColumnName="art_tip" />
+                <ScalarProperty Name="sw_fabricado" ColumnName="sw_fabricado" />
+                <ScalarProperty Name="code_bar" ColumnName="code_bar" />
+                <ScalarProperty Name="secuencia" ColumnName="secuencia" />
+                <ScalarProperty Name="tela" ColumnName="tela" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="color_cliente" ColumnName="color_cliente" />
+                <ScalarProperty Name="minimo" ColumnName="minimo" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="pedido" ColumnName="pedido" />
+                <ScalarProperty Name="rollos_ped" ColumnName="rollos_ped" />
+                <ScalarProperty Name="Saldo_origen" ColumnName="Saldo_origen" />
+                <ScalarProperty Name="art_tipPD" ColumnName="art_tipPD" />
+                <ScalarProperty Name="acabado" ColumnName="acabado" />
+                <ScalarProperty Name="telanom" ColumnName="telanom" />
+                <ScalarProperty Name="code_barPD" ColumnName="code_barPD" />
+                <ScalarProperty Name="desc_cliente" ColumnName="desc_cliente" />
+                <ScalarProperty Name="max_tarima" ColumnName="max_tarima" />
+                <ScalarProperty Name="preorden_tarima" ColumnName="preorden_tarima" />
+                <ScalarProperty Name="casillero_tarima" ColumnName="casillero_tarima" />
+                <ScalarProperty Name="rollos_tarima" ColumnName="rollos_tarima" />
+                <ScalarProperty Name="dispo_tarima" ColumnName="dispo_tarima" />
+                <ScalarProperty Name="temporada_tarima" ColumnName="temporada_tarima" />
+                <ScalarProperty Name="min_tarima" ColumnName="min_tarima" />
+                <ScalarProperty Name="rollos_ped_xsurtir" ColumnName="rollos_ped_xsurtir" />
+                <ScalarProperty Name="rollos_ped_xsurtir_old" ColumnName="rollos_ped_xsurtir_old" />
+                <ScalarProperty Name="rollos_ped_surtidos" ColumnName="rollos_ped_surtidos" />
+                <ScalarProperty Name="rollo_yardas" ColumnName="rollo_yardas" />
+                <ScalarProperty Name="sku_cvePD" ColumnName="sku_cvePD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
