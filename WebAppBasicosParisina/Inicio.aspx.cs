@@ -229,6 +229,15 @@ namespace WebAppBasicosParisina
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
+        public decimal resurtidoMTS(string valor1, string valor2)
+        {
+            decimal result = 0;
+            decimal rollo_tarima = decimal.Parse(valor1);
+            decimal mtsRollos = decimal.Parse(valor2) * 0.9144m;
+            result = (ExisTotalC * rollo_tarima) * mtsRollos;
+            return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
+        }
+
         public decimal restaColumnas()
         {
             decimal result = 0;
