@@ -27,30 +27,36 @@
           <Property Type="String" Name="code_bar" Nullable="true" MaxLength="32" />
           <Property Type="Int32" Name="secuencia" Nullable="true" />
           <Property Type="String" Name="tela" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="color" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="color_cliente" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="minimo" Nullable="true" Precision="19" Scale="4" />
           <Property Type="Decimal" Name="stock" Nullable="true" Precision="19" Scale="4" />
-          <Property Type="Int32" Name="pedido" Nullable="true" />
-          <Property Type="Decimal" Name="rollos_ped" Nullable="true" Precision="19" Scale="4" />
-          <Property Type="String" Name="Saldo_origen" Nullable="true" MaxLength="40" />
-          <Property Type="String" Name="art_tipPD" Nullable="true" MaxLength="3" />
-          <Property Type="String" Name="acabado" Nullable="true" MaxLength="40" />
-          <Property Type="String" Name="telanom" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="code_barPD" Nullable="true" MaxLength="32" />
+          <Property Type="Decimal" Name="rollos_ped" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="Decimal" Name="rollos_ped_surtidos" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="Decimal" Name="rollos_ped_xsurtir" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="Decimal" Name="rollos_ped_xsurtir_old" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="String" Name="telanom" Nullable="true" MaxLength="102" />
+          <Property Type="Decimal" Name="compra_sugerida" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="resurtido_rollos" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="String" Name="code_barQBR" Nullable="true" MaxLength="4000" />
+          <Property Type="Decimal" Name="disponible" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="min_parisina" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="max_parisina" Nullable="false" Precision="19" Scale="4" />
           <Property Type="String" Name="desc_cliente" Nullable="true" MaxLength="50" />
-          <Property Type="Int16" Name="max_tarima" Nullable="true" />
-          <Property Type="Int16" Name="preorden_tarima" Nullable="true" />
-          <Property Type="Int16" Name="casillero_tarima" Nullable="true" />
-          <Property Type="Int16" Name="rollos_tarima" Nullable="true" />
-          <Property Type="Int16" Name="dispo_tarima" Nullable="true" />
-          <Property Type="Int16" Name="temporada_tarima" Nullable="true" />
-          <Property Type="Int16" Name="min_tarima" Nullable="true" />
-          <Property Type="Decimal" Name="rollos_ped_xsurtir" Nullable="true" Precision="19" Scale="4" />
-          <Property Type="Decimal" Name="rollos_ped_xsurtir_old" Nullable="true" Precision="19" Scale="4" />
-          <Property Type="Decimal" Name="rollos_ped_surtidos" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="String" Name="color_sky" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="art_tipQBR" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="Tela_nombre" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="color_bar" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="info_parisina" Nullable="false" MaxLength="50" />
+          <Property Type="Int16" Name="max_tarima" Nullable="false" />
+          <Property Type="Int16" Name="preorden_tarima" Nullable="false" />
+          <Property Type="Int16" Name="casillero_tarima" Nullable="false" />
+          <Property Type="Int16" Name="rollos_tarima" Nullable="false" />
+          <Property Type="Int16" Name="dispo_tarima" Nullable="false" />
+          <Property Type="Int16" Name="temporada_tarima" Nullable="false" />
+          <Property Type="Int16" Name="min_tarima" Nullable="false" />
           <Property Type="Decimal" Name="rollo_yardas" Nullable="true" Precision="19" Scale="4" />
-          <Property Type="String" Name="sku_cvePD" Nullable="true" MaxLength="32" />
+          <Property Type="String" Name="sku_cveQBR" Nullable="true" MaxLength="32" />
+          <Property Type="Int32" Name="contSku_cve" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -67,18 +73,26 @@
                 <ScalarProperty Name="code_bar" ColumnName="code_bar" />
                 <ScalarProperty Name="secuencia" ColumnName="secuencia" />
                 <ScalarProperty Name="tela" ColumnName="tela" />
-                <ScalarProperty Name="color" ColumnName="color" />
                 <ScalarProperty Name="color_cliente" ColumnName="color_cliente" />
                 <ScalarProperty Name="minimo" ColumnName="minimo" />
                 <ScalarProperty Name="stock" ColumnName="stock" />
-                <ScalarProperty Name="pedido" ColumnName="pedido" />
                 <ScalarProperty Name="rollos_ped" ColumnName="rollos_ped" />
-                <ScalarProperty Name="Saldo_origen" ColumnName="Saldo_origen" />
-                <ScalarProperty Name="art_tipPD" ColumnName="art_tipPD" />
-                <ScalarProperty Name="acabado" ColumnName="acabado" />
+                <ScalarProperty Name="rollos_ped_surtidos" ColumnName="rollos_ped_surtidos" />
+                <ScalarProperty Name="rollos_ped_xsurtir" ColumnName="rollos_ped_xsurtir" />
+                <ScalarProperty Name="rollos_ped_xsurtir_old" ColumnName="rollos_ped_xsurtir_old" />
                 <ScalarProperty Name="telanom" ColumnName="telanom" />
-                <ScalarProperty Name="code_barPD" ColumnName="code_barPD" />
+                <ScalarProperty Name="compra_sugerida" ColumnName="compra_sugerida" />
+                <ScalarProperty Name="resurtido_rollos" ColumnName="resurtido_rollos" />
+                <ScalarProperty Name="code_barQBR" ColumnName="code_barQBR" />
+                <ScalarProperty Name="disponible" ColumnName="disponible" />
+                <ScalarProperty Name="min_parisina" ColumnName="min_parisina" />
+                <ScalarProperty Name="max_parisina" ColumnName="max_parisina" />
                 <ScalarProperty Name="desc_cliente" ColumnName="desc_cliente" />
+                <ScalarProperty Name="color_sky" ColumnName="color_sky" />
+                <ScalarProperty Name="art_tipQBR" ColumnName="art_tipQBR" />
+                <ScalarProperty Name="Tela_nombre" ColumnName="Tela_nombre" />
+                <ScalarProperty Name="color_bar" ColumnName="color_bar" />
+                <ScalarProperty Name="info_parisina" ColumnName="info_parisina" />
                 <ScalarProperty Name="max_tarima" ColumnName="max_tarima" />
                 <ScalarProperty Name="preorden_tarima" ColumnName="preorden_tarima" />
                 <ScalarProperty Name="casillero_tarima" ColumnName="casillero_tarima" />
@@ -86,11 +100,9 @@
                 <ScalarProperty Name="dispo_tarima" ColumnName="dispo_tarima" />
                 <ScalarProperty Name="temporada_tarima" ColumnName="temporada_tarima" />
                 <ScalarProperty Name="min_tarima" ColumnName="min_tarima" />
-                <ScalarProperty Name="rollos_ped_xsurtir" ColumnName="rollos_ped_xsurtir" />
-                <ScalarProperty Name="rollos_ped_xsurtir_old" ColumnName="rollos_ped_xsurtir_old" />
-                <ScalarProperty Name="rollos_ped_surtidos" ColumnName="rollos_ped_surtidos" />
                 <ScalarProperty Name="rollo_yardas" ColumnName="rollo_yardas" />
-                <ScalarProperty Name="sku_cvePD" ColumnName="sku_cvePD" />
+                <ScalarProperty Name="sku_cveQBR" ColumnName="sku_cveQBR" />
+                <ScalarProperty Name="contSku_cve" ColumnName="contSku_cve" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

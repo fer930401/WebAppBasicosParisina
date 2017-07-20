@@ -19,29 +19,35 @@ namespace Entidades
         public string code_bar { get; set; }
         public Nullable<int> secuencia { get; set; }
         public string tela { get; set; }
-        public string color { get; set; }
         public string color_cliente { get; set; }
         public Nullable<decimal> minimo { get; set; }
         public Nullable<decimal> stock { get; set; }
-        public Nullable<int> pedido { get; set; }
         public Nullable<decimal> rollos_ped { get; set; }
-        public string Saldo_origen { get; set; }
-        public string art_tipPD { get; set; }
-        public string acabado { get; set; }
-        public string telanom { get; set; }
-        public string code_barPD { get; set; }
-        public string desc_cliente { get; set; }
-        public Nullable<short> max_tarima { get; set; }
-        public Nullable<short> preorden_tarima { get; set; }
-        public Nullable<short> casillero_tarima { get; set; }
-        public Nullable<short> rollos_tarima { get; set; }
-        public Nullable<short> dispo_tarima { get; set; }
-        public Nullable<short> temporada_tarima { get; set; }
-        public Nullable<short> min_tarima { get; set; }
+        public Nullable<decimal> rollos_ped_surtidos { get; set; }
         public Nullable<decimal> rollos_ped_xsurtir { get; set; }
         public Nullable<decimal> rollos_ped_xsurtir_old { get; set; }
-        public Nullable<decimal> rollos_ped_surtidos { get; set; }
+        public string telanom { get; set; }
+        public decimal compra_sugerida { get; set; }
+        public Nullable<decimal> resurtido_rollos { get; set; }
+        public string code_barQBR { get; set; }
+        public decimal disponible { get; set; }
+        public decimal min_parisina { get; set; }
+        public decimal max_parisina { get; set; }
+        public string desc_cliente { get; set; }
+        public string color_sky { get; set; }
+        public string art_tipQBR { get; set; }
+        public string Tela_nombre { get; set; }
+        public string color_bar { get; set; }
+        public string info_parisina { get; set; }
+        public short max_tarima { get; set; }
+        public short preorden_tarima { get; set; }
+        public short casillero_tarima { get; set; }
+        public short rollos_tarima { get; set; }
+        public short dispo_tarima { get; set; }
+        public short temporada_tarima { get; set; }
+        public short min_tarima { get; set; }
         public Nullable<decimal> rollo_yardas { get; set; }
-        public string sku_cvePD { get; set; }
+        public string sku_cveQBR { get; set; }
+        public Nullable<int> contSku_cve { get; set; }
     }
 }
