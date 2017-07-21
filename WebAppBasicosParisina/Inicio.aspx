@@ -57,26 +57,32 @@
                         <asp:BoundField DataField="rollos_ped_surtidos" HeaderText="Pedidos Surtidos:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
                         <asp:TemplateField HeaderText="Exis Total:"  ItemStyle-BackColor="Gray" ItemStyle-HorizontalAlign = "Right" >
                             <ItemTemplate>
-                                <asp:Label ID="lblExisTotal" runat="server" Text='<%# ExisTotalC = ExisTotal(Eval("Stock").ToString(), Eval("rollos_tarima").ToString()) %>' CssClass="lblExisTotal"></asp:Label>
-                                
+                                <asp:Label ID="lblExisTotal" runat="server" Text='<%# ExisTotalC = ExisTotal("0", Eval("rollos_ped_xsurtir").ToString(), Eval("rollos_ped_xsurtir_old").ToString(), Eval("rollos_ped_surtidos").ToString()) %>' CssClass="lblExisTotal"></asp:Label>
+                                <%-- agregar Inventario inc intermedio y transito: al primer parametro --%>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <%-- <asp:BoundField DataField="compra_sugerida" HeaderText="Compra Sugerida Tarima" ItemStyle-BackColor="#9BC2E6" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" ControlStyle-CssClass=""/> --%>
                         <asp:TemplateField HeaderText="Compra Sugerida Tarima:"  ItemStyle-BackColor="#9BC2E6"  ItemStyle-HorizontalAlign = "Right" >
                             <ItemTemplate>
-                                <asp:Label ID="lblCST" runat="server" Text='<%# CST = decimal.Parse(Eval("compra_sugerida","{0:N2}").ToString()) %>' CssClass="lblCST"></asp:Label>
+                                <asp:Label ID="lblCST" runat="server" Text='<%# CST = 0m %>' CssClass="lblCST"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+
+
                         <asp:TemplateField HeaderText="Sobrante despues compra disp" ItemStyle-BackColor="#F4B084" ItemStyle-HorizontalAlign = "Right" >
                             <ItemTemplate>
-                                <%# //decimal.Parse(Eval("compra_sugerida","{0:N2}").ToString()) - decimal.Parse(Eval("rollos_ped_surtidos","{0:N2}").ToString())
-                                    restaColumnas()
-                                %>
-                                <%-- %><asp:Label ID="lblSobranteComDispo" runat="server" Text="" CssClass="lblSobranteComDispo" onkeyup="CalculateTotals()"></asp:Label>--%>
+                                <%# restaColumnas() %>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField  HeaderText="Faltante vs almacen:" />
-                        <asp:BoundField  HeaderText="Faltante vs almacen + pedidos:" />
+                        <asp:TemplateField  HeaderText="Faltante vs almacen:" ItemStyle-HorizontalAlign = "Right" >
+                            <ItemTemplate>
+                                <%# restaExistSobrante() %>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField  HeaderText="Faltante vs almacen + pedidos:" ItemStyle-HorizontalAlign = "Right" >
+                            <ItemTemplate>
+                                <%# sumaFaltanteAlmacen(Eval("rollos_ped_xsurtir").ToString()) %>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:BoundField DataField="max_tarima" HeaderText="Maximo tarimas:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
                         <asp:BoundField DataField="preorden_tarima" HeaderText="Punto de reorden tarima:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
                         <asp:BoundField DataField="temporada_tarima" HeaderText="Temporada tarimas:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
@@ -87,8 +93,10 @@
                                 <%# resurtidoMTS(Eval("rollos_tarima","{0:N2}").ToString(), Eval("rollo_yardas","{0:N2}").ToString()) %>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        
                         <asp:BoundField  HeaderText="Fabricar para Resurido tarimas:" ItemStyle-BackColor="#9BC2E6" />
                         <asp:BoundField  HeaderText="Tarimas Extras en pedido:" ItemStyle-BackColor="#DDEBF7" />
+                        
                         <asp:TemplateField  HeaderText="Autorizado x meter_pedidos:" ItemStyle-BackColor="#92CE50" >
                             <ItemTemplate>
                                 <asp:TextBox ID="txtNumTarimas" runat="server" TextMode="Number" CssClass="form-control" Min="0" Value="0"></asp:TextBox>
@@ -99,10 +107,11 @@
                                 <%# demandaResidual(Eval("max_tarima","{0:N2}").ToString(),Eval("preorden_tarima","{0:N2}").ToString(),Eval("dispo_tarima","{0:N2}").ToString()) %>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField  HeaderText="Parisina Demanda:" ItemStyle-BackColor="#DDEBF7" />
+                        <asp:BoundField DataField="compra_sugerida" HeaderText="Parisina Demanda:" ItemStyle-BackColor="#DDEBF7" />
                         <asp:BoundField  HeaderText="Fabricar para Temporada tarimas:" />
                         <asp:BoundField  HeaderText="Fabricar para Temporada dispos:" />
                         <asp:BoundField  HeaderText="Excedentes inc Pedidos:" ItemStyle-BackColor="#FFFF00" ItemStyle-HorizontalAlign = "Right"/>
+
                         <asp:TemplateField HeaderText="Excedentes en Bodega:" ItemStyle-HorizontalAlign = "Right" >
                             <ItemTemplate>
                                 <%# excedenteBodega(Eval("stock").ToString(),Eval("max_parisina").ToString()) %>

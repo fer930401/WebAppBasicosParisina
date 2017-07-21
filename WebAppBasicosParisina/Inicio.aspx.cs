@@ -30,6 +30,18 @@ namespace WebAppBasicosParisina
             get { return _Default.cst; }
             set { _Default.cst = value; }
         }
+        static decimal scd;
+        public static decimal SCD
+        {
+            get { return _Default.scd; }
+            set { _Default.scd = value; }
+        }
+        static decimal faltAlm;
+        public static decimal FaltAlm
+        {
+            get { return _Default.faltAlm; }
+            set { _Default.faltAlm = value; }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -213,19 +225,38 @@ namespace WebAppBasicosParisina
 
             gvBP.Controls[0].Controls.Add(row);
         }
-        public decimal ExisTotal(string valor1, string valor2)
+        public decimal ExisTotal(string valor1, string valor2, string valor3, string valor4)
         {
             decimal result = 0;
-            decimal stock = decimal.Parse(valor1);
-            decimal rollos_tarima = decimal.Parse(valor2);
-            if (stock > 0 && rollos_tarima > 0)
-            {
-                result = stock / rollos_tarima;
-            }
-            else
-            {
-                result = 0;
-            }
+            decimal intTrans = decimal.Parse(valor1);
+            decimal ped_surtir = decimal.Parse(valor2);
+            decimal ped_surtit_old = decimal.Parse(valor3);
+            decimal ped_surtidos = decimal.Parse(valor4);
+            result = intTrans + ped_surtir + ped_surtit_old + ped_surtidos;
+            return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
+        }
+
+        public decimal restaColumnas()
+        {
+            decimal result = 0;
+            result = CST - ExisTotalC;
+            SCD = result;
+            return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
+        }
+        /* Faltante vs almacen: */
+        public decimal restaExistSobrante()
+        {
+            decimal result = 0;
+            result = ExisTotalC - SCD;
+            FaltAlm = result;
+            return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
+        }
+        /* Faltante vs almacen + pedidos: */
+        public decimal sumaFaltanteAlmacen(string valor1)
+        {
+            decimal result = 0;
+            decimal rollos_ped_xsurtir = decimal.Parse(valor1);
+            result = FaltAlm + rollos_ped_xsurtir;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
@@ -238,14 +269,7 @@ namespace WebAppBasicosParisina
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
-        public decimal restaColumnas()
-        {
-            decimal result = 0;
-            result = CST - ExisTotalC;
-            
-
-            return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
-        }
+        
 
         public decimal demandaResidual(string valor1, string valor2, string valor3)
         {
