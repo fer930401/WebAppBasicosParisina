@@ -27,6 +27,7 @@ namespace Entidades
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<xcuser> xcuser { get; set; }
     
         public virtual ObjectResult<WebAppBasicosParisina_Result> WebAppBasicosParisina(string ef_cve, string tipdoc_cve)
         {

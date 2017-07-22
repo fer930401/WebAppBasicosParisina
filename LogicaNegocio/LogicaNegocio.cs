@@ -15,6 +15,11 @@ namespace LogicaNegocio
             datos = new AccesoDatos.AccesoDatos();
         }
 
+        public List<Entidades.xcuser> ListaUsuarios()
+        {
+            return datos.ListaUsuarios();
+        }
+
         public List<Entidades.WebAppBasicosParisina_Result> consultaPedidos(string ef_cve, string tipdoc_cve)
         {
             return datos.consultaPedidos(ef_cve,tipdoc_cve);

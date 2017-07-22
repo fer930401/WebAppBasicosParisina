@@ -4,12 +4,31 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BasicosParisinaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BasicosParisinaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="xcuser">
+          <Key>
+            <PropertyRef Name="ef_cve" />
+            <PropertyRef Name="user_cve" />
+          </Key>
+          <Property Name="ef_cve" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="div_cve" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="user_cve" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="dest_mail" Type="nvarchar" MaxLength="40" />
+          <Property Name="idioma" Type="nchar" MaxLength="3" />
+          <Property Name="srv_cve" Type="nvarchar" MaxLength="25" />
+          <Property Name="path_adobe" Type="nvarchar" MaxLength="255" />
+          <Property Name="status" Type="smallint" />
+          <Property Name="sw_password" Type="smallint" />
+        </EntityType>
         <Function Name="WebAppBasicosParisina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ef_cve" Type="nchar" Mode="In" />
           <Parameter Name="tipdoc_cve" Type="nchar" Mode="In" />
         </Function>
-        <EntityContainer Name="BasicosParisinaModelStoreContainer" />
+        <EntityContainer Name="BasicosParisinaModelStoreContainer">
+          <EntitySet Name="xcuser" EntityType="Self.xcuser" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -19,6 +38,7 @@
             <Parameter Name="ef_cve" Mode="In" Type="String" />
             <Parameter Name="tipdoc_cve" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="xcuser" EntityType="BasicosParisinaModel.xcuser" />
         </EntityContainer>
         <ComplexType Name="WebAppBasicosParisina_Result">
           <Property Type="String" Name="sku_cve" Nullable="false" MaxLength="32" />
@@ -58,6 +78,23 @@
           <Property Type="String" Name="sku_cveQBR" Nullable="true" MaxLength="32" />
           <Property Type="Int32" Name="contSku_cve" Nullable="true" />
         </ComplexType>
+        <EntityType Name="xcuser">
+          <Key>
+            <PropertyRef Name="ef_cve" />
+            <PropertyRef Name="user_cve" />
+          </Key>
+          <Property Name="ef_cve" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="div_cve" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="user_cve" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="dest_mail" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="idioma" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="srv_cve" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="path_adobe" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int16" />
+          <Property Name="sw_password" Type="Int16" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -106,6 +143,23 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="xcuser">
+            <EntityTypeMapping TypeName="BasicosParisinaModel.xcuser">
+              <MappingFragment StoreEntitySet="xcuser">
+                <ScalarProperty Name="sw_password" ColumnName="sw_password" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="path_adobe" ColumnName="path_adobe" />
+                <ScalarProperty Name="srv_cve" ColumnName="srv_cve" />
+                <ScalarProperty Name="idioma" ColumnName="idioma" />
+                <ScalarProperty Name="dest_mail" ColumnName="dest_mail" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="user_cve" ColumnName="user_cve" />
+                <ScalarProperty Name="div_cve" ColumnName="div_cve" />
+                <ScalarProperty Name="ef_cve" ColumnName="ef_cve" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
