@@ -29,7 +29,7 @@
     <div style="padding-left:5px; padding-right:5px;">
         <div class="well">
             <div class="form-inline">
-                <div class="form-group">
+                <div class="form-group col-md-3">
                     <img src="Media/Imagenes/logo_skytex.png" width="50" height="50" />
                 </div>
                 <div class="form-group">
@@ -38,6 +38,9 @@
                 <div class="form-group">
                     <br />
                     <asp:Button ID="btnGenPed" runat="server" Text="Genera Pedido" CssClass="btn btn-success" OnClick="btnGenPed_Click" />
+                </div>
+                <div class="form-group">
+                    <h2>Resurtido Parisina</h2>
                 </div>
             </div>
         </div>

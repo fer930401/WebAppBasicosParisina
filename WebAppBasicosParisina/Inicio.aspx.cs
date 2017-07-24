@@ -544,6 +544,8 @@ namespace WebAppBasicosParisina
 
         public void insertResurtido()
         {
+            string error = "";
+
             string Producto = string.Empty;
             string colorVariante = string.Empty;
             string descCliente = string.Empty;
@@ -579,92 +581,103 @@ namespace WebAppBasicosParisina
 
             foreach (GridViewRow GVRow in gvBP.Rows)
             {
-                Producto = HttpUtility.HtmlDecode(GVRow.Cells[0].Text);
-                colorVariante = GVRow.Cells[1].Text;
-                descCliente = GVRow.Cells[2].Text;
-                invInteTrans = decimal.Parse("0");//cambiar
-                ped_surtir = decimal.Parse(GVRow.Cells[4].Text);
-                ped_viejos_surtir = decimal.Parse(GVRow.Cells[5].Text);
-                ped_surtidos = decimal.Parse(GVRow.Cells[6].Text);
-                Label lblExisTotal = (Label)GVRow.Cells[7].FindControl("lblExisTotal");
-                exis_total = decimal.Parse(lblExisTotal.Text);
-                Label lblCST = (Label)GVRow.Cells[8].FindControl("lblCST");
-                com_sug_tarima = decimal.Parse(lblCST.Text);
-                Label lblSDC = (Label)GVRow.Cells[9].FindControl("lblSDC");
-                sob_des_comp = decimal.Parse(lblSDC.Text);
-                Label lblFA = (Label)GVRow.Cells[10].FindControl("lblFA");
-                faltAlm = decimal.Parse(lblFA.Text);
-                Label lblFAP = (Label)GVRow.Cells[11].FindControl("lblFAP");
-                falAlmPed = decimal.Parse(lblFAP.Text);
-                max_tarima = decimal.Parse(GVRow.Cells[12].Text);
-                punReorden = decimal.Parse(GVRow.Cells[13].Text);
-                temp_tarima = decimal.Parse(GVRow.Cells[14].Text);
-                tarima_dispo = decimal.Parse(GVRow.Cells[15].Text);
-                fabResurtido = decimal.Parse(GVRow.Cells[16].Text);
-                Label lblFRMTS = (Label)GVRow.Cells[17].FindControl("lblFRMTS");
-                fabResurtidoMts = decimal.Parse(lblFRMTS.Text);
-                fabResurtidoTarima = decimal.Parse("0");//cambiar
-                tarimaExtraPed = decimal.Parse("0");//cambiar
-
-                TextBox txt = (TextBox)GVRow.Cells[20].FindControl("txtNumTarimas"); //se busca el input donde se inserta la cantidad
-                if (txt != null)
+                if (string.IsNullOrEmpty(GVRow.Cells[4].Text) == false)
                 {
-                    if (txt.Text.Equals("0") == false && string.IsNullOrEmpty(txt.Text) == false)
+                    Producto = HttpUtility.HtmlDecode(GVRow.Cells[0].Text);
+                    colorVariante = GVRow.Cells[1].Text;
+                    descCliente = GVRow.Cells[2].Text;
+                    invInteTrans = decimal.Parse("0");//cambiar
+                    ped_surtir = decimal.Parse(GVRow.Cells[4].Text);
+                    ped_viejos_surtir = decimal.Parse(GVRow.Cells[5].Text);
+                    ped_surtidos = decimal.Parse(GVRow.Cells[6].Text);
+                    Label lblExisTotal = (Label)GVRow.Cells[7].FindControl("lblExisTotal");
+                    exis_total = decimal.Parse(lblExisTotal.Text);
+                    Label lblCST = (Label)GVRow.Cells[8].FindControl("lblCST");
+                    com_sug_tarima = decimal.Parse(lblCST.Text);
+                    Label lblSDC = (Label)GVRow.Cells[9].FindControl("lblSDC");
+                    sob_des_comp = decimal.Parse(lblSDC.Text);
+                    Label lblFA = (Label)GVRow.Cells[10].FindControl("lblFA");
+                    faltAlm = decimal.Parse(lblFA.Text);
+                    Label lblFAP = (Label)GVRow.Cells[11].FindControl("lblFAP");
+                    falAlmPed = decimal.Parse(lblFAP.Text);
+                    max_tarima = decimal.Parse(GVRow.Cells[12].Text);
+                    punReorden = decimal.Parse(GVRow.Cells[13].Text);
+                    temp_tarima = decimal.Parse(GVRow.Cells[14].Text);
+                    tarima_dispo = decimal.Parse(GVRow.Cells[15].Text);
+                    fabResurtido = decimal.Parse(GVRow.Cells[16].Text);
+                    Label lblFRMTS = (Label)GVRow.Cells[17].FindControl("lblFRMTS");
+                    fabResurtidoMts = decimal.Parse(lblFRMTS.Text);
+                    fabResurtidoTarima = decimal.Parse("0");//cambiar
+                    tarimaExtraPed = decimal.Parse("0");//cambiar
+
+                    TextBox txt = (TextBox)GVRow.Cells[20].FindControl("txtNumTarimas"); //se busca el input donde se inserta la cantidad
+                    if (txt != null)
                     {
-                        //aqui se realizara la transaccion
-                        autorizaPed = decimal.Parse(txt.Text);
+                        if (txt.Text.Equals("0") == false && string.IsNullOrEmpty(txt.Text) == false)
+                        {
+                            //aqui se realizara la transaccion
+                            autorizaPed = decimal.Parse(txt.Text);
+                        }
+                        else
+                        {
+                            autorizaPed = decimal.Parse("0");
+                        }
                     }
-                    else
-                    {
-                        autorizaPed = decimal.Parse("0");
-                    }
-                }
-                Label lblDemResi = (Label)GVRow.Cells[21].FindControl("lblDemResi");
-                demResidual = decimal.Parse(lblDemResi.Text);
-                demParisina = decimal.Parse(GVRow.Cells[22].Text);
-                fabTempTarima = decimal.Parse("0");//cambiar
-                fabTempDispo = decimal.Parse("0");//cambiar
-                excIncPed = decimal.Parse("0");//cambiar
-                Label lblExcBod = (Label)GVRow.Cells[26].FindControl("lblExcBod");
-                excBodega = decimal.Parse(lblExcBod.Text);
-                Label lblSkuSinExis = (Label)GVRow.Cells[27].FindControl("lblSkuSinExis");
-                skuSinExis = decimal.Parse(lblSkuSinExis.Text);
-                Label lblSkuBajoDispo = (Label)GVRow.Cells[28].FindControl("lblSkuBajoDispo");
-                skuBajoDispo = decimal.Parse(lblSkuBajoDispo.Text);
-                totSku = decimal.Parse(GVRow.Cells[29].Text);
-                rollos_tarima = decimal.Parse(GVRow.Cells[30].Text);
-                Label lblMTSR = (Label)GVRow.Cells[31].FindControl("lblMTSR");
-                mts_rollos = decimal.Parse(lblMTSR.Text);
+                    Label lblDemResi = (Label)GVRow.Cells[21].FindControl("lblDemResi");
+                    demResidual = decimal.Parse(lblDemResi.Text);
+                    demParisina = decimal.Parse(GVRow.Cells[22].Text);
+                    fabTempTarima = decimal.Parse("0");//cambiar
+                    fabTempDispo = decimal.Parse("0");//cambiar
+                    excIncPed = decimal.Parse("0");//cambiar
+                    Label lblExcBod = (Label)GVRow.Cells[26].FindControl("lblExcBod");
+                    excBodega = decimal.Parse(lblExcBod.Text);
+                    Label lblSkuSinExis = (Label)GVRow.Cells[27].FindControl("lblSkuSinExis");
+                    skuSinExis = decimal.Parse(lblSkuSinExis.Text);
+                    Label lblSkuBajoDispo = (Label)GVRow.Cells[28].FindControl("lblSkuBajoDispo");
+                    skuBajoDispo = decimal.Parse(lblSkuBajoDispo.Text);
+                    totSku = decimal.Parse(GVRow.Cells[29].Text);
+                    rollos_tarima = decimal.Parse(GVRow.Cells[30].Text);
+                    Label lblMTSR = (Label)GVRow.Cells[31].FindControl("lblMTSR");
+                    mts_rollos = decimal.Parse(lblMTSR.Text);
 
 
-                using (SqlConnection scn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["BPconnetion"].ConnectionString))
-                {
-                    SqlCommand scm = new SqlCommand();
-                    scm.Connection = scn;
-                    scm.CommandText = String.Format("INSERT INTO WebAppBasicos_parisina " +
-                    "(telanom, color_bar, desc_cliente, inv_int_trans, rollos_ped_xsurtir, rollos_ped_xsurtir_old, " +
-                    "rollos_ped_surtidos, ExistTotal, com_sug_tarima, sobra_desp_compra, faltanteAlmacen, faltAlmPedido," +
-                    "max_tarima, preorden_tarima, temporada_tarima, dispo_tarima, resurtido_rollos, resurtido_mts, " +
-                    "resurtido_tarima, tarima_extra, autorizadoXpedido, demanda_residual, compra_sugerida, fabTemporadaTarima, " +
-                    "fabTemporadaDispo, excedentePedido, excedenteBodega, skuSinExis, skuBajoDisp, contSku_cve, rollos_tarima, rollo_mts, fec_ultact) " +
-                    "VALUES ('{0}','{1}','{2}',{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},'{32}')", Producto, colorVariante,
-                    descCliente, invInteTrans, ped_surtir, ped_viejos_surtir, ped_surtidos, exis_total, com_sug_tarima, sob_des_comp,
-                    faltAlm, falAlmPed, max_tarima, punReorden, temp_tarima, tarima_dispo, fabResurtido, fabResurtidoMts, fabResurtidoTarima,
-                    tarimaExtraPed, autorizaPed, demResidual, demParisina, fabTempTarima, fabTempDispo, excIncPed, excBodega, skuSinExis,
-                    skuBajoDispo, totSku, rollos_tarima, mts_rollos, DateTime.Now.ToString("MM/dd/yyyy"));
-                    try
+                    using (SqlConnection scn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["BPconnetion"].ConnectionString))
                     {
-                        scn.Open();
-                        scm.ExecuteNonQuery();
-                        scn.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        scn.Close();
-                        string error = ex.Message;
+                        SqlCommand scm = new SqlCommand();
+                        scm.Connection = scn;
+                        scm.CommandText = String.Format("INSERT INTO WebAppBasicos_parisina " +
+                        "(telanom, color_bar, desc_cliente, inv_int_trans, rollos_ped_xsurtir, rollos_ped_xsurtir_old, " +
+                        "rollos_ped_surtidos, ExistTotal, com_sug_tarima, sobra_desp_compra, faltanteAlmacen, faltAlmPedido," +
+                        "max_tarima, preorden_tarima, temporada_tarima, dispo_tarima, resurtido_rollos, resurtido_mts, " +
+                        "resurtido_tarima, tarima_extra, autorizadoXpedido, demanda_residual, compra_sugerida, fabTemporadaTarima, " +
+                        "fabTemporadaDispo, excedentePedido, excedenteBodega, skuSinExis, skuBajoDisp, contSku_cve, rollos_tarima, rollo_mts, fec_ultact) " +
+                        "VALUES ('{0}','{1}','{2}',{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},'{32}')", Producto, colorVariante,
+                        descCliente, invInteTrans, ped_surtir, ped_viejos_surtir, ped_surtidos, exis_total, com_sug_tarima, sob_des_comp,
+                        faltAlm, falAlmPed, max_tarima, punReorden, temp_tarima, tarima_dispo, fabResurtido, fabResurtidoMts, fabResurtidoTarima,
+                        tarimaExtraPed, autorizaPed, demResidual, demParisina, fabTempTarima, fabTempDispo, excIncPed, excBodega, skuSinExis,
+                        skuBajoDispo, totSku, rollos_tarima, mts_rollos, DateTime.Now.ToString("MM/dd/yyyy"));
+                        try
+                        {
+                            scn.Open();
+                            scm.ExecuteNonQuery();
+                            scn.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            scn.Close();
+                            error = ex.Message;
+                        }
                     }
                 }
             }
+            if (string.IsNullOrEmpty(error) == true)
+            {
+                Response.Write("<script type=\"text/javascript\">alert('Procesado Exitosamente'); window.location.href = 'Inicio.aspx';</script>");
+            }
+            else
+            {
+                Response.Write("<script type=\"text/javascript\">alert('Ocurrio un error" + error + "'); window.location.href = 'Inicio.aspx';</script>");
+            }            
         }
     }
 }

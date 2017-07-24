@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <asp:Label ID="lblPass" runat="server" Text="Contraseña:"></asp:Label>
-                        <asp:TextBox ID="txtPass" runat="server" CssClass="form-control" TextMode="Password"></asp:TextBox>
+                        <asp:TextBox ID="txtPass" runat="server" CssClass="form-control" TextMode="Password" Required="true"></asp:TextBox>
                     </div>
                     <asp:Button ID="btnEntrar" runat="server" Text="Entrar" CssClass="btn btn-success" OnClick="btnEntrar_Click" />
                 </div>

@@ -23,7 +23,19 @@ namespace WebAppBasicosParisina
 
         protected void btnEntrar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Inicio.aspx");
+            string usr_cve = ddlUser_cve.SelectedValue.ToString();
+            string pass = txtPass.Text;
+            var res = logicaNegocio.Login("001", usr_cve, pass);
+            
+            if (res == null)
+            {
+                Response.Write("<script type=\"text/javascript\">alert('Contraseña incorrecta, intente de nuevo'); window.location.href = 'Login.aspx';</script>");
+            }
+            else
+            {
+                Session["user_cve"] = res;
+                Response.Redirect("Inicio.aspx");
+            }
         }
     }
 }

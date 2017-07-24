@@ -20,34 +20,36 @@ namespace AccesoDatos
         }*/
         public List<xcuser> ListaUsuarios()
         {
-            return (from u in contexto.xcuser where u.ef_cve == "001" && u.status == 1 select u).ToList();
+            return (from u in contexto.xcuser where u.ef_cve == "001" && u.status == 1 select u).Distinct().ToList();
         }
 
-        /*public string accesoSistema(string ef_cve, string user_cve, string password)
+        public string Login(string ef_cve, string user_cve, string password)
         {
-            string nomUser;
+            string usr_cve;
             var result = (from usuario in contexto.xcuser
                           where
                             usuario.ef_cve.Equals(ef_cve) &&
                             usuario.user_cve.Equals(user_cve) &&
                             usuario.password.Equals(password)
-                          select usuario).Count();
+                          select usuario).SingleOrDefault();
 
-            if (result > 0)
+            if (result == null)
             {
-                nomUser = (from usuario in contexto.xcuser
-                           where
-                             usuario.ef_cve.Equals(ef_cve) &&
-                             usuario.user_cve.Equals(user_cve) &&
-                             usuario.password.Equals(password)
-                           select usuario.nombre).FirstOrDefault();
-                return nomUser;
+                return usr_cve = null;
             }
             else
             {
-                return nomUser = null;
+                if (string.IsNullOrEmpty(result.user_cve) == false)
+                {
+                    usr_cve = result.user_cve;
+                    return usr_cve;
+                }
+                else
+                {
+                    return usr_cve = null;
+                }
             }
-        }*/
+        }
 
         public List<WebAppBasicosParisina_Result> consultaPedidos(string ef_cve, string tipdoc_cve)
         {
