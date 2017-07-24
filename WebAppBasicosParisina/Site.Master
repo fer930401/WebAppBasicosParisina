@@ -5,7 +5,7 @@
 <html lang="en">
 <head runat="server">
     <!-- Titulo o nombre de la pagina web -->
-    <title>Basicos Parisina | Skytex México</title>
+    <title>Basicos Parisina | Skytex MÃ©xico</title>
 
     <!-- Icono de la aplicacion web -->
     <link rel="shortcut icon" href="Media/skytex.ico" />
@@ -13,7 +13,7 @@
     <!-- Etiquetas META para la compatibilidad de IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!-- Referencia a estilos en la carpeta Content -->
     <link type="text/css" rel="stylesheet" href="<%=ResolveUrl("~/Content/bootstrap.css")%>" />
 
@@ -59,13 +59,13 @@
     <div class="container">
         <footer class="piePagina">
             <address>
-                <strong>Skytex México S.A de C.V. <%= DateTime.Now.ToString("yyyy") %></strong><br />
-                Corredor Industrial Quetzalcóatl, Huejotzingo, Pue<br />
+                <strong>Skytex MÃ©xico S.A de C.V. <%= DateTime.Now.ToString("yyyy") %></strong><br />
+                Corredor Industrial QuetzalcÃ³atl, Huejotzingo, Pue<br />
             </address>
 
             <address>
                 <strong>Pagina Web</strong><br />
-                <a href="http://www.skytex.com.mx/">Skytex México</a>
+                <a href="http://www.skytex.com.mx/">Skytex MÃ©xico</a>
             </address>
         </footer>
     </div>

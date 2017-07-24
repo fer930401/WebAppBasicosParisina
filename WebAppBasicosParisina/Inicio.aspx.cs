@@ -124,7 +124,7 @@ namespace WebAppBasicosParisina
             get { return _Default.exdBodT; }
             set { _Default.exdBodT = value; }
         }
-        
+
         static decimal sse;
         public static decimal SSE
         {
@@ -209,66 +209,66 @@ namespace WebAppBasicosParisina
         {
             if (!IsPostBack)
             {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                DataTable dt = (e.Row.DataItem as DataRowView).DataView.Table;
-                string orderId = dt.Rows[e.Row.RowIndex]["telanom"].ToString();
-                Grand_Total[4] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir"].ToString());
-                Grand_Total[5] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir_old"].ToString());
-                Grand_Total[6] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_surtidos"].ToString());
-                Grand_Total[7] += ExisTotalC;
-                Grand_Total[8] += CST;
-                Grand_Total[9] += SCD;
-                Grand_Total[10] += FaltAlm;
-                Grand_Total[11] += FAP;
-                Grand_Total[12] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["max_tarima"].ToString());
-                Grand_Total[13] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["preorden_tarima"].ToString());
-                Grand_Total[14] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["temporada_tarima"].ToString());
-                Grand_Total[15] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["dispo_tarima"].ToString());
-                Grand_Total[16] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["resurtido_rollos"].ToString());
-                Grand_Total[17] += RMTS;
-                Grand_Total[21] += DemRes;
-                Grand_Total[22] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["compra_sugerida"].ToString());
-                Grand_Total[26] += ExdBod;
-                Grand_Total[27] += SSE;
-                Grand_Total[28] += SBE;
-                Grand_Total[29] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["contSku_cve"].ToString());
-                Grand_Total[30] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_tarima"].ToString());
-                Grand_Total[31] += MRollo;
-                if (orderId.Equals(currentId) == false)
+                if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    if (e.Row.RowIndex > 0)
+                    DataTable dt = (e.Row.DataItem as DataRowView).DataView.Table;
+                    string orderId = dt.Rows[e.Row.RowIndex]["telanom"].ToString();
+                    Grand_Total[4] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir"].ToString());
+                    Grand_Total[5] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir_old"].ToString());
+                    Grand_Total[6] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_surtidos"].ToString());
+                    Grand_Total[7] += ExisTotalC;
+                    Grand_Total[8] += CST;
+                    Grand_Total[9] += SCD;
+                    Grand_Total[10] += FaltAlm;
+                    Grand_Total[11] += FAP;
+                    Grand_Total[12] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["max_tarima"].ToString());
+                    Grand_Total[13] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["preorden_tarima"].ToString());
+                    Grand_Total[14] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["temporada_tarima"].ToString());
+                    Grand_Total[15] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["dispo_tarima"].ToString());
+                    Grand_Total[16] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["resurtido_rollos"].ToString());
+                    Grand_Total[17] += RMTS;
+                    Grand_Total[21] += DemRes;
+                    Grand_Total[22] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["compra_sugerida"].ToString());
+                    Grand_Total[26] += ExdBod;
+                    Grand_Total[27] += SSE;
+                    Grand_Total[28] += SBE;
+                    Grand_Total[29] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["contSku_cve"].ToString());
+                    Grand_Total[30] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_tarima"].ToString());
+                    Grand_Total[31] += MRollo;
+                    if (orderId.Equals(currentId) == false)
                     {
-                        for (int y = 4; y < gvBP.Columns.Count; y++)
+                        if (e.Row.RowIndex > 0)
                         {
-                            Sub_Totales[y] = 0;
-                            for (int i = subTotalRowIndex; i < e.Row.RowIndex; i++)
+                            for (int y = 4; y < gvBP.Columns.Count; y++)
                             {
-                                if (string.IsNullOrEmpty(gvBP.Rows[i].Cells[y].Text) == false)
+                                Sub_Totales[y] = 0;
+                                for (int i = subTotalRowIndex; i < e.Row.RowIndex; i++)
                                 {
-                                    Sub_Totales[y] += Convert.ToDecimal(gvBP.Rows[i].Cells[y].Text);
+                                    if (string.IsNullOrEmpty(gvBP.Rows[i].Cells[y].Text) == false)
+                                    {
+                                        Sub_Totales[y] += Convert.ToDecimal(gvBP.Rows[i].Cells[y].Text);
+                                    }
                                 }
                             }
-                        } 
-                        Sub_Totales[7] += Sub_Totales[3] + Sub_Totales[4] + Sub_Totales[5] + Sub_Totales[6];
-                        Sub_Totales[8] += CSTT;
-                        Sub_Totales[9] += SCDT;
-                        Sub_Totales[10] += FaltAlmT;
-                        Sub_Totales[11] += FAPT;
-                        Sub_Totales[17] += RMTST;
-                        Sub_Totales[21] += DemResT;
-                        Sub_Totales[26] += ExdBodT;
-                        Sub_Totales[27] += SSET;
-                        Sub_Totales[28] += SBET;
-                        Sub_Totales[31] += MRolloT;
-                        
-                        AddTotalRow("Total", "");
-                        subTotalRowIndex = e.Row.RowIndex;
+                            Sub_Totales[7] += Sub_Totales[3] + Sub_Totales[4] + Sub_Totales[5] + Sub_Totales[6];
+                            Sub_Totales[8] += CSTT;
+                            Sub_Totales[9] += SCDT;
+                            Sub_Totales[10] += FaltAlmT;
+                            Sub_Totales[11] += FAPT;
+                            Sub_Totales[17] += RMTST;
+                            Sub_Totales[21] += DemResT;
+                            Sub_Totales[26] += ExdBodT;
+                            Sub_Totales[27] += SSET;
+                            Sub_Totales[28] += SBET;
+                            Sub_Totales[31] += MRolloT;
+
+                            AddTotalRow("Total", "");
+                            subTotalRowIndex = e.Row.RowIndex;
+                        }
+                        currentId = orderId;
                     }
-                    currentId = orderId;
                 }
             }
-        }
         }
 
         protected void OnDataBound(object sender, EventArgs e)
@@ -308,9 +308,9 @@ namespace WebAppBasicosParisina
                         Sub_Totales[y] += Convert.ToDecimal(gvBP.Rows[i].Cells[y].Text);
                     }
                 }
-            } 
+            }
             AddTotalRow("Total", "");
-            AddTotalRow("Grand Total","");
+            AddTotalRow("Grand Total", "");
         }
 
         private void AddTotalRow(string labelText, string value)
@@ -457,7 +457,7 @@ namespace WebAppBasicosParisina
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
-        
+
 
         public decimal demandaResidual(string valor1, string valor2, string valor3)
         {
@@ -579,107 +579,89 @@ namespace WebAppBasicosParisina
 
             foreach (GridViewRow GVRow in gvBP.Rows)
             {
-                TextBox txt = (TextBox)GVRow.Cells[20].FindControl("txtNumTarimas"); //find the CheckBox
+                Producto = HttpUtility.HtmlDecode(GVRow.Cells[0].Text);
+                colorVariante = GVRow.Cells[1].Text;
+                descCliente = GVRow.Cells[2].Text;
+                invInteTrans = decimal.Parse("0");//cambiar
+                ped_surtir = decimal.Parse(GVRow.Cells[4].Text);
+                ped_viejos_surtir = decimal.Parse(GVRow.Cells[5].Text);
+                ped_surtidos = decimal.Parse(GVRow.Cells[6].Text);
+                Label lblExisTotal = (Label)GVRow.Cells[7].FindControl("lblExisTotal");
+                exis_total = decimal.Parse(lblExisTotal.Text);
+                Label lblCST = (Label)GVRow.Cells[8].FindControl("lblCST");
+                com_sug_tarima = decimal.Parse(lblCST.Text);
+                Label lblSDC = (Label)GVRow.Cells[9].FindControl("lblSDC");
+                sob_des_comp = decimal.Parse(lblSDC.Text);
+                Label lblFA = (Label)GVRow.Cells[10].FindControl("lblFA");
+                faltAlm = decimal.Parse(lblFA.Text);
+                Label lblFAP = (Label)GVRow.Cells[11].FindControl("lblFAP");
+                falAlmPed = decimal.Parse(lblFAP.Text);
+                max_tarima = decimal.Parse(GVRow.Cells[12].Text);
+                punReorden = decimal.Parse(GVRow.Cells[13].Text);
+                temp_tarima = decimal.Parse(GVRow.Cells[14].Text);
+                tarima_dispo = decimal.Parse(GVRow.Cells[15].Text);
+                fabResurtido = decimal.Parse(GVRow.Cells[16].Text);
+                Label lblFRMTS = (Label)GVRow.Cells[17].FindControl("lblFRMTS");
+                fabResurtidoMts = decimal.Parse(lblFRMTS.Text);
+                fabResurtidoTarima = decimal.Parse("0");//cambiar
+                tarimaExtraPed = decimal.Parse("0");//cambiar
+
+                TextBox txt = (TextBox)GVRow.Cells[20].FindControl("txtNumTarimas"); //se busca el input donde se inserta la cantidad
                 if (txt != null)
                 {
                     if (txt.Text.Equals("0") == false && string.IsNullOrEmpty(txt.Text) == false)
                     {
-                        Producto = GVRow.Cells[0].Text;
-                        colorVariante = GVRow.Cells[1].Text;
-                        descCliente = GVRow.Cells[2].Text;
-                        invInteTrans = decimal.Parse("0");//cambiar
-                        ped_surtir = decimal.Parse(GVRow.Cells[4].Text);
-                        ped_viejos_surtir = decimal.Parse(GVRow.Cells[5].Text);
-                        ped_surtidos = decimal.Parse(GVRow.Cells[6].Text);
-                        Label lblExisTotal = (Label)GVRow.Cells[7].FindControl("lblExisTotal");
-                        exis_total = decimal.Parse(lblExisTotal.Text);
-                        Label lblCST = (Label)GVRow.Cells[8].FindControl("lblCST");
-                        com_sug_tarima = decimal.Parse(lblCST.Text);
-                        Label lblSDC = (Label)GVRow.Cells[9].FindControl("lblSDC");
-                        sob_des_comp = decimal.Parse(lblSDC.Text);
-                        Label lblFA = (Label)GVRow.Cells[10].FindControl("lblFA");
-                        faltAlm = decimal.Parse(lblFA.Text);
-                        Label lblFAP = (Label)GVRow.Cells[11].FindControl("lblFAP");
-                        falAlmPed = decimal.Parse(lblFAP.Text);
-                        max_tarima = decimal.Parse(GVRow.Cells[12].Text);
-                        punReorden = decimal.Parse(GVRow.Cells[13].Text);
-                        temp_tarima = decimal.Parse(GVRow.Cells[14].Text);
-                        tarima_dispo = decimal.Parse(GVRow.Cells[15].Text);
-                        fabResurtido = decimal.Parse(GVRow.Cells[16].Text);
-                        Label lblFRMTS = (Label)GVRow.Cells[17].FindControl("lblFRMTS");
-                        fabResurtidoMts = decimal.Parse(lblFRMTS.Text);
-                        fabResurtidoTarima = decimal.Parse("0");//cambiar
-                        tarimaExtraPed = decimal.Parse("0");//cambiar
+                        //aqui se realizara la transaccion
                         autorizaPed = decimal.Parse(txt.Text);
-                        Label lblDemResi = (Label)GVRow.Cells[21].FindControl("lblDemResi");
-                        demResidual = decimal.Parse(lblDemResi.Text);
-                        demParisina = decimal.Parse(GVRow.Cells[22].Text);
-                        fabTempTarima = decimal.Parse("0");//cambiar
-                        fabTempDispo = decimal.Parse("0");//cambiar
-                        excIncPed = decimal.Parse("0");//cambiar
-                        Label lblExcBod = (Label)GVRow.Cells[26].FindControl("lblExcBod");
-                        excBodega = decimal.Parse(lblExcBod.Text);
-                        Label lblSkuSinExis = (Label)GVRow.Cells[27].FindControl("lblSkuSinExis");
-                        skuSinExis = decimal.Parse(lblSkuSinExis.Text);
-                        Label lblSkuBajoDispo = (Label)GVRow.Cells[28].FindControl("lblSkuBajoDispo");
-                        skuBajoDispo = decimal.Parse(lblSkuBajoDispo.Text);
-                        totSku = decimal.Parse(GVRow.Cells[29].Text);
-                        rollos_tarima = decimal.Parse(GVRow.Cells[30].Text);
-                        Label lblMTSR = (Label)GVRow.Cells[31].FindControl("lblMTSR");
-                        mts_rollos = decimal.Parse(lblMTSR.Text);
+                    }
+                    else
+                    {
+                        autorizaPed = decimal.Parse("0");
+                    }
+                }
+                Label lblDemResi = (Label)GVRow.Cells[21].FindControl("lblDemResi");
+                demResidual = decimal.Parse(lblDemResi.Text);
+                demParisina = decimal.Parse(GVRow.Cells[22].Text);
+                fabTempTarima = decimal.Parse("0");//cambiar
+                fabTempDispo = decimal.Parse("0");//cambiar
+                excIncPed = decimal.Parse("0");//cambiar
+                Label lblExcBod = (Label)GVRow.Cells[26].FindControl("lblExcBod");
+                excBodega = decimal.Parse(lblExcBod.Text);
+                Label lblSkuSinExis = (Label)GVRow.Cells[27].FindControl("lblSkuSinExis");
+                skuSinExis = decimal.Parse(lblSkuSinExis.Text);
+                Label lblSkuBajoDispo = (Label)GVRow.Cells[28].FindControl("lblSkuBajoDispo");
+                skuBajoDispo = decimal.Parse(lblSkuBajoDispo.Text);
+                totSku = decimal.Parse(GVRow.Cells[29].Text);
+                rollos_tarima = decimal.Parse(GVRow.Cells[30].Text);
+                Label lblMTSR = (Label)GVRow.Cells[31].FindControl("lblMTSR");
+                mts_rollos = decimal.Parse(lblMTSR.Text);
 
 
-                        //SqlConnection scn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["BPconnetion"].ConnectionString);
-                        using (SqlConnection scn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["BPconnetion"].ConnectionString))
-                        {
-                            SqlCommand scm = new SqlCommand();
-                            scm.Connection = scn;
-                            scm.CommandText = @"INSERT INTO WebAppBasicos_parisina (telanom, color_bar, desc_cliente, inv_int_trans, rollos_ped_xsurtir,	rollos_ped_xsurtir_old,	rollos_ped_surtidos, ExistTotal, com_sug_tarima, sobra_desp_compra, faltanteAlmacen, faltAlmPedido,	max_tarima,	preorden_tarima, temporada_tarima, dispo_tarima, resurtido_rollos, resurtido_mts, resurtido_tarima, tarima_extra, autorizadoXpedido, demanda_residual, compra_sugerida, fabTemporadaTarima, fabTemporadaDispo, excedentePedido, excedenteBodega, skuSinExis, skuBajoDisp, contSku_cve, rollos_tarima, rollo_mts, fec_ultact) VALUES ('@Producto','@colorVariante','@descCliente',@invInteTrans,@ped_surtir,@ped_viejos_surtir,@ped_surtidos,@exis_total,@com_sug_tarima,@sob_des_comp,@faltAlm, @falAlmPed,@max_tarima,@punReorden,@temp_tarima,@tarima_dispo,@fabResurtido,@fabResurtidoMts,@fabResurtidoTarima,@tarimaExtraPed,@autorizaPed,@demResidual, @demParisina,@fabTempTarima,@fabTempDispo,@excIncPed,@excBodega,@skuSinExis,@skuBajoDispo,@totSku,@rollos_tarima,@mts_rollos,@fecha)";
-                            scm.Parameters.AddWithValue("@Producto", Producto.ToString());
-                            scm.Parameters.AddWithValue("@colorVariante", colorVariante.ToString());
-                            scm.Parameters.AddWithValue("@descCliente", descCliente.ToString());
-                            scm.Parameters.AddWithValue("@invInteTrans", invInteTrans.ToString());
-                            scm.Parameters.AddWithValue("@ped_surtir", ped_surtir.ToString());
-                            scm.Parameters.AddWithValue("@ped_viejos_surtir", ped_viejos_surtir.ToString());
-                            scm.Parameters.AddWithValue("@ped_surtidos", ped_surtidos.ToString());
-                            scm.Parameters.AddWithValue("@exis_total", exis_total.ToString());
-                            scm.Parameters.AddWithValue("@com_sug_tarima", com_sug_tarima.ToString());
-                            scm.Parameters.AddWithValue("@sob_des_comp", sob_des_comp.ToString());
-                            scm.Parameters.AddWithValue("@faltAlm", faltAlm.ToString());
-                            scm.Parameters.AddWithValue("@falAlmPed", falAlmPed.ToString());
-                            scm.Parameters.AddWithValue("@max_tarima", max_tarima.ToString());
-                            scm.Parameters.AddWithValue("@punReorden", punReorden.ToString());
-                            scm.Parameters.AddWithValue("@temp_tarima", temp_tarima.ToString());
-                            scm.Parameters.AddWithValue("@tarima_dispo", tarima_dispo.ToString());
-                            scm.Parameters.AddWithValue("@fabResurtido", fabResurtido.ToString());
-                            scm.Parameters.AddWithValue("@fabResurtidoMts", fabResurtidoMts.ToString());
-                            scm.Parameters.AddWithValue("@fabResurtidoTarima", fabResurtidoTarima.ToString());
-                            scm.Parameters.AddWithValue("@tarimaExtraPed", tarimaExtraPed.ToString());
-                            scm.Parameters.AddWithValue("@autorizaPed", autorizaPed.ToString());
-                            scm.Parameters.AddWithValue("@demResidual", demResidual.ToString());
-                            scm.Parameters.AddWithValue("@demParisina", demParisina.ToString());
-                            scm.Parameters.AddWithValue("@fabTempTarima", fabTempTarima.ToString());
-                            scm.Parameters.AddWithValue("@fabTempDispo", fabTempDispo.ToString());
-                            scm.Parameters.AddWithValue("@excIncPed", excIncPed.ToString());
-                            scm.Parameters.AddWithValue("@excBodega", excBodega.ToString());
-                            scm.Parameters.AddWithValue("@skuSinExis", skuSinExis.ToString());
-                            scm.Parameters.AddWithValue("@skuBajoDispo", skuBajoDispo.ToString());
-                            scm.Parameters.AddWithValue("@totSku", totSku.ToString());
-                            scm.Parameters.AddWithValue("@rollos_tarima", rollos_tarima.ToString());
-                            scm.Parameters.AddWithValue("@mts_rollos", mts_rollos.ToString());
-                            scm.Parameters.AddWithValue("@fecha", DateTime.Now);
-                            try
-                            {
-                                scn.Open();
-                                scm.ExecuteNonQuery();
-                                scn.Close();
-                            }
-                            catch (Exception ex)
-                            {
-                                scn.Close();
-                                string error = ex.Message;
-                            }                            
-                        }
+                using (SqlConnection scn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["BPconnetion"].ConnectionString))
+                {
+                    SqlCommand scm = new SqlCommand();
+                    scm.Connection = scn;
+                    scm.CommandText = String.Format("INSERT INTO WebAppBasicos_parisina " +
+                    "(telanom, color_bar, desc_cliente, inv_int_trans, rollos_ped_xsurtir, rollos_ped_xsurtir_old, " +
+                    "rollos_ped_surtidos, ExistTotal, com_sug_tarima, sobra_desp_compra, faltanteAlmacen, faltAlmPedido," +
+                    "max_tarima, preorden_tarima, temporada_tarima, dispo_tarima, resurtido_rollos, resurtido_mts, " +
+                    "resurtido_tarima, tarima_extra, autorizadoXpedido, demanda_residual, compra_sugerida, fabTemporadaTarima, " +
+                    "fabTemporadaDispo, excedentePedido, excedenteBodega, skuSinExis, skuBajoDisp, contSku_cve, rollos_tarima, rollo_mts, fec_ultact) " +
+                    "VALUES ('{0}','{1}','{2}',{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},'{32}')", Producto, colorVariante,
+                    descCliente, invInteTrans, ped_surtir, ped_viejos_surtir, ped_surtidos, exis_total, com_sug_tarima, sob_des_comp,
+                    faltAlm, falAlmPed, max_tarima, punReorden, temp_tarima, tarima_dispo, fabResurtido, fabResurtidoMts, fabResurtidoTarima,
+                    tarimaExtraPed, autorizaPed, demResidual, demParisina, fabTempTarima, fabTempDispo, excIncPed, excBodega, skuSinExis,
+                    skuBajoDispo, totSku, rollos_tarima, mts_rollos, DateTime.Now.ToString("MM/dd/yyyy"));
+                    try
+                    {
+                        scn.Open();
+                        scm.ExecuteNonQuery();
+                        scn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        scn.Close();
+                        string error = ex.Message;
                     }
                 }
             }
