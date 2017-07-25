@@ -21,6 +21,19 @@ namespace WebAppBasicosParisina
         LogicaNegocio.LogicaNegocio logicaNegocio = new LogicaNegocio.LogicaNegocio();
         int pos = 0;
 
+        static decimal invIntTran;
+        public static decimal InvIntTran
+        {
+            get { return _Default.invIntTran; }
+            set { _Default.invIntTran = value; }
+        }
+        static decimal invIntTranT;
+        public static decimal InvIntTranT
+        {
+            get { return _Default.invIntTranT; }
+            set { _Default.invIntTranT = value; }
+        }
+
         static decimal exisTotalC;
         public static decimal ExisTotalC
         {
@@ -257,6 +270,7 @@ namespace WebAppBasicosParisina
                 {
                     DataTable dt = (e.Row.DataItem as DataRowView).DataView.Table;
                     string orderId = dt.Rows[e.Row.RowIndex]["telanom"].ToString();
+                    Grand_Total[3] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped"].ToString());
                     Grand_Total[4] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir"].ToString());
                     Grand_Total[5] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir_old"].ToString());
                     Grand_Total[6] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_surtidos"].ToString());
@@ -287,7 +301,7 @@ namespace WebAppBasicosParisina
                     {
                         if (e.Row.RowIndex > 0)
                         {
-                            for (int y = 4; y < gvBP.Columns.Count; y++)
+                            for (int y = 3; y < gvBP.Columns.Count; y++)
                             {
                                 Sub_Totales[y] = 0;
                                 for (int i = subTotalRowIndex; i < e.Row.RowIndex; i++)
@@ -298,7 +312,7 @@ namespace WebAppBasicosParisina
                                     }
                                 }
                             }
-                            Sub_Totales[7] += Sub_Totales[3] + Sub_Totales[4] + Sub_Totales[5] + Sub_Totales[6];
+                            Sub_Totales[7] += ExisTotalCT;
                             Sub_Totales[8] += CSTT;
                             Sub_Totales[9] += SCDT;
                             Sub_Totales[10] += FaltAlmT;
@@ -348,10 +362,9 @@ namespace WebAppBasicosParisina
                     }
                 }
             }
-            for (int y = 4; y < gvBP.Columns.Count; y++)
+            for (int y = 3; y < gvBP.Columns.Count; y++)
             {
                 Sub_Totales[y] = 0;
-
                 for (int i = subTotalRowIndex; i < gvBP.Rows.Count; i++)
                 {
                     if (string.IsNullOrEmpty(gvBP.Rows[i].Cells[y].Text) == false)
@@ -360,6 +373,20 @@ namespace WebAppBasicosParisina
                     }
                 }
             }
+            Sub_Totales[7] += ExisTotalCT;
+            Sub_Totales[8] += CSTT;
+            Sub_Totales[9] += SCDT;
+            Sub_Totales[10] += FaltAlmT;
+            Sub_Totales[11] += FAPT;
+            Sub_Totales[17] += RMTST;
+            Sub_Totales[18] += RTarimaT;
+            Sub_Totales[21] += DemResT;
+            Sub_Totales[24] += TempDispoT;
+            Sub_Totales[25] += ExcPedidoT;
+            Sub_Totales[26] += ExdBodT;
+            Sub_Totales[27] += SSET;
+            Sub_Totales[28] += SBET;
+            Sub_Totales[31] += MRolloT;
             AddTotalRow("Total", "");
             AddTotalRow("Grand Total", "");
         }
@@ -443,17 +470,54 @@ namespace WebAppBasicosParisina
                                 });
             }
             row.BorderColor = System.Drawing.Color.FromArgb(201, 225, 246);
+            InvIntTranT = 0;
+            ExisTotalCT = 0;
             CSTT = 0;
+            SCDT = 0;
+            FaltAlmT = 0;
+            FAPT = 0;
+            RMTST = 0;
+            RTarimaT = 0;
+            DemResT = 0;
+            TempDispoT = 0;
+            ExcPedidoT = 0;
+            ExdBodT = 0;
+            SSET = 0;
+            SBET = 0;
+            MRolloT = 0;
             gvBP.Controls[0].Controls.Add(row);
         }
+
+        public decimal inventarioIntTrans(string valor1, string valor2, string valor3, string valor4, string valor5, string valor6)
+        {
+            decimal result = 0;
+            decimal rollos_ped = decimal.Parse(valor1);
+            decimal rollos_ped_surtidos = decimal.Parse(valor2);
+            decimal rollos_ped_xsurtir = decimal.Parse(valor3);
+            decimal rollos_ped_xsurtir_old = decimal.Parse(valor4);
+            decimal resurtido_rollos = decimal.Parse(valor5);
+            decimal rollos_tarima = decimal.Parse(valor6);
+            if (rollos_tarima > 0)
+            {
+                result = (rollos_ped + rollos_ped_surtidos + rollos_ped_xsurtir + rollos_ped_xsurtir_old + resurtido_rollos) / rollos_tarima;
+            }
+            else
+            {
+                result = 0;
+            }
+            InvIntTran = result;
+            InvIntTranT += InvIntTran;
+            return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
+        }
+
         public decimal ExisTotal(string valor1, string valor2, string valor3, string valor4)
         {
             decimal result = 0;
-            decimal intTrans = decimal.Parse(valor1);
-            decimal ped_surtir = decimal.Parse(valor2);
-            decimal ped_surtit_old = decimal.Parse(valor3);
-            decimal ped_surtidos = decimal.Parse(valor4);
-            result = intTrans + ped_surtir + ped_surtit_old + ped_surtidos;
+            decimal stock = decimal.Parse(valor1);
+            decimal rollos_ped_surtidos = decimal.Parse(valor2);
+            decimal rollos_ped_xsurtir = decimal.Parse(valor3);
+            decimal rollos_ped_xsurtir_old = decimal.Parse(valor4);
+            result = stock + rollos_ped_surtidos + rollos_ped_xsurtir + rollos_ped_xsurtir_old;
             ExisTotalC = result;
             ExisTotalCT += ExisTotalC;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
@@ -481,12 +545,12 @@ namespace WebAppBasicosParisina
         public decimal restaColumnas()
         {
             decimal result = 0;
-            result = CST - ExisTotalC;
+            result = ExisTotalC - CST;
             SCD = result;
             SCDT += SCD;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
-        /* Faltante vs almacen: */
+        
         public decimal restaExistSobrante()
         {
             decimal result = 0;
@@ -495,7 +559,7 @@ namespace WebAppBasicosParisina
             FaltAlmT += FaltAlm;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
-        /* Faltante vs almacen + pedidos: */
+        
         public decimal sumaFaltanteAlmacen(string valor1)
         {
             decimal result = 0;
@@ -511,7 +575,15 @@ namespace WebAppBasicosParisina
             decimal result = 0;
             decimal rollo_tarima = decimal.Parse(valor1);
             decimal mtsRollos = decimal.Parse(valor2) * 0.9144m;
-            result = (ExisTotalC * rollo_tarima) * mtsRollos;
+            if (rollo_tarima > 0)
+            {
+                result = (ExisTotalC / rollo_tarima) * mtsRollos;
+            }
+            else
+            {
+                result = 0;
+            }
+            
             RMTS = result;
             RMTST += RMTS;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
@@ -535,7 +607,7 @@ namespace WebAppBasicosParisina
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
-        public decimal demandaResidual(string valor1, string valor2, string valor3)
+        /*public decimal demandaResidual(string valor1, string valor2, string valor3)
         {
             decimal result = 0;
 
@@ -543,7 +615,7 @@ namespace WebAppBasicosParisina
             DemRes = result;
             DemResT += DemRes;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
-        }
+        }*/
 
         public decimal temporadaDispo(string valor1, string valor2)
         {
@@ -567,13 +639,24 @@ namespace WebAppBasicosParisina
 
         public decimal excedentePedido(string valor1, string valor2)
         {
+            /*
+                revisar
+                IF [Disponible]-([max_tarima]+[temporada_tarima]) > 0
+                then [Disponible]-([max_tarima]+[temporada_tarima])
+                END
+
+                Disponible = [Exis Tot]-[Compra Sugerida Tarima]
+
+                Exis_tot = [Inv]+[Pedidos total]
+ 
+            */
             decimal result = 0;
             decimal stock = decimal.Parse(valor1);
             decimal compra_sugerida = decimal.Parse(valor2);
 
-            if (compra_sugerida > 0)
+            if (compra_sugerida >= 0)
             {
-                result = stock / compra_sugerida;
+                result = stock - compra_sugerida;
             }
             else
             {

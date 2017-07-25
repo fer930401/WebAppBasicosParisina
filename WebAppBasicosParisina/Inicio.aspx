@@ -2,29 +2,33 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript">
+
         function CalculateTotals() {
             var gv = document.getElementById("<%= gvBP.ClientID %>");
-            var lblSCD = gv.getElementsByClassName("lblSobranteComDispo");
-            var lblExis = gv.getElementsByClassName("lblExisTotal");
-            var lblCST = gv.getElementsByClassName("lblCST");
-            var tb = gv.getElementsByTagName("input");
-            var lb = gv.getElementsByTagName("span");
+            var txtTarExtrasPed = gv.getElementsByClassName("txtTarExtrasPed");
+            var txtNumTarimas = gv.getElementsByClassName("txtNumTarimas");
+            var txtDemResidual = gv.getElementsByClassName("txtDemResidual");
 
             var sub = 0;
             var total = 0;
             var indexQ = 1;
             var indexP = 0;
-
-            sub = parseFloat(lblExis.innerHTML) * parseFloat(lblCST.innerHTML);
-                    if (isNaN(sub)) {
-                        sub = 0;
-                    }
-                    else {
-                        lblSCD.innerHTML = sub;
-                    }
-
-                    
+            for (var i = 0; i < txtNumTarimas.length; i++) {
+                sub = parseFloat(txtTarExtrasPed[i].value) + parseFloat(txtNumTarimas[i].value);
+                if (isNaN(sub)) {
+                    txtDemResidual[i].value = "";
+                    sub = 0;
+                }
+                else {
+                    txtDemResidual[i].value = sub;
+                }
+                indexQ++;
+                indexP = indexP + 2;
+                total += parseFloat(sub);
+            }
+            txtDemResidual[txtDemResidual.length - 1].innerHTML = total;
         }
+
     </script>
     <div style="padding-left:5px; padding-right:5px;">
         <div class="well">
@@ -58,15 +62,17 @@
                         <asp:BoundField DataField="telanom" HeaderText="Producto:" />
                         <asp:BoundField DataField="color_bar" HeaderText="Color Variante:" />
                         <asp:BoundField DataField="desc_cliente" HeaderText="Descripcion Cliente:" />
-                        <%-- compra sugerida/rollos por tarima --%>
-                        <asp:BoundField  HeaderText="Inventario inc intermedio y transito:" />
+                        <asp:TemplateField HeaderText="Inventario inc intermedio y transito:" ItemStyle-HorizontalAlign = "Right" >
+                            <ItemTemplate>
+                                <asp:Label ID="lblInvIIT" runat="server" Text='<%# inventarioIntTrans(Eval("rollos_ped").ToString(), Eval("rollos_ped_surtidos").ToString(), Eval("rollos_ped_xsurtir").ToString(), Eval("rollos_ped_xsurtir_old").ToString(), Eval("resurtido_rollos").ToString(), Eval("rollos_tarima").ToString()) %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:BoundField DataField="rollos_ped_xsurtir" HeaderText="Pedidos x Surtir:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
                         <asp:BoundField DataField="rollos_ped_xsurtir_old" HeaderText="'Pedidos viejos x surtir:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
                         <asp:BoundField DataField="rollos_ped_surtidos" HeaderText="Pedidos Surtidos:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
                         <asp:TemplateField HeaderText="Exis Total:"  ItemStyle-BackColor="Gray" ItemStyle-HorizontalAlign = "Right" >
                             <ItemTemplate>
-                                <asp:Label ID="lblExisTotal" runat="server" Text='<%# ExisTotal("0", Eval("rollos_ped_xsurtir").ToString(), Eval("rollos_ped_xsurtir_old").ToString(), Eval("rollos_ped_surtidos").ToString()) %>'></asp:Label>
-                                <%-- agregar Inventario inc intermedio y transito: al primer parametro --%>
+                                <asp:Label ID="lblExisTotal" runat="server" Text='<%# ExisTotal(Eval("stock").ToString(), Eval("rollos_ped_surtidos").ToString(), Eval("rollos_ped_xsurtir").ToString(), Eval("rollos_ped_xsurtir_old").ToString()) %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Compra Sugerida Tarima:"  ItemStyle-BackColor="#9BC2E6"  ItemStyle-HorizontalAlign = "Right" >
@@ -104,29 +110,30 @@
                                 <asp:Label ID="lblFRT" runat="server" Text='<%# resurtidoTarima(Eval("resurtido_rollos","{0:N2}").ToString(), Eval("rollos_tarima","{0:N2}").ToString()) %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        
-                        <asp:BoundField  HeaderText="Tarimas Extras en pedido:" ItemStyle-BackColor="#DDEBF7" />
-                        
+
+                        <asp:TemplateField  HeaderText="Tarimas Extras en_pedido:" ItemStyle-BackColor="#DDEBF7" >
+                            <ItemTemplate>
+                                <asp:TextBox ID="txtTarExtrasPed" runat="server" TextMode="Number" CssClass="form-control txtTarExtrasPed" Min="0" Value="0" Font-Size="Small" onkeyup="CalculateTotals();" ></asp:TextBox>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField  HeaderText="Autorizado x meter_pedidos:" ItemStyle-BackColor="#92CE50" >
                             <ItemTemplate>
-                                <asp:TextBox ID="txtNumTarimas" runat="server" TextMode="Number" CssClass="form-control" Min="0" Value="0"></asp:TextBox>
+                                <asp:TextBox ID="txtNumTarimas" runat="server" TextMode="Number" CssClass="form-control txtNumTarimas" Min="0" Value="0" Font-Size="Small" onkeyup="CalculateTotals();" ></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Demanda Residual:" ItemStyle-HorizontalAlign = "Right" >
+                        <asp:TemplateField HeaderText="Demanda Residual:" ItemStyle-HorizontalAlign = "Right" ItemStyle-Width="500px" >
                             <ItemTemplate>
-                                <asp:Label ID="lblDemResi" runat="server" Text='<%# demandaResidual(Eval("max_tarima","{0:N2}").ToString(),Eval("preorden_tarima","{0:N2}").ToString(),Eval("dispo_tarima","{0:N2}").ToString()) %>'></asp:Label>
+                                <asp:TextBox ID="txtDemResidual" runat="server" CssClass="form-control txtDemResidual" ReadOnly="true"  Font-Size="Small" ></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
+
                         <asp:BoundField DataField="compra_sugerida" HeaderText="Parisina Demanda:" ItemStyle-BackColor="#DDEBF7" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right"/>
                         <asp:BoundField DataField="temporada_tarima" HeaderText="Fabricar para Temporada tarimas:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-
-                        <%-- temporada_tarima / dispo_tarima --%>
                         <asp:TemplateField HeaderText="Fabricar para Temporada dispos:" ItemStyle-HorizontalAlign = "Right" >
                             <ItemTemplate>
                                 <asp:Label ID="lblFTD" runat="server" Text='<%# temporadaDispo(Eval("temporada_tarima","{0:N2}").ToString(),Eval("dispo_tarima","{0:N2}").ToString()) %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <%-- stock – compra sugerida  --%>
                         <asp:TemplateField HeaderText="Excedentes inc Pedidos:" ItemStyle-BackColor="#FFFF00" ItemStyle-HorizontalAlign = "Right" >
                             <ItemTemplate>
                                 <asp:Label ID="lblEIP" runat="server" Text='<%# excedentePedido(Eval("stock","{0:N2}").ToString(),Eval("compra_sugerida","{0:N2}").ToString()) %>'></asp:Label>
