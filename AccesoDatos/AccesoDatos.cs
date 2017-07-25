@@ -56,5 +56,17 @@ namespace AccesoDatos
             List<Entidades.WebAppBasicosParisina_Result> consultaPedidos = contexto.WebAppBasicosParisina(ef_cve, tipdoc_cve).ToList();
             return consultaPedidos;
         }
+
+        public List<WebAppBasicos_parisina> FiltroFechas()
+        {
+            List<WebAppBasicos_parisina> fechas = contexto.WebAppBasicos_parisina.GroupBy(f => f.fec_ultact).Select(fec => fec.FirstOrDefault()).ToList();
+            return fechas;
+        }
+
+        public List<WebAppBasicos_parisina> llenaConsulta(string fecha)
+        {
+            DateTime fechaCompara = DateTime.Parse(fecha);
+            return (from c in contexto.WebAppBasicos_parisina where c.fec_ultact == fechaCompara select c).ToList();
+        }
     }
 }

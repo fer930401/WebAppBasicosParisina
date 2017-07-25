@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Inicio.aspx.cs" Inherits="WebAppBasicosParisina._Default" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Inicio.aspx.cs" Inherits="WebAppBasicosParisina._Default" EnableEventValidation="true" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript">
@@ -29,18 +29,23 @@
     <div style="padding-left:5px; padding-right:5px;">
         <div class="well">
             <div class="form-inline">
-                <div class="form-group col-md-3">
-                    <img src="Media/Imagenes/logo_skytex.png" width="50" height="50" />
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <img src="Media/Imagenes/logo_skytex.png" width="50" height="50" />
+                    </div>
+                    <div class="col-md-8">
+                        <h2>Resurtido_Parisina</h2>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <h2>Resurtido Parisina</h2>
-                </div>
-                <div class="form-group">
-                    <br />
-                    <asp:Button ID="btnGenPed" runat="server" Text="Genera Pedido" CssClass="btn btn-success" OnClick="btnGenPed_Click" />
-                </div>
-                <div class="form-group">
-                    <h2>Resurtido Parisina</h2>
+                    <div class="col-md-4">
+                        <br />
+                        <asp:Button ID="btnGenPed" runat="server" Text="Genera Pedido" CssClass="btn btn-success" OnClick="btnGenPed_Click" />
+                    </div>
+                    <div class="col-md-6">
+                        <asp:Label ID="lblBusqueda" runat="server" Text="Busqueda de fechas pasadas"></asp:Label>
+                        <asp:DropDownList ID="ddlBusqueda" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlBusqueda_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                    </div>
                 </div>
             </div>
         </div>

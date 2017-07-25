@@ -169,6 +169,11 @@ namespace WebAppBasicosParisina
             if (!IsPostBack)
             {
                 BindGrid();
+                ddlBusqueda.DataSource = logicaNegocio.FiltroFechas();
+                ddlBusqueda.DataTextField = "fec_ultact";
+                ddlBusqueda.DataValueField = "fec_ultact";
+                ddlBusqueda.DataBind();
+                ddlBusqueda.Items.Insert(0, new ListItem("Selecciona una fecha", "NA"));
             }
         }
 
@@ -678,6 +683,21 @@ namespace WebAppBasicosParisina
             {
                 Response.Write("<script type=\"text/javascript\">alert('Ocurrio un error" + error + "'); window.location.href = 'Inicio.aspx';</script>");
             }            
+        }
+
+        protected void ddlBusqueda_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlBusqueda.SelectedIndex.ToString().Equals("0") == false)
+            {
+                DateTime fecha = DateTime.Parse(ddlBusqueda.SelectedValue.ToString());
+                variables.FechaConsulta = fecha.ToString("MM/dd/yyyy");
+                Response.Redirect("ConsultaInfo.aspx");
+            }
+            else
+            {
+                Response.Write("<script type=\"text/javascript\">alert('seleccione otro valor');</script>");
+            }
+            
         }
     }
 }

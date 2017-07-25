@@ -27,7 +27,17 @@ namespace LogicaNegocio
 
         public List<Entidades.WebAppBasicosParisina_Result> consultaPedidos(string ef_cve, string tipdoc_cve)
         {
-            return datos.consultaPedidos(ef_cve,tipdoc_cve);
+            return datos.consultaPedidos(ef_cve, tipdoc_cve);
+        }
+
+        public List<Entidades.WebAppBasicos_parisina> FiltroFechas()
+        {
+            return datos.FiltroFechas();
+        }
+
+        public List<Entidades.WebAppBasicos_parisina> llenaConsulta(string fecha)
+        {
+            return datos.llenaConsulta(fecha);
         }
     }
 }
