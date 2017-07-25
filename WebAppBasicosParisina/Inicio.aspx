@@ -58,6 +58,7 @@
                         <asp:BoundField DataField="telanom" HeaderText="Producto:" />
                         <asp:BoundField DataField="color_bar" HeaderText="Color Variante:" />
                         <asp:BoundField DataField="desc_cliente" HeaderText="Descripcion Cliente:" />
+                        <%-- compra sugerida/rollos por tarima --%>
                         <asp:BoundField  HeaderText="Inventario inc intermedio y transito:" />
                         <asp:BoundField DataField="rollos_ped_xsurtir" HeaderText="Pedidos x Surtir:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
                         <asp:BoundField DataField="rollos_ped_xsurtir_old" HeaderText="'Pedidos viejos x surtir:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
@@ -70,7 +71,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Compra Sugerida Tarima:"  ItemStyle-BackColor="#9BC2E6"  ItemStyle-HorizontalAlign = "Right" >
                             <ItemTemplate>
-                                <asp:Label ID="lblCST" runat="server" Text='<%# compraSugerida("0") %>'></asp:Label>
+                                <asp:Label ID="lblCST" runat="server" Text='<%# compraSugerida(Eval("compra_sugerida").ToString(),Eval("rollos_tarima").ToString()) %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Sobrante despues compra disp" ItemStyle-BackColor="#F4B084" ItemStyle-HorizontalAlign = "Right" >
@@ -98,8 +99,12 @@
                                 <asp:Label ID="lblFRMTS" runat="server" Text='<%# resurtidoMTS(Eval("rollos_tarima","{0:N2}").ToString(), Eval("rollo_yardas","{0:N2}").ToString()) %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Fabricar para Resurido tarimas:" ItemStyle-HorizontalAlign = "Right" >
+                            <ItemTemplate>
+                                <asp:Label ID="lblFRT" runat="server" Text='<%# resurtidoTarima(Eval("resurtido_rollos","{0:N2}").ToString(), Eval("rollos_tarima","{0:N2}").ToString()) %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         
-                        <asp:BoundField  HeaderText="Fabricar para Resurido tarimas:" ItemStyle-BackColor="#9BC2E6" />
                         <asp:BoundField  HeaderText="Tarimas Extras en pedido:" ItemStyle-BackColor="#DDEBF7" />
                         
                         <asp:TemplateField  HeaderText="Autorizado x meter_pedidos:" ItemStyle-BackColor="#92CE50" >
@@ -113,10 +118,20 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="compra_sugerida" HeaderText="Parisina Demanda:" ItemStyle-BackColor="#DDEBF7" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right"/>
-                        <asp:BoundField  HeaderText="Fabricar para Temporada tarimas:" />
-                        <asp:BoundField  HeaderText="Fabricar para Temporada dispos:" />
-                        <asp:BoundField  HeaderText="Excedentes inc Pedidos:" ItemStyle-BackColor="#FFFF00" ItemStyle-HorizontalAlign = "Right"/>
+                        <asp:BoundField DataField="temporada_tarima" HeaderText="Fabricar para Temporada tarimas:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
 
+                        <%-- temporada_tarima / dispo_tarima --%>
+                        <asp:TemplateField HeaderText="Fabricar para Temporada dispos:" ItemStyle-HorizontalAlign = "Right" >
+                            <ItemTemplate>
+                                <asp:Label ID="lblFTD" runat="server" Text='<%# temporadaDispo(Eval("temporada_tarima","{0:N2}").ToString(),Eval("dispo_tarima","{0:N2}").ToString()) %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <%-- stock – compra sugerida  --%>
+                        <asp:TemplateField HeaderText="Excedentes inc Pedidos:" ItemStyle-BackColor="#FFFF00" ItemStyle-HorizontalAlign = "Right" >
+                            <ItemTemplate>
+                                <asp:Label ID="lblEIP" runat="server" Text='<%# excedentePedido(Eval("stock","{0:N2}").ToString(),Eval("compra_sugerida","{0:N2}").ToString()) %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Excedentes en Bodega:" ItemStyle-HorizontalAlign = "Right" >
                             <ItemTemplate>
                                 <asp:Label ID="lblExcBod" runat="server" Text='<%# excedenteBodega(Eval("stock").ToString(),Eval("max_parisina").ToString()) %>'></asp:Label>

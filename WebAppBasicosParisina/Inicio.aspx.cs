@@ -99,6 +99,19 @@ namespace WebAppBasicosParisina
             set { _Default.rMTST = value; }
         }
 
+        static decimal rtarima;
+        public static decimal RTarima
+        {
+            get { return _Default.rtarima; }
+            set { _Default.rtarima = value; }
+        }
+        static decimal rtarimat;
+        public static decimal RTarimaT
+        {
+            get { return _Default.rtarimat; }
+            set { _Default.rtarimat = value; }
+        }
+
         static decimal demRes;
         public static decimal DemRes
         {
@@ -110,6 +123,32 @@ namespace WebAppBasicosParisina
         {
             get { return _Default.demResT; }
             set { _Default.demResT = value; }
+        }
+
+        static decimal tempDispo;
+        public static decimal TempDispo
+        {
+            get { return _Default.tempDispo; }
+            set { _Default.tempDispo = value; }
+        }
+        static decimal tempDispoT;
+        public static decimal TempDispoT
+        {
+            get { return _Default.tempDispoT; }
+            set { _Default.tempDispoT = value; }
+        }
+
+        static decimal excPedido;
+        public static decimal ExcPedido
+        {
+            get { return _Default.excPedido; }
+            set { _Default.excPedido = value; }
+        }
+        static decimal excPedidoT;
+        public static decimal ExcPedidoT
+        {
+            get { return _Default.excPedidoT; }
+            set { _Default.excPedidoT = value; }
         }
 
         static decimal exdBod;
@@ -160,8 +199,8 @@ namespace WebAppBasicosParisina
         static decimal mRolloT;
         public static decimal MRolloT
         {
-            get { return _Default.mRollo; }
-            set { _Default.mRollo = value; }
+            get { return _Default.mRolloT; }
+            set { _Default.mRolloT = value; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -232,8 +271,12 @@ namespace WebAppBasicosParisina
                     Grand_Total[15] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["dispo_tarima"].ToString());
                     Grand_Total[16] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["resurtido_rollos"].ToString());
                     Grand_Total[17] += RMTS;
+                    Grand_Total[18] += RTarima;
                     Grand_Total[21] += DemRes;
                     Grand_Total[22] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["compra_sugerida"].ToString());
+                    Grand_Total[23] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["temporada_tarima"].ToString());
+                    Grand_Total[24] += TempDispo;
+                    Grand_Total[25] += ExcPedido;
                     Grand_Total[26] += ExdBod;
                     Grand_Total[27] += SSE;
                     Grand_Total[28] += SBE;
@@ -261,7 +304,10 @@ namespace WebAppBasicosParisina
                             Sub_Totales[10] += FaltAlmT;
                             Sub_Totales[11] += FAPT;
                             Sub_Totales[17] += RMTST;
+                            Sub_Totales[18] += RTarimaT;
                             Sub_Totales[21] += DemResT;
+                            Sub_Totales[24] += TempDispoT;
+                            Sub_Totales[25] += ExcPedidoT;
                             Sub_Totales[26] += ExdBodT;
                             Sub_Totales[27] += SSET;
                             Sub_Totales[28] += SBET;
@@ -413,11 +459,20 @@ namespace WebAppBasicosParisina
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
-        public decimal compraSugerida(string valor1)
+        public decimal compraSugerida(string valor1, string valor2)
         {
             decimal result = 0;
             decimal comSugerida = decimal.Parse(valor1);
-            result = comSugerida;
+            decimal rollo_tarima = decimal.Parse(valor2);
+            if (rollo_tarima > 0)
+            {
+                result = comSugerida/rollo_tarima;
+            }
+            else
+            {
+                result = 0;
+            }
+            
             CST = result;
             CSTT += CST;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
@@ -462,7 +517,23 @@ namespace WebAppBasicosParisina
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
-
+        public decimal resurtidoTarima(string valor1, string valor2)
+        {
+            decimal result = 0;
+            decimal resurtido_tarima = decimal.Parse(valor1);
+            decimal rollo_tarima = decimal.Parse(valor2);
+            if (rollo_tarima > 0)
+            {
+                result = resurtido_tarima / rollo_tarima;
+            }
+            else
+            {
+                result = 0;
+            }
+            RTarima = result;
+            RTarimaT += RTarima;
+            return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
+        }
 
         public decimal demandaResidual(string valor1, string valor2, string valor3)
         {
@@ -471,6 +542,46 @@ namespace WebAppBasicosParisina
             result = decimal.Parse(valor1) + decimal.Parse(valor2) + decimal.Parse(valor3);
             DemRes = result;
             DemResT += DemRes;
+            return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
+        }
+
+        public decimal temporadaDispo(string valor1, string valor2)
+        {
+            decimal result = 0;
+            decimal temporada_tarima = decimal.Parse(valor1);
+            decimal dispo_tarima = decimal.Parse(valor2);
+
+            if (dispo_tarima > 0)
+            {
+                result = temporada_tarima / dispo_tarima;
+            }
+            else
+            {
+                result = 0;
+            }
+            
+            TempDispo = result;
+            TempDispoT += TempDispo;
+            return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
+        }
+
+        public decimal excedentePedido(string valor1, string valor2)
+        {
+            decimal result = 0;
+            decimal stock = decimal.Parse(valor1);
+            decimal compra_sugerida = decimal.Parse(valor2);
+
+            if (compra_sugerida > 0)
+            {
+                result = stock / compra_sugerida;
+            }
+            else
+            {
+                result = 0;
+            }
+
+            ExcPedido = result;
+            ExcPedidoT += excPedido;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
@@ -612,7 +723,8 @@ namespace WebAppBasicosParisina
                     fabResurtido = decimal.Parse(GVRow.Cells[16].Text);
                     Label lblFRMTS = (Label)GVRow.Cells[17].FindControl("lblFRMTS");
                     fabResurtidoMts = decimal.Parse(lblFRMTS.Text);
-                    fabResurtidoTarima = decimal.Parse("0");//cambiar
+                    Label lblFRT = (Label)GVRow.Cells[18].FindControl("lblFRT");
+                    fabResurtidoTarima = decimal.Parse(lblFRT.Text);
                     tarimaExtraPed = decimal.Parse("0");//cambiar
 
                     TextBox txt = (TextBox)GVRow.Cells[20].FindControl("txtNumTarimas"); //se busca el input donde se inserta la cantidad
@@ -631,9 +743,11 @@ namespace WebAppBasicosParisina
                     Label lblDemResi = (Label)GVRow.Cells[21].FindControl("lblDemResi");
                     demResidual = decimal.Parse(lblDemResi.Text);
                     demParisina = decimal.Parse(GVRow.Cells[22].Text);
-                    fabTempTarima = decimal.Parse("0");//cambiar
-                    fabTempDispo = decimal.Parse("0");//cambiar
-                    excIncPed = decimal.Parse("0");//cambiar
+                    fabTempTarima = decimal.Parse(GVRow.Cells[23].Text);
+                    Label lblFTD = (Label)GVRow.Cells[24].FindControl("lblFTD");
+                    fabTempDispo = decimal.Parse(lblFTD.Text);
+                    Label lblEIP = (Label)GVRow.Cells[25].FindControl("lblEIP");
+                    excIncPed = decimal.Parse(lblEIP.Text);
                     Label lblExcBod = (Label)GVRow.Cells[26].FindControl("lblExcBod");
                     excBodega = decimal.Parse(lblExcBod.Text);
                     Label lblSkuSinExis = (Label)GVRow.Cells[27].FindControl("lblSkuSinExis");
