@@ -39,5 +39,10 @@ namespace LogicaNegocio
         {
             return datos.llenaConsulta(fecha);
         }
+
+        public Entidades.WebAppInsertaResurdoParisina_Result insertaResurtido(string ef_cve, string tipdoc_cve, string producto, string color_variante, int? autorizar, string id_ultact)
+        {
+            return datos.insertaResurtido(ef_cve, tipdoc_cve, producto, color_variante, autorizar, id_ultact);
+        }
     }
 }

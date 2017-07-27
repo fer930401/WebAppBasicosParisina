@@ -11,7 +11,21 @@ namespace WebAppBasicosParisina
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["user_cve"] != null)
+            {
+                lnkCerrarSession.Visible = true;
+            }
+            else
+            {
+                lnkCerrarSession.Visible = false;
+            }
+        }
+        protected void CerrarSession(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.RemoveAll();
+            Session.Abandon();
+            Response.Redirect("Login.aspx");
         }
     }
 }

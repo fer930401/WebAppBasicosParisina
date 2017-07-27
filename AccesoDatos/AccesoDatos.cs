@@ -68,5 +68,10 @@ namespace AccesoDatos
             DateTime fechaCompara = DateTime.Parse(fecha);
             return (from c in contexto.WebAppBasicos_parisina where c.fec_ultact == fechaCompara select c).ToList();
         }
+
+        public Entidades.WebAppInsertaResurdoParisina_Result insertaResurtido(string ef_cve, string tipdoc_cve, string producto, string color_variante, int? autorizar, string id_ultact)
+        {
+            return (contexto.WebAppInsertaResurdoParisina(ef_cve, tipdoc_cve, producto, color_variante, autorizar, id_ultact)).FirstOrDefault();
+        }
     }
 }

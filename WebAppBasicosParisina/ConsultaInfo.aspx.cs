@@ -241,5 +241,13 @@ namespace WebAppBasicosParisina
         {
             //insertResurtido();
         }
+
+        protected void CerrarSession(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.RemoveAll();
+            Session.Abandon();
+            Response.Redirect("Login.aspx");
+        }
     }
 }

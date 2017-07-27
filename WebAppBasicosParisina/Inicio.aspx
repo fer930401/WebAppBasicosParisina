@@ -16,7 +16,7 @@
             for (var i = 0; i < txtNumTarimas.length; i++) {
                 sub = parseFloat(txtTarExtrasPed[i].value) + parseFloat(txtNumTarimas[i].value);
                 if (isNaN(sub)) {
-                    txtDemResidual[i].value = "";
+                    txtDemResidual[i].value = "0";
                     sub = 0;
                 }
                 else {
@@ -26,33 +26,69 @@
                 indexP = indexP + 2;
                 total += parseFloat(sub);
             }
-            txtDemResidual[txtDemResidual.length - 1].innerHTML = total;
+            txtDemResidual[txtDemResidual.length - 1].value = total;
+            
+        }
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                $('.flotante').slideDown(300);
+            });
+        });
+    </script>
+    <style type="text/css">
+        .minusculas {
+            text-transform: lowercase;
         }
 
-    </script>
+        .mayusculas {
+            text-transform: uppercase;
+        }
+        .flotante{
+            width: 100%;
+            float: right;
+            position: fixed;
+            top:50px;
+            text-align:left;
+            cursor:pointer;
+            z-index:99;
+            background-color: rgba(4, 38, 68, 0)
+        }
+    </style>
     <div style="padding-left:5px; padding-right:5px;">
-        <div class="well">
-            <div class="form-inline">
-                <div class="form-group">
-                    <div class="col-md-2">
-                        <img src="Media/Imagenes/logo_skytex.png" width="50" height="50" />
+        <div class="flotante">
+            <div class="well">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <img src="Media/Imagenes/logo_skytex.png" width="50" height="50" />
+                        </div>
+                        <div class="col-md-8">
+                            <h2>Resurtido_Parisina</h2>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <h2>Resurtido_Parisina</h2>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-4">
-                        <br />
-                        <asp:Button ID="btnGenPed" runat="server" Text="Genera Pedido" CssClass="btn btn-success" OnClick="btnGenPed_Click" />
-                    </div>
-                    <div class="col-md-6">
-                        <asp:Label ID="lblBusqueda" runat="server" Text="Busqueda de fechas pasadas"></asp:Label>
-                        <asp:DropDownList ID="ddlBusqueda" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlBusqueda_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <br />
+                            <asp:Button ID="btnGenPed" runat="server" Text="Genera Pedido" CssClass="btn btn-success" OnClick="btnGenPed_Click" />
+                        </div>
+                        <div class="col-md-6">
+                            <asp:Label ID="lblBusqueda" runat="server" Text="Busqueda de fechas pasadas"></asp:Label>
+                            <asp:DropDownList ID="ddlBusqueda" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlBusqueda_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <!--<div class="flotante">
+            <br />
+            <br />
+            <br />
+        </div>    -->   
         <div class="row">
             <div class="col-md-4">
                 <asp:GridView ID="gvBP" runat="server" AutoGenerateColumns="false" HeaderStyle-BackColor="#042644" HeaderStyle-ForeColor="White"
@@ -113,17 +149,17 @@
 
                         <asp:TemplateField  HeaderText="Tarimas Extras en_pedido:" ItemStyle-BackColor="#DDEBF7" >
                             <ItemTemplate>
-                                <asp:TextBox ID="txtTarExtrasPed" runat="server" TextMode="Number" CssClass="form-control txtTarExtrasPed" Min="0" Value="0" Font-Size="Small" onkeyup="CalculateTotals();" ></asp:TextBox>
+                                <asp:TextBox ID="txtTarExtrasPed" runat="server" TextMode="Number" CssClass="form-control txtTarExtrasPed" style="background-color:#DDEBF7;" Min="0" Value="0" Font-Size="Small" onkeyup="CalculateTotals();" onclick="CalculateTotals();" ></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField  HeaderText="Autorizado x meter_pedidos:" ItemStyle-BackColor="#92CE50" >
                             <ItemTemplate>
-                                <asp:TextBox ID="txtNumTarimas" runat="server" TextMode="Number" CssClass="form-control txtNumTarimas" Min="0" Value="0" Font-Size="Small" onkeyup="CalculateTotals();" ></asp:TextBox>
+                                <asp:TextBox ID="txtNumTarimas" runat="server" TextMode="Number" CssClass="form-control txtNumTarimas" style="background-color:#92CE50;" Min="0" Value="0" Font-Size="Small" onkeyup="CalculateTotals();" onclick="CalculateTotals();" ></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Demanda Residual:" ItemStyle-HorizontalAlign = "Right" ItemStyle-Width="500px" >
                             <ItemTemplate>
-                                <asp:TextBox ID="txtDemResidual" runat="server" CssClass="form-control txtDemResidual" ReadOnly="true"  Font-Size="Small" ></asp:TextBox>
+                                <asp:TextBox ID="txtDemResidual" runat="server" CssClass="form-control txtDemResidual" Font-Size="Small" style="cursor: not-allowed; background-color: #eeeeee; pointer-events: none;" onkeyup="CalculateTotals();" onclick="CalculateTotals();" ></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
 

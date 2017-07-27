@@ -6,7 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="BasicosParisinaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
-warning 6002: The table/view 'skytex.dbo.WebAppBasicos_parisina' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="WebAppBasicos_parisina">
           <Key>
             <PropertyRef Name="desc_cliente" />
@@ -86,6 +86,14 @@ warning 6002: The table/view 'skytex.dbo.WebAppBasicos_parisina' does not have a
           <Parameter Name="ef_cve" Type="nchar" Mode="In" />
           <Parameter Name="tipdoc_cve" Type="nchar" Mode="In" />
         </Function>
+        <Function Name="WebAppInsertaResurdoParisina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ef_cve" Type="nchar" Mode="In" />
+          <Parameter Name="tipdoc_cve" Type="nchar" Mode="In" />
+          <Parameter Name="producto" Type="nvarchar" Mode="In" />
+          <Parameter Name="colorVariante" Type="nvarchar" Mode="In" />
+          <Parameter Name="autorizar" Type="int" Mode="In" />
+          <Parameter Name="id_ultact" Type="nchar" Mode="In" />
+        </Function>
         <EntityContainer Name="BasicosParisinaModelStoreContainer">
           <EntitySet Name="xcuser" EntityType="Self.xcuser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WebAppBasicos_parisina" EntityType="Self.WebAppBasicos_parisina" store:Type="Tables" store:Schema="dbo">
@@ -137,6 +145,14 @@ warning 6002: The table/view 'skytex.dbo.WebAppBasicos_parisina' does not have a
           </FunctionImport>
           <EntitySet Name="xcuser" EntityType="BasicosParisinaModel.xcuser" />
           <EntitySet Name="WebAppBasicos_parisina" EntityType="BasicosParisinaModel.WebAppBasicos_parisina" />
+          <FunctionImport Name="WebAppInsertaResurdoParisina" ReturnType="Collection(BasicosParisinaModel.WebAppInsertaResurdoParisina_Result)">
+            <Parameter Name="ef_cve" Mode="In" Type="String" />
+            <Parameter Name="tipdoc_cve" Mode="In" Type="String" />
+            <Parameter Name="producto" Mode="In" Type="String" />
+            <Parameter Name="colorVariante" Mode="In" Type="String" />
+            <Parameter Name="autorizar" Mode="In" Type="Int32" />
+            <Parameter Name="id_ultact" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="WebAppBasicosParisina_Result">
           <Property Type="String" Name="sku_cve" Nullable="false" MaxLength="32" />
@@ -251,6 +267,10 @@ warning 6002: The table/view 'skytex.dbo.WebAppBasicos_parisina' does not have a
           <Property Name="rollo_mts" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="fec_ultact" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <ComplexType Name="WebAppInsertaResurdoParisina_Result">
+          <Property Type="Int32" Name="error" Nullable="true" />
+          <Property Type="String" Name="mensaje" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -355,6 +375,14 @@ warning 6002: The table/view 'skytex.dbo.WebAppBasicos_parisina' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="WebAppInsertaResurdoParisina" FunctionName="BasicosParisinaModel.Store.WebAppInsertaResurdoParisina">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BasicosParisinaModel.WebAppInsertaResurdoParisina_Result">
+                <ScalarProperty Name="error" ColumnName="error" />
+                <ScalarProperty Name="mensaje" ColumnName="mensaje" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -215,18 +215,27 @@ namespace WebAppBasicosParisina
             get { return _Default.mRolloT; }
             set { _Default.mRolloT = value; }
         }
-
+        string mensaje = "";
+        int? error = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (Session["user_cve"] != null)
             {
-                BindGrid();
-                ddlBusqueda.DataSource = logicaNegocio.FiltroFechas();
-                ddlBusqueda.DataTextField = "fec_ultact";
-                ddlBusqueda.DataValueField = "fec_ultact";
-                ddlBusqueda.DataBind();
-                ddlBusqueda.Items.Insert(0, new ListItem("Selecciona una fecha", "NA"));
+                if (!IsPostBack)
+                {
+                    BindGrid();
+                    ddlBusqueda.DataSource = logicaNegocio.FiltroFechas();
+                    ddlBusqueda.DataTextField = "fec_ultact";
+                    ddlBusqueda.DataValueField = "fec_ultact";
+                    ddlBusqueda.DataBind();
+                    ddlBusqueda.Items.Insert(0, new ListItem("Selecciona una fecha", "NA"));
+                }
             }
+            else
+            {
+                Response.Redirect("Login.aspx");
+            }
+            
         }
 
         private void BindGrid()
@@ -270,7 +279,7 @@ namespace WebAppBasicosParisina
                 {
                     DataTable dt = (e.Row.DataItem as DataRowView).DataView.Table;
                     string orderId = dt.Rows[e.Row.RowIndex]["telanom"].ToString();
-                    Grand_Total[3] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped"].ToString());
+                    Grand_Total[3] += InvIntTran;
                     Grand_Total[4] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir"].ToString());
                     Grand_Total[5] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir_old"].ToString());
                     Grand_Total[6] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_surtidos"].ToString());
@@ -312,6 +321,7 @@ namespace WebAppBasicosParisina
                                     }
                                 }
                             }
+                            Sub_Totales[3] += InvIntTranT;
                             Sub_Totales[7] += ExisTotalCT;
                             Sub_Totales[8] += CSTT;
                             Sub_Totales[9] += SCDT;
@@ -373,6 +383,7 @@ namespace WebAppBasicosParisina
                     }
                 }
             }
+            Sub_Totales[3] += InvIntTranT;
             Sub_Totales[7] += ExisTotalCT;
             Sub_Totales[8] += CSTT;
             Sub_Totales[9] += SCDT;
@@ -394,14 +405,19 @@ namespace WebAppBasicosParisina
         private void AddTotalRow(string labelText, string value)
         {
             GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Normal);
-            row.BackColor = ColorTranslator.FromHtml("#C9E1F6");
+            //row.BackColor = ColorTranslator.FromHtml("#C9E1F6");
+            
             if (labelText.Equals("Total") == true)
             {
+                row.BackColor = ColorTranslator.FromHtml("#85BE55");
+                row.Style.Add("font-weight", "bold");
+                row.Style.Add("font-size", "9.5pt");
+                row.Style.Add("color", "white");
                 row.Cells.AddRange(new TableCell[32] { 
                                     new TableCell (), //Empty Cell
                                     new TableCell { Text = labelText, HorizontalAlign = HorizontalAlign.Left},
                                     new TableCell (), //Empty Cell
-                                    new TableCell (), //Empty Cell
+                                    new TableCell { Text = Sub_Totales[3].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Sub_Totales[4].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Sub_Totales[5].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Sub_Totales[6].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
@@ -417,9 +433,9 @@ namespace WebAppBasicosParisina
                                     new TableCell { Text = Sub_Totales[16].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Sub_Totales[17].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Sub_Totales[18].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
-                                    new TableCell { Text = Sub_Totales[19].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
-                                    new TableCell { Text = Sub_Totales[20].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
-                                    new TableCell { Text = Sub_Totales[21].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
+                                    new TableCell { Text = "", HorizontalAlign = HorizontalAlign.Right },
+                                    new TableCell { Text = "", HorizontalAlign = HorizontalAlign.Right },
+                                    new TableCell { Text = "", HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Sub_Totales[22].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Sub_Totales[23].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Sub_Totales[24].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
@@ -431,14 +447,20 @@ namespace WebAppBasicosParisina
                                     new TableCell { Text = Sub_Totales[30].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Sub_Totales[31].ToString("N2"), HorizontalAlign = HorizontalAlign.Right }
                                 });
+                //row.BorderColor = System.Drawing.Color.FromArgb(201, 225, 246);
+                row.BorderColor = System.Drawing.Color.FromArgb(144, 160, 175);
             }
             else if (labelText.Equals("Grand Total") == true)
             {
+                row.BackColor = ColorTranslator.FromHtml("#147514");
+                row.Style.Add("font-weight", "bold");
+                row.Style.Add("font-size", "10pt");
+                row.Style.Add("color", "white");
                 row.Cells.AddRange(new TableCell[32] { 
                                     new TableCell (), //Empty Cell
                                     new TableCell { Text = labelText, HorizontalAlign = HorizontalAlign.Left},
                                     new TableCell (), //Empty Cell
-                                    new TableCell (), //Empty Cell
+                                    new TableCell { Text = Grand_Total[3].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Grand_Total[4].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Grand_Total[5].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Grand_Total[6].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
@@ -454,9 +476,9 @@ namespace WebAppBasicosParisina
                                     new TableCell { Text = Grand_Total[16].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Grand_Total[17].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Grand_Total[18].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
-                                    new TableCell { Text = Grand_Total[19].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
-                                    new TableCell { Text = Grand_Total[20].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
-                                    new TableCell { Text = Grand_Total[21].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
+                                    new TableCell { Text = "", HorizontalAlign = HorizontalAlign.Right },
+                                    new TableCell { Text = "", HorizontalAlign = HorizontalAlign.Right },
+                                    new TableCell { Text = "", HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Grand_Total[22].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Grand_Total[23].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Grand_Total[24].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
@@ -468,8 +490,9 @@ namespace WebAppBasicosParisina
                                     new TableCell { Text = Grand_Total[30].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Grand_Total[31].ToString("N2"), HorizontalAlign = HorizontalAlign.Right }
                                 });
+                row.BorderColor = System.Drawing.Color.FromArgb(144, 160, 175);
             }
-            row.BorderColor = System.Drawing.Color.FromArgb(201, 225, 246);
+            
             InvIntTranT = 0;
             ExisTotalCT = 0;
             CSTT = 0;
@@ -743,7 +766,7 @@ namespace WebAppBasicosParisina
 
         public void insertResurtido()
         {
-            string error = "";
+            string errorInsert = "";
 
             string Producto = string.Empty;
             string colorVariante = string.Empty;
@@ -765,7 +788,7 @@ namespace WebAppBasicosParisina
             decimal fabResurtidoMts = 0m;
             decimal fabResurtidoTarima = 0m;
             decimal tarimaExtraPed = 0m;
-            decimal autorizaPed = 0m;
+            int? autorizaPed = 0;
             decimal demResidual = 0m;
             decimal demParisina = 0m;
             decimal fabTempTarima = 0m;
@@ -808,22 +831,22 @@ namespace WebAppBasicosParisina
                     fabResurtidoMts = decimal.Parse(lblFRMTS.Text);
                     Label lblFRT = (Label)GVRow.Cells[18].FindControl("lblFRT");
                     fabResurtidoTarima = decimal.Parse(lblFRT.Text);
-                    tarimaExtraPed = decimal.Parse("0");//cambiar
+                    TextBox txtTarExtrasPed = (TextBox)GVRow.Cells[21].FindControl("txtTarExtrasPed");
+                    tarimaExtraPed = decimal.Parse(txtTarExtrasPed.Text);//cambiar
 
                     TextBox txt = (TextBox)GVRow.Cells[20].FindControl("txtNumTarimas"); //se busca el input donde se inserta la cantidad
                     if (txt != null)
                     {
                         if (txt.Text.Equals("0") == false && string.IsNullOrEmpty(txt.Text) == false)
                         {
-                            //aqui se realizara la transaccion
-                            autorizaPed = decimal.Parse(txt.Text);
+                            autorizaPed = Int32.Parse(txt.Text);
                         }
                         else
                         {
-                            autorizaPed = decimal.Parse("0");
+                            autorizaPed = Int32.Parse("0");
                         }
                     }
-                    Label lblDemResi = (Label)GVRow.Cells[21].FindControl("lblDemResi");
+                    TextBox lblDemResi = (TextBox)GVRow.Cells[21].FindControl("txtDemResidual");
                     demResidual = decimal.Parse(lblDemResi.Text);
                     demParisina = decimal.Parse(GVRow.Cells[22].Text);
                     fabTempTarima = decimal.Parse(GVRow.Cells[23].Text);
@@ -842,6 +865,23 @@ namespace WebAppBasicosParisina
                     Label lblMTSR = (Label)GVRow.Cells[31].FindControl("lblMTSR");
                     mts_rollos = decimal.Parse(lblMTSR.Text);
 
+                    if (autorizaPed > 0)
+                    {
+                        Entidades.WebAppInsertaResurdoParisina_Result insertaResurtido = logicaNegocio.insertaResurtido("001", "VTBASP", Producto, colorVariante, autorizaPed, Session["user_cve"].ToString());
+                        if (insertaResurtido != null)
+                        {
+                            error = insertaResurtido.error;
+                            mensaje = insertaResurtido.mensaje;
+                            if (error == 0)
+                            {
+                                errorInsert = null;
+                            }
+                            else
+                            {
+                                errorInsert = mensaje;
+                            }
+                        }
+                    }
 
                     using (SqlConnection scn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["BPconnetion"].ConnectionString))
                     {
@@ -867,18 +907,18 @@ namespace WebAppBasicosParisina
                         catch (Exception ex)
                         {
                             scn.Close();
-                            error = ex.Message;
+                            errorInsert = ex.Message;
                         }
                     }
                 }
             }
-            if (string.IsNullOrEmpty(error) == true)
+            if (string.IsNullOrEmpty(errorInsert) == true)
             {
                 Response.Write("<script type=\"text/javascript\">alert('Procesado Exitosamente'); window.location.href = 'Inicio.aspx';</script>");
             }
             else
             {
-                Response.Write("<script type=\"text/javascript\">alert('Ocurrio un error" + error + "'); window.location.href = 'Inicio.aspx';</script>");
+                Response.Write("<script type=\"text/javascript\">alert('Ocurrio un error" + errorInsert + "'); window.location.href = 'Inicio.aspx';</script>");
             }            
         }
 

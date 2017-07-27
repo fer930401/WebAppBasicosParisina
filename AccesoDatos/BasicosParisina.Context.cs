@@ -42,5 +42,34 @@ namespace Entidades
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WebAppBasicosParisina_Result>("WebAppBasicosParisina", ef_cveParameter, tipdoc_cveParameter);
         }
+    
+        public virtual ObjectResult<WebAppInsertaResurdoParisina_Result> WebAppInsertaResurdoParisina(string ef_cve, string tipdoc_cve, string producto, string colorVariante, Nullable<int> autorizar, string id_ultact)
+        {
+            var ef_cveParameter = ef_cve != null ?
+                new ObjectParameter("ef_cve", ef_cve) :
+                new ObjectParameter("ef_cve", typeof(string));
+    
+            var tipdoc_cveParameter = tipdoc_cve != null ?
+                new ObjectParameter("tipdoc_cve", tipdoc_cve) :
+                new ObjectParameter("tipdoc_cve", typeof(string));
+    
+            var productoParameter = producto != null ?
+                new ObjectParameter("producto", producto) :
+                new ObjectParameter("producto", typeof(string));
+    
+            var colorVarianteParameter = colorVariante != null ?
+                new ObjectParameter("colorVariante", colorVariante) :
+                new ObjectParameter("colorVariante", typeof(string));
+    
+            var autorizarParameter = autorizar.HasValue ?
+                new ObjectParameter("autorizar", autorizar) :
+                new ObjectParameter("autorizar", typeof(int));
+    
+            var id_ultactParameter = id_ultact != null ?
+                new ObjectParameter("id_ultact", id_ultact) :
+                new ObjectParameter("id_ultact", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WebAppInsertaResurdoParisina_Result>("WebAppInsertaResurdoParisina", ef_cveParameter, tipdoc_cveParameter, productoParameter, colorVarianteParameter, autorizarParameter, id_ultactParameter);
+        }
     }
 }

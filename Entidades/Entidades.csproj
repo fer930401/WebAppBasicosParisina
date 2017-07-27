@@ -65,6 +65,9 @@
     <Compile Include="WebAppBasicos_parisina.cs">
       <DependentUpon>BasicosParisina.tt</DependentUpon>
     </Compile>
+    <Compile Include="WebAppInsertaResurdoParisina_Result.cs">
+      <DependentUpon>BasicosParisina.tt</DependentUpon>
+    </Compile>
     <Compile Include="xcuser.cs">
       <DependentUpon>BasicosParisina.tt</DependentUpon>
     </Compile>
