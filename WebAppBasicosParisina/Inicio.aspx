@@ -52,10 +52,6 @@
             cursor:pointer;
             z-index:99;
             background-color: rgba(4, 38, 68, 0)
-        }
-         td.locked, th.locked {
-            position:relative;    
-            left:expression((this.parentElement.parentElement.parentElement.parentElement.scrollLeft-2)+'px');
         }  
     </style>
     <div style="padding-left:5px; padding-right:5px;">
