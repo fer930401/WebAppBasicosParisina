@@ -14,13 +14,13 @@ namespace AccesoDatos
         public AccesoDatos(){
             contexto = new BasicosParisinaEntities();
         }
-        /*public List<string> ListaUser_cve()
+        public List<string> ListaUser_cve()
         {
-            return ((from u in contexto.xcdconapl_cl where u.sp_cve.Equals("CesionPag") select u.spd_cve).ToList());
-        }*/
-        public List<xcuser> ListaUsuarios()
+            return ((from u in contexto.xcdconapl_cl where u.tipdoc_cve.Equals("appweb") && u.sp_cve.Equals("ots") select u.spd_cve).ToList());
+        }
+        public List<xcuser> ListaUsuarios(List<string> Usuarios)
         {
-            return (from u in contexto.xcuser where u.ef_cve == "001" && u.status == 1 select u).Distinct().ToList();
+            return (from u in contexto.xcuser where u.ef_cve == "001" && u.status == 1 && Usuarios.Contains(u.user_cve) select u).Distinct().ToList();
         }
 
         public string Login(string ef_cve, string user_cve, string password)

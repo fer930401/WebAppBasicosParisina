@@ -19,7 +19,7 @@ namespace WebAppBasicosParisina
     public partial class _Default : Page
     {
         LogicaNegocio.LogicaNegocio logicaNegocio = new LogicaNegocio.LogicaNegocio();
-        int pos = 0;
+        //int pos = 0;
 
         static decimal invIntTran;
         public static decimal InvIntTran

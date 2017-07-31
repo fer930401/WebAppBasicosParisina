@@ -65,6 +65,34 @@ warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have 
           <Property Name="rollo_mts" Type="decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="fec_ultact" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="xcdconapl_cl">
+          <Key>
+            <PropertyRef Name="tipdoc_cve" />
+            <PropertyRef Name="sp_cve" />
+            <PropertyRef Name="num_reng" />
+            <PropertyRef Name="spd_cve" />
+          </Key>
+          <Property Name="tipdoc_cve" Type="nchar" MaxLength="6" Nullable="false" />
+          <Property Name="sp_cve" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="num_reng" Type="smallint" Nullable="false" />
+          <Property Name="spd_cve" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="prm1" Type="nchar" MaxLength="6" />
+          <Property Name="prm2" Type="nchar" MaxLength="6" />
+          <Property Name="prm3" Type="nchar" MaxLength="6" />
+          <Property Name="prm4" Type="nchar" MaxLength="6" />
+          <Property Name="prm5" Type="nchar" MaxLength="6" />
+          <Property Name="prm6" Type="nvarchar" MaxLength="25" />
+          <Property Name="prm7" Type="nvarchar" MaxLength="255" />
+          <Property Name="prm8" Type="nvarchar" MaxLength="255" />
+          <Property Name="prm9" Type="nvarchar" MaxLength="255" />
+          <Property Name="prm10" Type="nvarchar" MaxLength="255" />
+          <Property Name="prm11" Type="nchar" MaxLength="6" />
+          <Property Name="prm12" Type="nchar" MaxLength="3" />
+          <Property Name="prm13" Type="nvarchar" MaxLength="255" />
+          <Property Name="prm14" Type="smallint" />
+          <Property Name="prm15" Type="money" />
+          <Property Name="prm16" Type="nchar" MaxLength="6" />
+        </EntityType>
         <EntityType Name="xcuser">
           <Key>
             <PropertyRef Name="ef_cve" />
@@ -95,6 +123,7 @@ warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have 
           <Parameter Name="id_ultact" Type="nchar" Mode="In" />
         </Function>
         <EntityContainer Name="BasicosParisinaModelStoreContainer">
+          <EntitySet Name="xcdconapl_cl" EntityType="Self.xcdconapl_cl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="xcuser" EntityType="Self.xcuser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WebAppBasicos_parisina" EntityType="Self.WebAppBasicos_parisina" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -153,6 +182,7 @@ warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have 
             <Parameter Name="autorizar" Mode="In" Type="Int32" />
             <Parameter Name="id_ultact" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="xcdconapl_cl" EntityType="BasicosParisinaModel.xcdconapl_cl" />
         </EntityContainer>
         <ComplexType Name="WebAppBasicosParisina_Result">
           <Property Type="String" Name="sku_cve" Nullable="false" MaxLength="32" />
@@ -271,6 +301,34 @@ warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have 
           <Property Type="Int32" Name="error" Nullable="true" />
           <Property Type="String" Name="mensaje" Nullable="true" />
         </ComplexType>
+        <EntityType Name="xcdconapl_cl">
+          <Key>
+            <PropertyRef Name="tipdoc_cve" />
+            <PropertyRef Name="sp_cve" />
+            <PropertyRef Name="num_reng" />
+            <PropertyRef Name="spd_cve" />
+          </Key>
+          <Property Name="tipdoc_cve" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="sp_cve" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="num_reng" Type="Int16" Nullable="false" />
+          <Property Name="spd_cve" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="prm1" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="prm2" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="prm3" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="prm4" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="prm5" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="prm6" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="prm7" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="prm8" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="prm9" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="prm10" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="prm11" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="prm12" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="prm13" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="prm14" Type="Int16" />
+          <Property Name="prm15" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="prm16" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -383,6 +441,32 @@ warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="xcdconapl_cl">
+            <EntityTypeMapping TypeName="BasicosParisinaModel.xcdconapl_cl">
+              <MappingFragment StoreEntitySet="xcdconapl_cl">
+                <ScalarProperty Name="prm16" ColumnName="prm16" />
+                <ScalarProperty Name="prm15" ColumnName="prm15" />
+                <ScalarProperty Name="prm14" ColumnName="prm14" />
+                <ScalarProperty Name="prm13" ColumnName="prm13" />
+                <ScalarProperty Name="prm12" ColumnName="prm12" />
+                <ScalarProperty Name="prm11" ColumnName="prm11" />
+                <ScalarProperty Name="prm10" ColumnName="prm10" />
+                <ScalarProperty Name="prm9" ColumnName="prm9" />
+                <ScalarProperty Name="prm8" ColumnName="prm8" />
+                <ScalarProperty Name="prm7" ColumnName="prm7" />
+                <ScalarProperty Name="prm6" ColumnName="prm6" />
+                <ScalarProperty Name="prm5" ColumnName="prm5" />
+                <ScalarProperty Name="prm4" ColumnName="prm4" />
+                <ScalarProperty Name="prm3" ColumnName="prm3" />
+                <ScalarProperty Name="prm2" ColumnName="prm2" />
+                <ScalarProperty Name="prm1" ColumnName="prm1" />
+                <ScalarProperty Name="spd_cve" ColumnName="spd_cve" />
+                <ScalarProperty Name="num_reng" ColumnName="num_reng" />
+                <ScalarProperty Name="sp_cve" ColumnName="sp_cve" />
+                <ScalarProperty Name="tipdoc_cve" ColumnName="tipdoc_cve" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

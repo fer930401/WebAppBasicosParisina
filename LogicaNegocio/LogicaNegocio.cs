@@ -17,7 +17,7 @@ namespace LogicaNegocio
 
         public List<Entidades.xcuser> ListaUsuarios()
         {
-            return datos.ListaUsuarios();
+            return datos.ListaUsuarios(datos.ListaUser_cve());
         }
 
         public string Login(string ef_cve, string user_cve, string password)

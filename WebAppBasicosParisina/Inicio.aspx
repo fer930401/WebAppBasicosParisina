@@ -53,6 +53,10 @@
             z-index:99;
             background-color: rgba(4, 38, 68, 0)
         }
+         td.locked, th.locked {
+            position:relative;    
+            left:expression((this.parentElement.parentElement.parentElement.parentElement.scrollLeft-2)+'px');
+        }  
     </style>
     <div style="padding-left:5px; padding-right:5px;">
         <div class="flotante">
@@ -83,21 +87,19 @@
         <br />
         <br />
         <br />
-        <br />
         <!--<div class="flotante">
             <br />
             <br />
             <br />
         </div>    -->   
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 GridViewContainer" id="GridViewContainer" style="width:1300px;height:450px;">
                 <asp:GridView ID="gvBP" runat="server" AutoGenerateColumns="false" HeaderStyle-BackColor="#042644" HeaderStyle-ForeColor="White"
-                    EmptyDataText="No hay resultados para la busqueda" Font-Size="X-Small" OnDataBound="OnDataBound" OnRowCreated = "OnRowCreated">
-                    <HeaderStyle Font-Bold="True" />
+                    EmptyDataText="No hay resultados para la busqueda" Font-Size="X-Small" OnDataBound="OnDataBound" OnRowCreated = "OnRowCreated" Width="100%">
                     <Columns>
-                        <asp:BoundField DataField="telanom" HeaderText="Producto:" />
-                        <asp:BoundField DataField="color_bar" HeaderText="Color Variante:" />
-                        <asp:BoundField DataField="desc_cliente" HeaderText="Descripcion Cliente:" />
+                        <asp:BoundField DataField="telanom" HeaderText="Producto:"/>
+                        <asp:BoundField DataField="color_bar" HeaderText="Color Variante:"/>
+                        <asp:BoundField DataField="desc_cliente" HeaderText="Descripcion Cliente:"/>
                         <asp:TemplateField HeaderText="Inventario inc intermedio y transito:" ItemStyle-HorizontalAlign = "Right" >
                             <ItemTemplate>
                                 <asp:Label ID="lblInvIIT" runat="server" Text='<%# inventarioIntTrans(Eval("rollos_ped").ToString(), Eval("rollos_ped_surtidos").ToString(), Eval("rollos_ped_xsurtir").ToString(), Eval("rollos_ped_xsurtir_old").ToString(), Eval("resurtido_rollos").ToString(), Eval("rollos_tarima").ToString()) %>'></asp:Label>
@@ -147,17 +149,17 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField  HeaderText="Tarimas Extras en_pedido:" ItemStyle-BackColor="#3B6B97" >
+                        <asp:TemplateField  HeaderText="Tarimas Extras en_pedido:" ItemStyle-BackColor="#3B6B97"  ItemStyle-Width="100px">
                             <ItemTemplate>
                                 <asp:TextBox ID="txtTarExtrasPed" runat="server" TextMode="Number" CssClass="form-control txtTarExtrasPed" style="background-color:#3B6B97; color:whitesmoke;" Min="0" Value="0" Font-Size="Small" onkeyup="CalculateTotals();" onclick="CalculateTotals();" ></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField  HeaderText="Autorizado x meter_pedidos:" ItemStyle-BackColor="#006F07" >
+                        <asp:TemplateField  HeaderText="Autorizado x meter_pedidos:" ItemStyle-BackColor="#006F07"  ItemStyle-Width="100px">
                             <ItemTemplate>
                                 <asp:TextBox ID="txtNumTarimas" runat="server" TextMode="Number" CssClass="form-control txtNumTarimas" style="background-color:#006F07; color:whitesmoke;" Min="0" Value="0" Font-Size="Small" onkeyup="CalculateTotals();" onclick="CalculateTotals();" ></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Demanda Residual:" ItemStyle-HorizontalAlign = "Right" ItemStyle-Width="500px" >
+                        <asp:TemplateField HeaderText="Demanda Residual:" ItemStyle-HorizontalAlign = "Right" ItemStyle-Width="120px" >
                             <ItemTemplate>
                                 <asp:TextBox ID="txtDemResidual" runat="server" CssClass="form-control txtDemResidual" Font-Size="Small" style="cursor: not-allowed; background-color: #eeeeee; pointer-events: none;" onkeyup="CalculateTotals();" onclick="CalculateTotals();" ></asp:TextBox>
                             </ItemTemplate>
@@ -202,5 +204,4 @@
             </div>
         </div>
     </div>
-
 </asp:Content>
