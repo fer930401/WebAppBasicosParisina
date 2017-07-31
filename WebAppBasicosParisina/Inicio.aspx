@@ -93,7 +93,7 @@
             <br />
         </div>    -->   
         <div class="row">
-            <div class="col-md-4 GridViewContainer" id="GridViewContainer" style="width:1300px;height:450px;">
+            <div class="col-md-4">
                 <asp:GridView ID="gvBP" runat="server" AutoGenerateColumns="false" HeaderStyle-BackColor="#042644" HeaderStyle-ForeColor="White"
                     EmptyDataText="No hay resultados para la busqueda" Font-Size="X-Small" OnDataBound="OnDataBound" OnRowCreated = "OnRowCreated" Width="100%">
                     <Columns>
