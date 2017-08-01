@@ -255,6 +255,8 @@ namespace WebAppBasicosParisina
                             sda.Fill(dt);
                             gvBP.DataSource = dt;
                             gvBP.DataBind();
+                            gvBP2.DataSource = dt;
+                            gvBP2.DataBind();
                         }
                     }
                 }
@@ -310,14 +312,14 @@ namespace WebAppBasicosParisina
                     {
                         if (e.Row.RowIndex > 0)
                         {
-                            for (int y = 3; y < gvBP.Columns.Count; y++)
+                            for (int y = 0; y < gvBP.Columns.Count; y++)
                             {
                                 Sub_Totales[y] = 0;
                                 for (int i = subTotalRowIndex; i < e.Row.RowIndex; i++)
                                 {
                                     if (string.IsNullOrEmpty(gvBP.Rows[i].Cells[y].Text) == false)
                                     {
-                                        Sub_Totales[y] += Convert.ToDecimal(gvBP.Rows[i].Cells[y].Text);
+                                        //Sub_Totales[y] += Convert.ToDecimal(gvBP.Rows[i].Cells[y].Text);
                                     }
                                 }
                             }
@@ -338,6 +340,80 @@ namespace WebAppBasicosParisina
                             Sub_Totales[31] += MRolloT;
 
                             AddTotalRow("Total", "");
+                            subTotalRowIndex = e.Row.RowIndex;
+                        }
+                        currentId = orderId;
+                    }
+                }
+            }
+        }
+        protected void OnRowCreated2(object sender, GridViewRowEventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    DataTable dt = (e.Row.DataItem as DataRowView).DataView.Table;
+                    string orderId = dt.Rows[e.Row.RowIndex]["telanom"].ToString();
+                    Grand_Total[3] += InvIntTran;
+                    Grand_Total[4] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir"].ToString());
+                    Grand_Total[5] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir_old"].ToString());
+                    Grand_Total[6] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_surtidos"].ToString());
+                    Grand_Total[7] += ExisTotalC;
+                    Grand_Total[8] += CST;
+                    Grand_Total[9] += SCD;
+                    Grand_Total[10] += FaltAlm;
+                    Grand_Total[11] += FAP;
+                    Grand_Total[12] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["max_tarima"].ToString());
+                    Grand_Total[13] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["preorden_tarima"].ToString());
+                    Grand_Total[14] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["temporada_tarima"].ToString());
+                    Grand_Total[15] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["dispo_tarima"].ToString());
+                    Grand_Total[16] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["resurtido_rollos"].ToString());
+                    Grand_Total[17] += RMTS;
+                    Grand_Total[18] += RTarima;
+                    Grand_Total[21] += DemRes;
+                    Grand_Total[22] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["compra_sugerida"].ToString());
+                    Grand_Total[23] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["temporada_tarima"].ToString());
+                    Grand_Total[24] += TempDispo;
+                    Grand_Total[25] += ExcPedido;
+                    Grand_Total[26] += ExdBod;
+                    Grand_Total[27] += SSE;
+                    Grand_Total[28] += SBE;
+                    Grand_Total[29] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["contSku_cve"].ToString());
+                    Grand_Total[30] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_tarima"].ToString());
+                    Grand_Total[31] += MRollo;
+                    if (orderId.Equals(currentId) == false)
+                    {
+                        if (e.Row.RowIndex > 0)
+                        {
+                            for (int y = 0; y < gvBP2.Columns.Count; y++)
+                            {
+                                Sub_Totales[y] = 0;
+                                for (int i = subTotalRowIndex; i < e.Row.RowIndex; i++)
+                                {
+                                    if (string.IsNullOrEmpty(gvBP2.Rows[i].Cells[y].Text) == false)
+                                    {
+                                        Sub_Totales[y] += Convert.ToDecimal(gvBP2.Rows[i].Cells[y].Text);
+                                    }
+                                }
+                            }
+                            Sub_Totales[3] += InvIntTranT;
+                            Sub_Totales[7] += ExisTotalCT;
+                            Sub_Totales[8] += CSTT;
+                            Sub_Totales[9] += SCDT;
+                            Sub_Totales[10] += FaltAlmT;
+                            Sub_Totales[11] += FAPT;
+                            Sub_Totales[17] += RMTST;
+                            Sub_Totales[18] += RTarimaT;
+                            Sub_Totales[21] += DemResT;
+                            Sub_Totales[24] += TempDispoT;
+                            Sub_Totales[25] += ExcPedidoT;
+                            Sub_Totales[26] += ExdBodT;
+                            Sub_Totales[27] += SSET;
+                            Sub_Totales[28] += SBET;
+                            Sub_Totales[31] += MRolloT;
+
+                            AddTotalRow2("Total", "");
                             subTotalRowIndex = e.Row.RowIndex;
                         }
                         currentId = orderId;
@@ -372,14 +448,14 @@ namespace WebAppBasicosParisina
                     }
                 }
             }
-            for (int y = 3; y < gvBP.Columns.Count; y++)
+            for (int y = 0; y < gvBP.Columns.Count; y++)
             {
                 Sub_Totales[y] = 0;
                 for (int i = subTotalRowIndex; i < gvBP.Rows.Count; i++)
                 {
                     if (string.IsNullOrEmpty(gvBP.Rows[i].Cells[y].Text) == false)
                     {
-                        Sub_Totales[y] += Convert.ToDecimal(gvBP.Rows[i].Cells[y].Text);
+                        //Sub_Totales[y] += Convert.ToDecimal(gvBP.Rows[i].Cells[y].Text);
                     }
                 }
             }
@@ -402,6 +478,62 @@ namespace WebAppBasicosParisina
             AddTotalRow("Grand Total", "");
         }
 
+        protected void OnDataBound2(object sender, EventArgs e)
+        {
+            for (int i = gvBP2.Rows.Count - 1; i > 0; i--)
+            {
+                GridViewRow row = gvBP2.Rows[i];
+                GridViewRow previousRow = gvBP2.Rows[i - 1];
+                /* agrupa la columma de Producto */
+                /*for (int j = 0; j < 1; j++)
+                {
+                    if (row.Cells[j].Text == previousRow.Cells[j].Text)
+                    {
+                        if (previousRow.Cells[j].RowSpan == 0)
+                        {
+                            if (row.Cells[j].RowSpan == 0)
+                            {
+                                previousRow.Cells[j].RowSpan += 2;
+                            }
+                            else
+                            {
+                                previousRow.Cells[j].RowSpan = row.Cells[j].RowSpan + 1;
+                            }
+                            row.Cells[j].Visible = false;
+                        }
+                    }
+                }*/
+            }
+            for (int y = 3; y < gvBP2.Columns.Count; y++)
+            {
+                Sub_Totales[y] = 0;
+                for (int i = subTotalRowIndex; i < gvBP2.Rows.Count; i++)
+                {
+                    if (string.IsNullOrEmpty(gvBP2.Rows[i].Cells[y].Text) == false)
+                    {
+                        Sub_Totales[y] += Convert.ToDecimal(gvBP2.Rows[i].Cells[y].Text);
+                    }
+                }
+            }
+            Sub_Totales[3] += InvIntTranT;
+            Sub_Totales[7] += ExisTotalCT;
+            Sub_Totales[8] += CSTT;
+            Sub_Totales[9] += SCDT;
+            Sub_Totales[10] += FaltAlmT;
+            Sub_Totales[11] += FAPT;
+            Sub_Totales[17] += RMTST;
+            Sub_Totales[18] += RTarimaT;
+            Sub_Totales[21] += DemResT;
+            Sub_Totales[24] += TempDispoT;
+            Sub_Totales[25] += ExcPedidoT;
+            Sub_Totales[26] += ExdBodT;
+            Sub_Totales[27] += SSET;
+            Sub_Totales[28] += SBET;
+            Sub_Totales[31] += MRolloT;
+            AddTotalRow2("Total", "");
+            AddTotalRow2("Grand Total", "");
+        }
+
         private void AddTotalRow(string labelText, string value)
         {
             GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Normal);
@@ -413,10 +545,59 @@ namespace WebAppBasicosParisina
                 row.Style.Add("font-weight", "bold");
                 row.Style.Add("font-size", "9.5pt");
                 row.Style.Add("color", "white");
-                row.Cells.AddRange(new TableCell[32] { 
+                row.Cells.AddRange(new TableCell[3] { 
                                     new TableCell (), //Empty Cell
                                     new TableCell { Text = labelText, HorizontalAlign = HorizontalAlign.Left},
+                                    new TableCell ()
+                                    
+                                });
+                //row.BorderColor = System.Drawing.Color.FromArgb(201, 225, 246);
+                row.BorderColor = System.Drawing.Color.FromArgb(144, 160, 175);
+            }
+            else if (labelText.Equals("Grand Total") == true)
+            {
+                row.BackColor = ColorTranslator.FromHtml("#147514");
+                row.Style.Add("font-weight", "bold");
+                row.Style.Add("font-size", "10pt");
+                row.Style.Add("color", "white");
+                row.Cells.AddRange(new TableCell[3] { 
                                     new TableCell (), //Empty Cell
+                                    new TableCell { Text = labelText, HorizontalAlign = HorizontalAlign.Left},
+                                    new TableCell ()                                    
+                                });
+                row.BorderColor = System.Drawing.Color.FromArgb(144, 160, 175);
+            }
+            
+            InvIntTranT = 0;
+            ExisTotalCT = 0;
+            CSTT = 0;
+            SCDT = 0;
+            FaltAlmT = 0;
+            FAPT = 0;
+            RMTST = 0;
+            RTarimaT = 0;
+            DemResT = 0;
+            TempDispoT = 0;
+            ExcPedidoT = 0;
+            ExdBodT = 0;
+            SSET = 0;
+            SBET = 0;
+            MRolloT = 0;
+            gvBP.Controls[0].Controls.Add(row);
+        }
+
+        private void AddTotalRow2(string labelText, string value)
+        {
+            GridViewRow row = new GridViewRow(0, 0, DataControlRowType.DataRow, DataControlRowState.Normal);
+            //row.BackColor = ColorTranslator.FromHtml("#C9E1F6");
+
+            if (labelText.Equals("Total") == true)
+            {
+                row.BackColor = ColorTranslator.FromHtml("#85BE55");
+                row.Style.Add("font-weight", "bold");
+                row.Style.Add("font-size", "9.5pt");
+                row.Style.Add("color", "white");
+                row.Cells.AddRange(new TableCell[29] { 
                                     new TableCell { Text = Sub_Totales[3].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Sub_Totales[4].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Sub_Totales[5].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
@@ -456,10 +637,7 @@ namespace WebAppBasicosParisina
                 row.Style.Add("font-weight", "bold");
                 row.Style.Add("font-size", "10pt");
                 row.Style.Add("color", "white");
-                row.Cells.AddRange(new TableCell[32] { 
-                                    new TableCell (), //Empty Cell
-                                    new TableCell { Text = labelText, HorizontalAlign = HorizontalAlign.Left},
-                                    new TableCell (), //Empty Cell
+                row.Cells.AddRange(new TableCell[29] { 
                                     new TableCell { Text = Grand_Total[3].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Grand_Total[4].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
                                     new TableCell { Text = Grand_Total[5].ToString("N2"), HorizontalAlign = HorizontalAlign.Right },
@@ -492,7 +670,7 @@ namespace WebAppBasicosParisina
                                 });
                 row.BorderColor = System.Drawing.Color.FromArgb(144, 160, 175);
             }
-            
+
             InvIntTranT = 0;
             ExisTotalCT = 0;
             CSTT = 0;
@@ -508,7 +686,7 @@ namespace WebAppBasicosParisina
             SSET = 0;
             SBET = 0;
             MRolloT = 0;
-            gvBP.Controls[0].Controls.Add(row);
+            gvBP2.Controls[0].Controls.Add(row);
         }
 
         public decimal inventarioIntTrans(string valor1, string valor2, string valor3, string valor4, string valor5, string valor6)
