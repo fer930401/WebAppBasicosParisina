@@ -19,6 +19,9 @@
 
     <!-- Referencia de archivos JavaScript en la carpeta Scripts -->
     <script type="text/javascript" src="<%= ResolveClientUrl("~/Scripts/jquery-1.10.2.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/Scripts/gridviewScroll.min.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/Scripts/jquery-ui.js") %>"></script>
+
     <script type="text/javascript" src="<%= ResolveClientUrl("~/Scripts/bootstrap.js") %>"></script>
 </head>
 <body>

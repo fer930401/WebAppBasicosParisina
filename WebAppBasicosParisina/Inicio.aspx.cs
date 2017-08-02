@@ -229,6 +229,7 @@ namespace WebAppBasicosParisina
                     ddlBusqueda.DataValueField = "fec_ultact";
                     ddlBusqueda.DataBind();
                     ddlBusqueda.Items.Insert(0, new ListItem("Selecciona una fecha", "NA"));
+                    
                 }
             }
             else
@@ -257,6 +258,8 @@ namespace WebAppBasicosParisina
                             gvBP.DataBind();
                             gvBP2.DataSource = dt;
                             gvBP2.DataBind();
+                            //gvBP2.Focus();
+                            gvBP2.Rows[0].Cells[0].FindControl("lblInvIIT").Focus();
                         }
                     }
                 }
@@ -391,7 +394,7 @@ namespace WebAppBasicosParisina
                                 Sub_Totales[y] = 0;
                                 for (int i = subTotalRowIndex; i < e.Row.RowIndex; i++)
                                 {
-                                    if (string.IsNullOrEmpty(gvBP2.Rows[i].Cells[y].Text) == false)
+                                    if (string.IsNullOrEmpty(gvBP2.Rows[i].Cells[y].Text) == false && y < 29)
                                     {
                                         Sub_Totales[y] += Convert.ToDecimal(gvBP2.Rows[i].Cells[y].Text);
                                     }
@@ -509,7 +512,7 @@ namespace WebAppBasicosParisina
                 Sub_Totales[y] = 0;
                 for (int i = subTotalRowIndex; i < gvBP2.Rows.Count; i++)
                 {
-                    if (string.IsNullOrEmpty(gvBP2.Rows[i].Cells[y].Text) == false)
+                    if (string.IsNullOrEmpty(gvBP2.Rows[i].Cells[y].Text) == false && i<29)
                     {
                         Sub_Totales[y] += Convert.ToDecimal(gvBP2.Rows[i].Cells[y].Text);
                     }
@@ -978,41 +981,60 @@ namespace WebAppBasicosParisina
             decimal totSku = 0m;
             decimal rollos_tarima = 0m;
             decimal mts_rollos = 0m;
+            string sku_cve;
 
-            foreach (GridViewRow GVRow in gvBP.Rows)
+            int? folio = 0;
+
+            using (SqlConnection scn1 = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["BPconnetion"].ConnectionString))
             {
-                if (string.IsNullOrEmpty(GVRow.Cells[4].Text) == false)
+                SqlConnection _conn = scn1;
+                SqlCommand _cmd = new SqlCommand();
+                _cmd.Connection = _conn;
+                _cmd.CommandType = CommandType.Text;
+                _cmd.CommandText = String.Format("select ult_fol from xufolios where ef_cve = '001' and tipdoc_cve = 'warepa'");
+                SqlDataAdapter _da = new SqlDataAdapter(_cmd);
+                _conn.Open();
+                folio = Convert.ToInt32(_cmd.ExecuteScalar());
+                _conn.Close();
+            }
+            int i = 0;
+            foreach (GridViewRow GVRow in gvBP2.Rows)
+            {
+                if (string.IsNullOrEmpty(gvBP.Rows[i].Cells[0].Text) == false)
                 {
-                    Producto = HttpUtility.HtmlDecode(GVRow.Cells[0].Text);
-                    colorVariante = GVRow.Cells[1].Text;
-                    descCliente = GVRow.Cells[2].Text;
-                    invInteTrans = decimal.Parse("0");//cambiar
-                    ped_surtir = decimal.Parse(GVRow.Cells[4].Text);
-                    ped_viejos_surtir = decimal.Parse(GVRow.Cells[5].Text);
-                    ped_surtidos = decimal.Parse(GVRow.Cells[6].Text);
-                    Label lblExisTotal = (Label)GVRow.Cells[7].FindControl("lblExisTotal");
+                    Producto = HttpUtility.HtmlDecode(gvBP.Rows[i].Cells[0].Text);
+                    colorVariante = gvBP.Rows[i].Cells[1].Text;
+                    descCliente = gvBP.Rows[i].Cells[2].Text;
+                    //invInteTrans = decimal.Parse(GVRow.Cells[0].Text);//cambiar
+                    Label lblInvIIT = (Label)GVRow.Cells[0].FindControl("lblInvIIT");
+                    invInteTrans = decimal.Parse(lblInvIIT.Text);
+
+                    ped_surtir = decimal.Parse(GVRow.Cells[1].Text);
+                    ped_viejos_surtir = decimal.Parse(GVRow.Cells[2].Text);
+                    ped_surtidos = decimal.Parse(GVRow.Cells[3].Text);
+                    Label lblExisTotal = (Label)GVRow.Cells[4].FindControl("lblExisTotal");
                     exis_total = decimal.Parse(lblExisTotal.Text);
-                    Label lblCST = (Label)GVRow.Cells[8].FindControl("lblCST");
+                    Label lblCST = (Label)GVRow.Cells[5].FindControl("lblCST");
                     com_sug_tarima = decimal.Parse(lblCST.Text);
-                    Label lblSDC = (Label)GVRow.Cells[9].FindControl("lblSDC");
+                    Label lblSDC = (Label)GVRow.Cells[6].FindControl("lblSDC");
                     sob_des_comp = decimal.Parse(lblSDC.Text);
-                    Label lblFA = (Label)GVRow.Cells[10].FindControl("lblFA");
+                    Label lblFA = (Label)GVRow.Cells[7].FindControl("lblFA");
                     faltAlm = decimal.Parse(lblFA.Text);
-                    Label lblFAP = (Label)GVRow.Cells[11].FindControl("lblFAP");
+                    Label lblFAP = (Label)GVRow.Cells[8].FindControl("lblFAP");
                     falAlmPed = decimal.Parse(lblFAP.Text);
-                    max_tarima = decimal.Parse(GVRow.Cells[12].Text);
-                    punReorden = decimal.Parse(GVRow.Cells[13].Text);
-                    temp_tarima = decimal.Parse(GVRow.Cells[14].Text);
-                    tarima_dispo = decimal.Parse(GVRow.Cells[15].Text);
-                    fabResurtido = decimal.Parse(GVRow.Cells[16].Text);
-                    Label lblFRMTS = (Label)GVRow.Cells[17].FindControl("lblFRMTS");
+                    max_tarima = decimal.Parse(GVRow.Cells[9].Text);
+                    punReorden = decimal.Parse(GVRow.Cells[10].Text);
+                    temp_tarima = decimal.Parse(GVRow.Cells[11].Text);
+                    tarima_dispo = decimal.Parse(GVRow.Cells[12].Text);
+                    fabResurtido = decimal.Parse(GVRow.Cells[13].Text);
+                    Label lblFRMTS = (Label)GVRow.Cells[14].FindControl("lblFRMTS");
                     fabResurtidoMts = decimal.Parse(lblFRMTS.Text);
-                    Label lblFRT = (Label)GVRow.Cells[18].FindControl("lblFRT");
+                    Label lblFRT = (Label)GVRow.Cells[15].FindControl("lblFRT");
                     fabResurtidoTarima = decimal.Parse(lblFRT.Text);
-                    TextBox txtTarExtrasPed = (TextBox)GVRow.Cells[21].FindControl("txtTarExtrasPed");
+                    TextBox txtTarExtrasPed = (TextBox)GVRow.Cells[16].FindControl("txtTarExtrasPed");
                     tarimaExtraPed = decimal.Parse(txtTarExtrasPed.Text);//cambiar
 
-                    TextBox txt = (TextBox)GVRow.Cells[20].FindControl("txtNumTarimas"); //se busca el input donde se inserta la cantidad
+                    TextBox txt = (TextBox)GVRow.Cells[17].FindControl("txtNumTarimas"); //se busca el input donde se inserta la cantidad
                     if (txt != null)
                     {
                         if (txt.Text.Equals("0") == false && string.IsNullOrEmpty(txt.Text) == false)
@@ -1024,40 +1046,61 @@ namespace WebAppBasicosParisina
                             autorizaPed = Int32.Parse("0");
                         }
                     }
-                    TextBox lblDemResi = (TextBox)GVRow.Cells[21].FindControl("txtDemResidual");
+                    TextBox lblDemResi = (TextBox)GVRow.Cells[18].FindControl("txtDemResidual");
                     demResidual = decimal.Parse(lblDemResi.Text);
-                    demParisina = decimal.Parse(GVRow.Cells[22].Text);
-                    fabTempTarima = decimal.Parse(GVRow.Cells[23].Text);
-                    Label lblFTD = (Label)GVRow.Cells[24].FindControl("lblFTD");
+                    demParisina = decimal.Parse(GVRow.Cells[19].Text);
+                    fabTempTarima = decimal.Parse(GVRow.Cells[20].Text);
+                    Label lblFTD = (Label)GVRow.Cells[21].FindControl("lblFTD");
                     fabTempDispo = decimal.Parse(lblFTD.Text);
-                    Label lblEIP = (Label)GVRow.Cells[25].FindControl("lblEIP");
+                    Label lblEIP = (Label)GVRow.Cells[22].FindControl("lblEIP");
                     excIncPed = decimal.Parse(lblEIP.Text);
-                    Label lblExcBod = (Label)GVRow.Cells[26].FindControl("lblExcBod");
+                    Label lblExcBod = (Label)GVRow.Cells[23].FindControl("lblExcBod");
                     excBodega = decimal.Parse(lblExcBod.Text);
-                    Label lblSkuSinExis = (Label)GVRow.Cells[27].FindControl("lblSkuSinExis");
+                    Label lblSkuSinExis = (Label)GVRow.Cells[24].FindControl("lblSkuSinExis");
                     skuSinExis = decimal.Parse(lblSkuSinExis.Text);
-                    Label lblSkuBajoDispo = (Label)GVRow.Cells[28].FindControl("lblSkuBajoDispo");
+                    Label lblSkuBajoDispo = (Label)GVRow.Cells[25].FindControl("lblSkuBajoDispo");
                     skuBajoDispo = decimal.Parse(lblSkuBajoDispo.Text);
-                    totSku = decimal.Parse(GVRow.Cells[29].Text);
-                    rollos_tarima = decimal.Parse(GVRow.Cells[30].Text);
-                    Label lblMTSR = (Label)GVRow.Cells[31].FindControl("lblMTSR");
+                    totSku = decimal.Parse(GVRow.Cells[26].Text);
+                    rollos_tarima = decimal.Parse(GVRow.Cells[27].Text);
+                    Label lblMTSR = (Label)GVRow.Cells[28].FindControl("lblMTSR");
                     mts_rollos = decimal.Parse(lblMTSR.Text);
+                    sku_cve = Server.HtmlDecode(GVRow.Cells[29].Text);
+
 
                     if (autorizaPed > 0)
                     {
-                        Entidades.WebAppInsertaResurdoParisina_Result insertaResurtido = logicaNegocio.insertaResurtido("001", "VTBASP", Producto, colorVariante, autorizaPed, Session["user_cve"].ToString());
-                        if (insertaResurtido != null)
+                        try
                         {
-                            error = insertaResurtido.error;
-                            mensaje = insertaResurtido.mensaje;
-                            if (error == 0)
+                            /*Entidades.WebAppInsertaResurdoParisina_Result insertaResurtido = logicaNegocio.insertaResurtido("001", "VTBASP", Producto, colorVariante, autorizaPed, Session["user_cve"].ToString());
+                            if (insertaResurtido != null)
                             {
-                                errorInsert = null;
-                            }
-                            else
+                                error = insertaResurtido.error;
+                                mensaje = insertaResurtido.mensaje;
+                                if (error == 0)
+                                {
+                                    errorInsert = null;
+                                }
+                                else
+                                {
+                                    errorInsert = mensaje;
+                                }
+                            }*/
+                            using (SqlConnection scn1 = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["BPconnetion"].ConnectionString))
                             {
-                                errorInsert = mensaje;
+                                SqlConnection _conn = scn1;
+                                SqlCommand _cmd = new SqlCommand();
+                                _cmd.Connection = _conn;
+                                _cmd.CommandType = CommandType.Text;
+                                _cmd.CommandText = String.Format("exec WebAppInsertaResurdoParisina '{0}','{1}','{2}','{3}',{4},'{5}'", "001", "VTBASP", Producto, colorVariante, autorizaPed, Session["user_cve"].ToString());
+                                SqlDataAdapter _da = new SqlDataAdapter(_cmd);
+                                _conn.Open();
+                                _cmd.ExecuteNonQuery();
+                                _conn.Close();
                             }
+                        }
+                        catch (Exception ex)
+                        {
+                            errorInsert += ex.Message.ToString().Replace("\r\n", "\\n").Replace("'", "") + ",";
                         }
                     }
 
@@ -1066,16 +1109,16 @@ namespace WebAppBasicosParisina
                         SqlCommand scm = new SqlCommand();
                         scm.Connection = scn;
                         scm.CommandText = String.Format("INSERT INTO WebAppBasicos_parisina " +
-                        "(telanom, color_bar, desc_cliente, inv_int_trans, rollos_ped_xsurtir, rollos_ped_xsurtir_old, " +
+                        "(num_transaccion, telanom, color_bar, desc_cliente, inv_int_trans, rollos_ped_xsurtir, rollos_ped_xsurtir_old, " +
                         "rollos_ped_surtidos, ExistTotal, com_sug_tarima, sobra_desp_compra, faltanteAlmacen, faltAlmPedido," +
                         "max_tarima, preorden_tarima, temporada_tarima, dispo_tarima, resurtido_rollos, resurtido_mts, " +
                         "resurtido_tarima, tarima_extra, autorizadoXpedido, demanda_residual, compra_sugerida, fabTemporadaTarima, " +
-                        "fabTemporadaDispo, excedentePedido, excedenteBodega, skuSinExis, skuBajoDisp, contSku_cve, rollos_tarima, rollo_mts, fec_ultact) " +
-                        "VALUES ('{0}','{1}','{2}',{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},'{32}')", Producto, colorVariante,
+                        "fabTemporadaDispo, excedentePedido, excedenteBodega, skuSinExis, skuBajoDisp, contSku_cve, rollos_tarima, rollo_mts, fec_ultact, sku_cve) " +
+                        "VALUES ({0},'{1}','{2}','{3}',{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},'{33}','{34}')", folio, Producto, colorVariante,
                         descCliente, invInteTrans, ped_surtir, ped_viejos_surtir, ped_surtidos, exis_total, com_sug_tarima, sob_des_comp,
                         faltAlm, falAlmPed, max_tarima, punReorden, temp_tarima, tarima_dispo, fabResurtido, fabResurtidoMts, fabResurtidoTarima,
                         tarimaExtraPed, autorizaPed, demResidual, demParisina, fabTempTarima, fabTempDispo, excIncPed, excBodega, skuSinExis,
-                        skuBajoDispo, totSku, rollos_tarima, mts_rollos, DateTime.Now.ToString("MM/dd/yyyy"));
+                        skuBajoDispo, totSku, rollos_tarima, mts_rollos, DateTime.Now.ToString("MM/dd/yyyy"),sku_cve);
                         try
                         {
                             scn.Open();
@@ -1085,10 +1128,24 @@ namespace WebAppBasicosParisina
                         catch (Exception ex)
                         {
                             scn.Close();
-                            errorInsert = ex.Message;
+                            errorInsert += ex.Message.ToString().Replace("\r\n", "\\n").Replace("'", "");
                         }
                     }
                 }
+                i++;
+            }
+
+            using (SqlConnection scn1 = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["BPconnetion"].ConnectionString))
+            {
+                SqlConnection _conn = scn1;
+                SqlCommand _cmd = new SqlCommand();
+                _cmd.Connection = _conn;
+                _cmd.CommandType = CommandType.Text;
+                _cmd.CommandText = String.Format("update xufolios set ult_fol = {0} + 1 where tipdoc_cve = 'warepa' and ef_cve = '001'",folio);
+                SqlDataAdapter _da = new SqlDataAdapter(_cmd);
+                _conn.Open();
+                folio = Convert.ToInt32(_cmd.ExecuteScalar());
+                _conn.Close();
             }
             if (string.IsNullOrEmpty(errorInsert) == true)
             {
