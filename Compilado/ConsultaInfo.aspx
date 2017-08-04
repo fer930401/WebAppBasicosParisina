@@ -70,43 +70,50 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div style="width: 40%;float: left; position:relative; min-height: 1px; padding-left: 15px;">
                 <asp:GridView ID="gvBP" runat="server" AutoGenerateColumns="false" HeaderStyle-BackColor="#042644" HeaderStyle-ForeColor="White"
                     EmptyDataText="No hay resultados para la busqueda" Font-Size="X-Small" OnDataBound="OnDataBound" OnRowCreated = "OnRowCreated">
                     <HeaderStyle Font-Bold="True" />
                     <Columns>
-                        <asp:BoundField DataField="telanom" HeaderText="Producto:" />
-                        <asp:BoundField DataField="color_bar" HeaderText="Color Variante:" />
-                        <asp:BoundField DataField="desc_cliente" HeaderText="Descripcion Cliente:" />
-                        <asp:BoundField DataField="inv_int_trans" HeaderText="Inventario inc intermedio y transito:" />
-                        <asp:BoundField DataField="rollos_ped_xsurtir" HeaderText="Pedidos x Surtir:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="rollos_ped_xsurtir_old" HeaderText="'Pedidos viejos x surtir:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="rollos_ped_surtidos" HeaderText="Pedidos Surtidos:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="ExistTotal" HeaderText="Exis Total:"  ItemStyle-BackColor="Gray" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="com_sug_tarima" HeaderText="Compra Sugerida Tarima:"  ItemStyle-BackColor="#9BC2E6"  ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="sobra_desp_compra" HeaderText="Sobrante despues compra disp" ItemStyle-BackColor="#F4B084" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="faltanteAlmacen" HeaderText="Faltante vs almacen:" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="faltAlmPedido" HeaderText="Faltante vs almacen + pedidos:" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="max_tarima" HeaderText="Maximo tarimas:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="preorden_tarima" HeaderText="Punto de reorden tarima:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="temporada_tarima" HeaderText="Temporada tarimas:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="dispo_tarima" HeaderText="Tarima x dispo:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="resurtido_rollos" HeaderText="Fabricar para Resurtido Dispos:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="resurtido_mts" HeaderText="Fabricar para Resurtido Mts:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="resurtido_tarima" HeaderText="Fabricar para Resurido tarimas:" ItemStyle-BackColor="#9BC2E6" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="tarima_extra" HeaderText="Tarimas Extras en pedido:" ItemStyle-BackColor="#DDEBF7" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="autorizadoXpedido" HeaderText="Autorizado x meter_pedidos:" ItemStyle-BackColor="#92CE50" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="demanda_residual" HeaderText="Demanda Residual:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="compra_sugerida" HeaderText="Parisina Demanda:" ItemStyle-BackColor="#DDEBF7" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right"/>
-                        <asp:BoundField DataField="fabTemporadaTarima" HeaderText="Fabricar para Temporada tarimas:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="fabTemporadaDispo" HeaderText="Fabricar para Temporada dispos:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="excedentePedido" HeaderText="Excedentes inc Pedidos:" ItemStyle-BackColor="#FFFF00" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right"/>
-                        <asp:BoundField DataField="excedenteBodega" HeaderText="Excedentes en Bodega:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="skuSinExis" HeaderText="Sku sin existencia:" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="skuBajoDisp" HeaderText="Sku bajo disponible:" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="contSku_cve" HeaderText="Total Skus:" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="rollos_tarima" HeaderText="Rollos x tarima:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
-                        <asp:BoundField DataField="rollo_mts" HeaderText="Mts x rollo.:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="telanom" HeaderText="Producto:"  HeaderStyle-Height="60px" ItemStyle-Width="150px" HtmlEncode="false" />
+                        <asp:BoundField DataField="color_bar" HeaderText="Color Variante:" HeaderStyle-Height="60px"  HtmlEncode="false"/>
+                        <asp:BoundField DataField="desc_cliente" HeaderText="Descripcion Cliente:" ItemStyle-Height="50px" ItemStyle-Width="200px"  HeaderStyle-Height="60px" />
+                    </Columns>
+                </asp:GridView>
+            </div>
+            <div style="width: 59%;float: left; position:relative; min-height: 1px; padding-right: 15px; overflow-x:scroll;">
+                <asp:GridView ID="gvBP2" runat="server" AutoGenerateColumns="false" HeaderStyle-BackColor="#042644" HeaderStyle-ForeColor="White"
+                    EmptyDataText="No hay resultados para la busqueda" Font-Size="X-Small" OnDataBound="OnDataBound2" OnRowCreated = "OnRowCreated2" Width="100%">
+                    <Columns>
+                        <asp:BoundField DataField="inv_int_trans" HeaderText="Inventario inc intermedio y transito:" ItemStyle-HorizontalAlign = "Right"  ItemStyle-Height="50px" HeaderStyle-Height="60px"  />
+                        <asp:BoundField DataField="rollos_ped_xsurtir" HeaderStyle-Height="60px" HeaderText="Pedidos x Surtir:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="rollos_ped_xsurtir_old" HeaderStyle-Height="60px" HeaderText="'Pedidos viejos x surtir:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="rollos_ped_surtidos" HeaderStyle-Height="60px" HeaderText="Pedidos Surtidos:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="ExistTotal" HeaderText="Exis Total:"  HeaderStyle-Height="60px" ItemStyle-BackColor="#3B6B97" ItemStyle-ForeColor="WhiteSmoke" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="com_sug_tarima" HeaderText="Compra Sugerida Tarima:"  HeaderStyle-Height="60px" ItemStyle-BackColor="#AF7728" ItemStyle-ForeColor="WhiteSmoke" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="sobra_desp_compra" HeaderText="Sobrante despues compra disp" HeaderStyle-Height="60px" ItemStyle-BackColor="#8D2F0C" ItemStyle-ForeColor="WhiteSmoke" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="faltanteAlmacen" HeaderText="Faltante vs almacen:" HeaderStyle-Height="60px" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="faltAlmPedido" HeaderText="Faltante vs almacen + pedidos:" HeaderStyle-Height="60px" HeaderStyle-Wrap="false" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="max_tarima" HeaderStyle-Height="60px" HeaderText="Maximo tarimas:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="preorden_tarima" HeaderStyle-Height="60px" HeaderText="Punto de reorden tarima:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="temporada_tarima" HeaderStyle-Height="60px" HeaderText="Temporada tarimas:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="dispo_tarima" HeaderStyle-Height="60px" HeaderText="Tarima x dispo:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="resurtido_rollos" HeaderStyle-Height="60px" HeaderText="Fabricar para Resurtido Dispos:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right"  HeaderStyle-Wrap="false" />
+                        <asp:BoundField DataField="resurtido_mts" HeaderText="Fabricar para Resurtido Mts:" HeaderStyle-Height="60px" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="resurtido_tarima" HeaderText="Fabricar para Resurido tarimas:" HeaderStyle-Height="60px" ItemStyle-BackColor="#9BC2E6" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="tarima_extra" HeaderText="Tarimas Extras en pedido:" HeaderStyle-Height="60px" ItemStyle-BackColor="#3B6B97" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="autorizadoXpedido" HeaderText="Autorizado x meter_pedidos:" HeaderStyle-Height="60px" ItemStyle-BackColor="#006F07" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="demanda_residual" HeaderText="Demanda Residual:" HeaderStyle-Height="60px" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="compra_sugerida" HeaderText="Parisina Demanda:" ItemStyle-BackColor="#3B6B97" ItemStyle-ForeColor="WhiteSmoke" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right"/>
+                        <asp:BoundField DataField="fabTemporadaTarima" HeaderStyle-Height="60px" HeaderText="Fabricar para Temporada tarimas:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" HeaderStyle-Wrap="false" />
+                        <asp:BoundField DataField="fabTemporadaDispo" HeaderStyle-Height="60px" HeaderText="Fabricar para Temporada dispos:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" HeaderStyle-Wrap="false" />
+                        <asp:BoundField DataField="excedentePedido" HeaderText="Excedentes inc Pedidos:" HeaderStyle-Height="60px" ItemStyle-BackColor="#DBB721" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right"/>
+                        <asp:BoundField DataField="excedenteBodega" HeaderStyle-Height="60px" HeaderText="Excedentes en Bodega:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="skuSinExis" HeaderStyle-Height="60px" HeaderText="Sku sin existencia:" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="skuBajoDisp" HeaderStyle-Height="60px" HeaderText="Sku bajo disponible:" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="contSku_cve" HeaderStyle-Height="60px" HeaderText="Total Skus:" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="rollos_tarima" HeaderStyle-Height="60px" HeaderText="Rollos x tarima:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
+                        <asp:BoundField DataField="rollo_mts" HeaderStyle-Height="60px" HeaderText="Mts x rollo.:" DataFormatString = "{0:N2}" ItemStyle-HorizontalAlign = "Right" />
                     </Columns>
                 </asp:GridView>
             </div>

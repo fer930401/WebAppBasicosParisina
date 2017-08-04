@@ -156,17 +156,23 @@
 
                         <asp:TemplateField  HeaderText="Tarimas Extras en_pedido:" HeaderStyle-Height="60px" ItemStyle-BackColor="#3B6B97"  ItemStyle-Width="100px">
                             <ItemTemplate>
-                                <asp:TextBox ID="txtTarExtrasPed" runat="server" TextMode="Number" CssClass="form-control txtTarExtrasPed" style="background-color:#3B6B97; color:whitesmoke;" Min="0" Value="0" Font-Size="Small" onkeyup="CalculateTotals();" onclick="CalculateTotals();" ></asp:TextBox>
+                                <div style=<%# validaArttip(Eval("art_tip").ToString()) %>>
+                                    <asp:TextBox ID="txtTarExtrasPed" runat="server" TextMode="Number" CssClass="form-control txtTarExtrasPed" style="background-color:#3B6B97; color:whitesmoke;" Min="0" Value="0" Font-Size="Small" onkeyup="CalculateTotals();" onclick="CalculateTotals();"   ></asp:TextBox>
+                                </div>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField  HeaderText="Autorizado x meter_pedidos:" HeaderStyle-Height="60px" ItemStyle-BackColor="#006F07"  ItemStyle-Width="100px">
                             <ItemTemplate>
-                                <asp:TextBox ID="txtNumTarimas" runat="server" TextMode="Number" CssClass="form-control txtNumTarimas" style="background-color:#006F07; color:whitesmoke;" Min="0" Value="0" Font-Size="Small" onkeyup="CalculateTotals();" onclick="CalculateTotals();" ></asp:TextBox>
+                                <div style=<%# validaArttip(Eval("art_tip").ToString()) %>>
+                                    <asp:TextBox ID="txtNumTarimas" runat="server" TextMode="Number" CssClass="form-control txtNumTarimas" style="background-color:#006F07; color:whitesmoke;" Min="0" Value="0" Font-Size="Small" onkeyup="CalculateTotals();" onclick="CalculateTotals();" ></asp:TextBox>
+                                </div>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Demanda Residual:" HeaderStyle-Height="60px" ItemStyle-HorizontalAlign = "Right" ItemStyle-Width="120px" >
                             <ItemTemplate>
-                                <asp:TextBox ID="txtDemResidual" runat="server" CssClass="form-control txtDemResidual" Font-Size="Small" style="cursor: not-allowed; background-color: #eeeeee; pointer-events: none;" onkeyup="CalculateTotals();" onclick="CalculateTotals();" ></asp:TextBox>
+                                <div style=<%# validaArttip(Eval("art_tip").ToString()) %>>
+                                    <asp:TextBox ID="txtDemResidual" runat="server" CssClass="form-control txtDemResidual" Font-Size="Small" style="cursor: not-allowed; background-color: #eeeeee; pointer-events: none;" onkeyup="CalculateTotals();" onclick="CalculateTotals();" ></asp:TextBox>
+                                </div>
                             </ItemTemplate>
                         </asp:TemplateField>
 

@@ -5,35 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="BasicosParisinaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="WebAppBasicos_parisina">
           <Key>
-            <PropertyRef Name="desc_cliente" />
-            <PropertyRef Name="max_tarima" />
-            <PropertyRef Name="preorden_tarima" />
-            <PropertyRef Name="temporada_tarima" />
-            <PropertyRef Name="dispo_tarima" />
-            <PropertyRef Name="resurtido_rollos" />
-            <PropertyRef Name="resurtido_mts" />
-            <PropertyRef Name="resurtido_tarima" />
-            <PropertyRef Name="tarima_extra" />
-            <PropertyRef Name="autorizadoXpedido" />
-            <PropertyRef Name="compra_sugerida" />
-            <PropertyRef Name="fabTemporadaTarima" />
-            <PropertyRef Name="fabTemporadaDispo" />
-            <PropertyRef Name="excedentePedido" />
-            <PropertyRef Name="excedenteBodega" />
-            <PropertyRef Name="skuSinExis" />
-            <PropertyRef Name="skuBajoDisp" />
-            <PropertyRef Name="contSku_cve" />
-            <PropertyRef Name="rollos_tarima" />
-            <PropertyRef Name="rollo_mts" />
+            <PropertyRef Name="num_transaccion" />
             <PropertyRef Name="fec_ultact" />
+            <PropertyRef Name="sku_cve" />
           </Key>
+          <Property Name="num_transaccion" Type="int" Nullable="false" />
           <Property Name="telanom" Type="nvarchar" MaxLength="100" />
           <Property Name="color_bar" Type="nvarchar" MaxLength="100" />
-          <Property Name="desc_cliente" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="desc_cliente" Type="nvarchar" MaxLength="60" />
           <Property Name="inv_int_trans" Type="decimal" Precision="18" Scale="0" />
           <Property Name="rollos_ped_xsurtir" Type="decimal" Precision="18" Scale="0" />
           <Property Name="rollos_ped_xsurtir_old" Type="decimal" Precision="18" Scale="0" />
@@ -64,6 +45,7 @@ warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have 
           <Property Name="rollos_tarima" Type="smallint" Nullable="false" />
           <Property Name="rollo_mts" Type="decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="fec_ultact" Type="datetime" Nullable="false" />
+          <Property Name="sku_cve" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
         <EntityType Name="xcdconapl_cl">
           <Key>
@@ -123,45 +105,9 @@ warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have 
           <Parameter Name="id_ultact" Type="nchar" Mode="In" />
         </Function>
         <EntityContainer Name="BasicosParisinaModelStoreContainer">
+          <EntitySet Name="WebAppBasicos_parisina" EntityType="Self.WebAppBasicos_parisina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="xcdconapl_cl" EntityType="Self.xcdconapl_cl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="xcuser" EntityType="Self.xcuser" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="WebAppBasicos_parisina" EntityType="Self.WebAppBasicos_parisina" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [WebAppBasicos_parisina].[telanom] AS [telanom], 
-    [WebAppBasicos_parisina].[color_bar] AS [color_bar], 
-    [WebAppBasicos_parisina].[desc_cliente] AS [desc_cliente], 
-    [WebAppBasicos_parisina].[inv_int_trans] AS [inv_int_trans], 
-    [WebAppBasicos_parisina].[rollos_ped_xsurtir] AS [rollos_ped_xsurtir], 
-    [WebAppBasicos_parisina].[rollos_ped_xsurtir_old] AS [rollos_ped_xsurtir_old], 
-    [WebAppBasicos_parisina].[rollos_ped_surtidos] AS [rollos_ped_surtidos], 
-    [WebAppBasicos_parisina].[ExistTotal] AS [ExistTotal], 
-    [WebAppBasicos_parisina].[com_sug_tarima] AS [com_sug_tarima], 
-    [WebAppBasicos_parisina].[sobra_desp_compra] AS [sobra_desp_compra], 
-    [WebAppBasicos_parisina].[faltanteAlmacen] AS [faltanteAlmacen], 
-    [WebAppBasicos_parisina].[faltAlmPedido] AS [faltAlmPedido], 
-    [WebAppBasicos_parisina].[max_tarima] AS [max_tarima], 
-    [WebAppBasicos_parisina].[preorden_tarima] AS [preorden_tarima], 
-    [WebAppBasicos_parisina].[temporada_tarima] AS [temporada_tarima], 
-    [WebAppBasicos_parisina].[dispo_tarima] AS [dispo_tarima], 
-    [WebAppBasicos_parisina].[resurtido_rollos] AS [resurtido_rollos], 
-    [WebAppBasicos_parisina].[resurtido_mts] AS [resurtido_mts], 
-    [WebAppBasicos_parisina].[resurtido_tarima] AS [resurtido_tarima], 
-    [WebAppBasicos_parisina].[tarima_extra] AS [tarima_extra], 
-    [WebAppBasicos_parisina].[autorizadoXpedido] AS [autorizadoXpedido], 
-    [WebAppBasicos_parisina].[demanda_residual] AS [demanda_residual], 
-    [WebAppBasicos_parisina].[compra_sugerida] AS [compra_sugerida], 
-    [WebAppBasicos_parisina].[fabTemporadaTarima] AS [fabTemporadaTarima], 
-    [WebAppBasicos_parisina].[fabTemporadaDispo] AS [fabTemporadaDispo], 
-    [WebAppBasicos_parisina].[excedentePedido] AS [excedentePedido], 
-    [WebAppBasicos_parisina].[excedenteBodega] AS [excedenteBodega], 
-    [WebAppBasicos_parisina].[skuSinExis] AS [skuSinExis], 
-    [WebAppBasicos_parisina].[skuBajoDisp] AS [skuBajoDisp], 
-    [WebAppBasicos_parisina].[contSku_cve] AS [contSku_cve], 
-    [WebAppBasicos_parisina].[rollos_tarima] AS [rollos_tarima], 
-    [WebAppBasicos_parisina].[rollo_mts] AS [rollo_mts], 
-    [WebAppBasicos_parisina].[fec_ultact] AS [fec_ultact]
-    FROM [dbo].[WebAppBasicos_parisina] AS [WebAppBasicos_parisina]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -173,7 +119,6 @@ warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have 
             <Parameter Name="tipdoc_cve" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="xcuser" EntityType="BasicosParisinaModel.xcuser" />
-          <EntitySet Name="WebAppBasicos_parisina" EntityType="BasicosParisinaModel.WebAppBasicos_parisina" />
           <FunctionImport Name="WebAppInsertaResurdoParisina" ReturnType="Collection(BasicosParisinaModel.WebAppInsertaResurdoParisina_Result)">
             <Parameter Name="ef_cve" Mode="In" Type="String" />
             <Parameter Name="tipdoc_cve" Mode="In" Type="String" />
@@ -183,6 +128,7 @@ warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have 
             <Parameter Name="id_ultact" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="xcdconapl_cl" EntityType="BasicosParisinaModel.xcdconapl_cl" />
+          <EntitySet Name="WebAppBasicos_parisina" EntityType="BasicosParisinaModel.WebAppBasicos_parisina" />
         </EntityContainer>
         <ComplexType Name="WebAppBasicosParisina_Result">
           <Property Type="String" Name="sku_cve" Nullable="false" MaxLength="32" />
@@ -239,64 +185,6 @@ warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have 
           <Property Name="status" Type="Int16" />
           <Property Name="sw_password" Type="Int16" />
         </EntityType>
-        <EntityType Name="WebAppBasicos_parisina">
-          <Key>
-            <PropertyRef Name="desc_cliente" />
-            <PropertyRef Name="max_tarima" />
-            <PropertyRef Name="preorden_tarima" />
-            <PropertyRef Name="temporada_tarima" />
-            <PropertyRef Name="dispo_tarima" />
-            <PropertyRef Name="resurtido_rollos" />
-            <PropertyRef Name="resurtido_mts" />
-            <PropertyRef Name="resurtido_tarima" />
-            <PropertyRef Name="tarima_extra" />
-            <PropertyRef Name="autorizadoXpedido" />
-            <PropertyRef Name="compra_sugerida" />
-            <PropertyRef Name="fabTemporadaTarima" />
-            <PropertyRef Name="fabTemporadaDispo" />
-            <PropertyRef Name="excedentePedido" />
-            <PropertyRef Name="excedenteBodega" />
-            <PropertyRef Name="skuSinExis" />
-            <PropertyRef Name="skuBajoDisp" />
-            <PropertyRef Name="contSku_cve" />
-            <PropertyRef Name="rollos_tarima" />
-            <PropertyRef Name="rollo_mts" />
-            <PropertyRef Name="fec_ultact" />
-          </Key>
-          <Property Name="telanom" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="color_bar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="desc_cliente" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="inv_int_trans" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="rollos_ped_xsurtir" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="rollos_ped_xsurtir_old" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="rollos_ped_surtidos" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ExistTotal" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="com_sug_tarima" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="sobra_desp_compra" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="faltanteAlmacen" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="faltAlmPedido" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="max_tarima" Type="Int16" Nullable="false" />
-          <Property Name="preorden_tarima" Type="Int16" Nullable="false" />
-          <Property Name="temporada_tarima" Type="Int16" Nullable="false" />
-          <Property Name="dispo_tarima" Type="Int16" Nullable="false" />
-          <Property Name="resurtido_rollos" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="resurtido_mts" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="resurtido_tarima" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="tarima_extra" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="autorizadoXpedido" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="demanda_residual" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="compra_sugerida" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="fabTemporadaTarima" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="fabTemporadaDispo" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="excedentePedido" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="excedenteBodega" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="skuSinExis" Type="Int32" Nullable="false" />
-          <Property Name="skuBajoDisp" Type="Int32" Nullable="false" />
-          <Property Name="contSku_cve" Type="Int32" Nullable="false" />
-          <Property Name="rollos_tarima" Type="Int16" Nullable="false" />
-          <Property Name="rollo_mts" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="fec_ultact" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <ComplexType Name="WebAppInsertaResurdoParisina_Result">
           <Property Type="Int32" Name="error" Nullable="true" />
           <Property Type="String" Name="mensaje" Nullable="true" />
@@ -328,6 +216,48 @@ warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have 
           <Property Name="prm14" Type="Int16" />
           <Property Name="prm15" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="prm16" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WebAppBasicos_parisina">
+          <Key>
+            <PropertyRef Name="num_transaccion" />
+            <PropertyRef Name="fec_ultact" />
+            <PropertyRef Name="sku_cve" />
+          </Key>
+          <Property Name="num_transaccion" Type="Int32" Nullable="false" />
+          <Property Name="telanom" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="color_bar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="desc_cliente" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="inv_int_trans" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="rollos_ped_xsurtir" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="rollos_ped_xsurtir_old" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="rollos_ped_surtidos" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ExistTotal" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="com_sug_tarima" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="sobra_desp_compra" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="faltanteAlmacen" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="faltAlmPedido" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="max_tarima" Type="Int16" Nullable="false" />
+          <Property Name="preorden_tarima" Type="Int16" Nullable="false" />
+          <Property Name="temporada_tarima" Type="Int16" Nullable="false" />
+          <Property Name="dispo_tarima" Type="Int16" Nullable="false" />
+          <Property Name="resurtido_rollos" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="resurtido_mts" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="resurtido_tarima" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="tarima_extra" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="autorizadoXpedido" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="demanda_residual" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="compra_sugerida" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="fabTemporadaTarima" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="fabTemporadaDispo" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="excedentePedido" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="excedenteBodega" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="skuSinExis" Type="Int32" Nullable="false" />
+          <Property Name="skuBajoDisp" Type="Int32" Nullable="false" />
+          <Property Name="contSku_cve" Type="Int32" Nullable="false" />
+          <Property Name="rollos_tarima" Type="Int16" Nullable="false" />
+          <Property Name="rollo_mts" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="fec_ultact" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="sku_cve" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -394,9 +324,44 @@ warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="WebAppInsertaResurdoParisina" FunctionName="BasicosParisinaModel.Store.WebAppInsertaResurdoParisina">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BasicosParisinaModel.WebAppInsertaResurdoParisina_Result">
+                <ScalarProperty Name="error" ColumnName="error" />
+                <ScalarProperty Name="mensaje" ColumnName="mensaje" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="xcdconapl_cl">
+            <EntityTypeMapping TypeName="BasicosParisinaModel.xcdconapl_cl">
+              <MappingFragment StoreEntitySet="xcdconapl_cl">
+                <ScalarProperty Name="prm16" ColumnName="prm16" />
+                <ScalarProperty Name="prm15" ColumnName="prm15" />
+                <ScalarProperty Name="prm14" ColumnName="prm14" />
+                <ScalarProperty Name="prm13" ColumnName="prm13" />
+                <ScalarProperty Name="prm12" ColumnName="prm12" />
+                <ScalarProperty Name="prm11" ColumnName="prm11" />
+                <ScalarProperty Name="prm10" ColumnName="prm10" />
+                <ScalarProperty Name="prm9" ColumnName="prm9" />
+                <ScalarProperty Name="prm8" ColumnName="prm8" />
+                <ScalarProperty Name="prm7" ColumnName="prm7" />
+                <ScalarProperty Name="prm6" ColumnName="prm6" />
+                <ScalarProperty Name="prm5" ColumnName="prm5" />
+                <ScalarProperty Name="prm4" ColumnName="prm4" />
+                <ScalarProperty Name="prm3" ColumnName="prm3" />
+                <ScalarProperty Name="prm2" ColumnName="prm2" />
+                <ScalarProperty Name="prm1" ColumnName="prm1" />
+                <ScalarProperty Name="spd_cve" ColumnName="spd_cve" />
+                <ScalarProperty Name="num_reng" ColumnName="num_reng" />
+                <ScalarProperty Name="sp_cve" ColumnName="sp_cve" />
+                <ScalarProperty Name="tipdoc_cve" ColumnName="tipdoc_cve" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="WebAppBasicos_parisina">
             <EntityTypeMapping TypeName="BasicosParisinaModel.WebAppBasicos_parisina">
               <MappingFragment StoreEntitySet="WebAppBasicos_parisina">
+                <ScalarProperty Name="sku_cve" ColumnName="sku_cve" />
                 <ScalarProperty Name="fec_ultact" ColumnName="fec_ultact" />
                 <ScalarProperty Name="rollo_mts" ColumnName="rollo_mts" />
                 <ScalarProperty Name="rollos_tarima" ColumnName="rollos_tarima" />
@@ -430,40 +395,7 @@ warning 6002: The table/view 'Develop.dbo.WebAppBasicos_parisina' does not have 
                 <ScalarProperty Name="desc_cliente" ColumnName="desc_cliente" />
                 <ScalarProperty Name="color_bar" ColumnName="color_bar" />
                 <ScalarProperty Name="telanom" ColumnName="telanom" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="WebAppInsertaResurdoParisina" FunctionName="BasicosParisinaModel.Store.WebAppInsertaResurdoParisina">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BasicosParisinaModel.WebAppInsertaResurdoParisina_Result">
-                <ScalarProperty Name="error" ColumnName="error" />
-                <ScalarProperty Name="mensaje" ColumnName="mensaje" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="xcdconapl_cl">
-            <EntityTypeMapping TypeName="BasicosParisinaModel.xcdconapl_cl">
-              <MappingFragment StoreEntitySet="xcdconapl_cl">
-                <ScalarProperty Name="prm16" ColumnName="prm16" />
-                <ScalarProperty Name="prm15" ColumnName="prm15" />
-                <ScalarProperty Name="prm14" ColumnName="prm14" />
-                <ScalarProperty Name="prm13" ColumnName="prm13" />
-                <ScalarProperty Name="prm12" ColumnName="prm12" />
-                <ScalarProperty Name="prm11" ColumnName="prm11" />
-                <ScalarProperty Name="prm10" ColumnName="prm10" />
-                <ScalarProperty Name="prm9" ColumnName="prm9" />
-                <ScalarProperty Name="prm8" ColumnName="prm8" />
-                <ScalarProperty Name="prm7" ColumnName="prm7" />
-                <ScalarProperty Name="prm6" ColumnName="prm6" />
-                <ScalarProperty Name="prm5" ColumnName="prm5" />
-                <ScalarProperty Name="prm4" ColumnName="prm4" />
-                <ScalarProperty Name="prm3" ColumnName="prm3" />
-                <ScalarProperty Name="prm2" ColumnName="prm2" />
-                <ScalarProperty Name="prm1" ColumnName="prm1" />
-                <ScalarProperty Name="spd_cve" ColumnName="spd_cve" />
-                <ScalarProperty Name="num_reng" ColumnName="num_reng" />
-                <ScalarProperty Name="sp_cve" ColumnName="sp_cve" />
-                <ScalarProperty Name="tipdoc_cve" ColumnName="tipdoc_cve" />
+                <ScalarProperty Name="num_transaccion" ColumnName="num_transaccion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

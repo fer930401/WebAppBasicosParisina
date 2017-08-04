@@ -14,6 +14,7 @@ namespace Entidades
     
     public partial class WebAppBasicos_parisina
     {
+        public int num_transaccion { get; set; }
         public string telanom { get; set; }
         public string color_bar { get; set; }
         public string desc_cliente { get; set; }
@@ -47,5 +48,6 @@ namespace Entidades
         public short rollos_tarima { get; set; }
         public decimal rollo_mts { get; set; }
         public System.DateTime fec_ultact { get; set; }
+        public string sku_cve { get; set; }
     }
 }

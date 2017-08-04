@@ -12,6 +12,7 @@ using System.Data;
 using System.Drawing;
 using System.Collections.Specialized;
 using System.Text;
+using System.Globalization;
 
 
 namespace WebAppBasicosParisina
@@ -224,9 +225,9 @@ namespace WebAppBasicosParisina
                 if (!IsPostBack)
                 {
                     BindGrid();
-                    ddlBusqueda.DataSource = logicaNegocio.FiltroFechas();
+                    ddlBusqueda.DataSource = FiltroFechas();
                     ddlBusqueda.DataTextField = "fec_ultact";
-                    ddlBusqueda.DataValueField = "fec_ultact";
+                    ddlBusqueda.DataValueField = "num_transaccion";
                     ddlBusqueda.DataBind();
                     ddlBusqueda.Items.Insert(0, new ListItem("Selecciona una fecha", "NA"));
                     
@@ -237,6 +238,31 @@ namespace WebAppBasicosParisina
                 Response.Redirect("Login.aspx");
             }
             
+        }
+        public DataTable FiltroFechas()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection scn1 = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["BPconnetion"].ConnectionString))
+                {
+                    SqlConnection _conn = scn1;
+                    SqlCommand _cmd = new SqlCommand();
+                    _cmd.Connection = _conn;
+                    _cmd.CommandType = CommandType.Text;
+                    _cmd.CommandText = String.Format("select num_transaccion,fec_ultact from WebAppBasicos_parisina group by num_transaccion,fec_ultact");
+                    SqlDataAdapter _da = new SqlDataAdapter(_cmd);
+                    _conn.Open();
+                    _cmd.ExecuteNonQuery();
+                    _da.Fill(dt);
+                    _conn.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                e.Message.ToString();
+            }
+            return dt;
         }
 
         private void BindGrid()
@@ -984,6 +1010,7 @@ namespace WebAppBasicosParisina
             string sku_cve;
 
             int? folio = 0;
+            string fec_ultact = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
 
             using (SqlConnection scn1 = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["BPconnetion"].ConnectionString))
             {
@@ -1004,7 +1031,7 @@ namespace WebAppBasicosParisina
                 {
                     Producto = HttpUtility.HtmlDecode(gvBP.Rows[i].Cells[0].Text);
                     colorVariante = gvBP.Rows[i].Cells[1].Text;
-                    descCliente = gvBP.Rows[i].Cells[2].Text;
+                    descCliente = Server.HtmlDecode(gvBP.Rows[i].Cells[2].Text);
                     //invInteTrans = decimal.Parse(GVRow.Cells[0].Text);//cambiar
                     Label lblInvIIT = (Label)GVRow.Cells[0].FindControl("lblInvIIT");
                     invInteTrans = decimal.Parse(lblInvIIT.Text);
@@ -1047,7 +1074,15 @@ namespace WebAppBasicosParisina
                         }
                     }
                     TextBox lblDemResi = (TextBox)GVRow.Cells[18].FindControl("txtDemResidual");
-                    demResidual = decimal.Parse(lblDemResi.Text);
+                    if (string.IsNullOrEmpty(lblDemResi.Text) == true)
+                    {
+                        demResidual = 0m;
+                    }
+                    else
+                    {
+                        demResidual = decimal.Parse(lblDemResi.Text);
+                    }
+                    
                     demParisina = decimal.Parse(GVRow.Cells[19].Text);
                     fabTempTarima = decimal.Parse(GVRow.Cells[20].Text);
                     Label lblFTD = (Label)GVRow.Cells[21].FindControl("lblFTD");
@@ -1067,7 +1102,7 @@ namespace WebAppBasicosParisina
                     sku_cve = Server.HtmlDecode(GVRow.Cells[29].Text);
 
 
-                    if (autorizaPed > 0)
+                    /*if (autorizaPed > 0)
                     {
                         try
                         {
@@ -1084,7 +1119,7 @@ namespace WebAppBasicosParisina
                                 {
                                     errorInsert = mensaje;
                                 }
-                            }*/
+                            }*
                             using (SqlConnection scn1 = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["BPconnetion"].ConnectionString))
                             {
                                 SqlConnection _conn = scn1;
@@ -1102,7 +1137,7 @@ namespace WebAppBasicosParisina
                         {
                             errorInsert += ex.Message.ToString().Replace("\r\n", "\\n").Replace("'", "") + ",";
                         }
-                    }
+                    }*/
 
                     using (SqlConnection scn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["BPconnetion"].ConnectionString))
                     {
@@ -1118,7 +1153,7 @@ namespace WebAppBasicosParisina
                         descCliente, invInteTrans, ped_surtir, ped_viejos_surtir, ped_surtidos, exis_total, com_sug_tarima, sob_des_comp,
                         faltAlm, falAlmPed, max_tarima, punReorden, temp_tarima, tarima_dispo, fabResurtido, fabResurtidoMts, fabResurtidoTarima,
                         tarimaExtraPed, autorizaPed, demResidual, demParisina, fabTempTarima, fabTempDispo, excIncPed, excBodega, skuSinExis,
-                        skuBajoDispo, totSku, rollos_tarima, mts_rollos, DateTime.Now.ToString("MM/dd/yyyy"),sku_cve);
+                        skuBajoDispo, totSku, rollos_tarima, mts_rollos, fec_ultact, sku_cve);
                         try
                         {
                             scn.Open();
@@ -1161,8 +1196,9 @@ namespace WebAppBasicosParisina
         {
             if (ddlBusqueda.SelectedIndex.ToString().Equals("0") == false)
             {
-                DateTime fecha = DateTime.Parse(ddlBusqueda.SelectedValue.ToString());
-                variables.FechaConsulta = fecha.ToString("MM/dd/yyyy");
+                DateTime fecha = DateTime.Parse(ddlBusqueda.SelectedItem.Text);
+                variables.NumTrans = Int32.Parse(ddlBusqueda.SelectedValue);
+                variables.FechaConsulta = fecha.ToString("MM/dd/yyyy HH:mm:ss");
                 Response.Redirect("ConsultaInfo.aspx");
             }
             else
@@ -1170,6 +1206,19 @@ namespace WebAppBasicosParisina
                 Response.Write("<script type=\"text/javascript\">alert('seleccione otro valor');</script>");
             }
             
+        }
+        public string validaArttip(string art_tip)
+        {
+            string estilo = "";
+            if (art_tip.Equals("R01") == true || art_tip.Equals("P01") == true || art_tip.Equals("PCP") == true || art_tip.Equals("PDG") == true || art_tip.Equals("PPT") == true)
+            {
+                estilo = "'display:none;'";
+            }
+            else
+            {
+                estilo = "";
+            }
+            return estilo;
         }
     }
 }

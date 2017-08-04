@@ -28,8 +28,8 @@ namespace Entidades
         }
     
         public virtual DbSet<xcuser> xcuser { get; set; }
-        public virtual DbSet<WebAppBasicos_parisina> WebAppBasicos_parisina { get; set; }
         public virtual DbSet<xcdconapl_cl> xcdconapl_cl { get; set; }
+        public virtual DbSet<WebAppBasicos_parisina> WebAppBasicos_parisina { get; set; }
     
         public virtual ObjectResult<WebAppBasicosParisina_Result> WebAppBasicosParisina(string ef_cve, string tipdoc_cve)
         {

@@ -6,8 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="ae287ec9c4aa4302810d81492c41ee48" Name="Diagram1" >
         <EntityTypeShape EntityType="BasicosParisinaModel.xcuser" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="BasicosParisinaModel.WebAppBasicos_parisina" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="BasicosParisinaModel.xcdconapl_cl" Width="1.5" PointX="5.5" PointY="0.75" />
+        <EntityTypeShape EntityType="BasicosParisinaModel.WebAppBasicos_parisina" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
