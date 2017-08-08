@@ -1210,7 +1210,7 @@ namespace WebAppBasicosParisina
         public string validaArttip(string art_tip)
         {
             string estilo = "";
-            if (art_tip.Equals("R01") == true || art_tip.Equals("P01") == true || art_tip.Equals("PCP") == true || art_tip.Equals("PDG") == true || art_tip.Equals("PPT") == true)
+            if (art_tip.Equals("R01") == true || art_tip.Equals("P01") == true || art_tip.Equals("PCP") == true || art_tip.Equals("PDG") == true || art_tip.Equals("PPT") == true || art_tip.Equals("OP") == true)
             {
                 estilo = "'display:none;'";
             }

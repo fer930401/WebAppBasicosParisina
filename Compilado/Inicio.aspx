@@ -34,7 +34,6 @@
                 $('.flotante').slideDown(300);
             });
         });
-        document.getElementById("<%= gvBP2.ClientID %>").onclick();
     </script>
     <style type="text/css">
         .minusculas {
