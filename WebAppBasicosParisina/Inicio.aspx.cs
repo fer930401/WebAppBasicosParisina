@@ -19,204 +19,9 @@ namespace WebAppBasicosParisina
     public partial class _Default : Page
     {
         LogicaNegocio.LogicaNegocio logicaNegocio = new LogicaNegocio.LogicaNegocio();
-        //int pos = 0;
-
-        static decimal invIntTran;
-        public static decimal InvIntTran
-        {
-            get { return _Default.invIntTran; }
-            set { _Default.invIntTran = value; }
-        }
-        static decimal invIntTranT;
-        public static decimal InvIntTranT
-        {
-            get { return _Default.invIntTranT; }
-            set { _Default.invIntTranT = value; }
-        }
-
-        static decimal exisTotalC;
-        public static decimal ExisTotalC
-        {
-            get { return _Default.exisTotalC; }
-            set { _Default.exisTotalC = value; }
-        }
-        static decimal exisTotalCT;
-        public static decimal ExisTotalCT
-        {
-            get { return _Default.exisTotalCT; }
-            set { _Default.exisTotalCT = value; }
-        }
-
-        static decimal cst;
-        public static decimal CST
-        {
-            get { return _Default.cst; }
-            set { _Default.cst = value; }
-        }
-        static decimal cstT;
-        public static decimal CSTT
-        {
-            get { return _Default.cstT; }
-            set { _Default.cstT = value; }
-        }
-
-        static decimal scd;
-        public static decimal SCD
-        {
-            get { return _Default.scd; }
-            set { _Default.scd = value; }
-        }
-        static decimal scdT;
-        public static decimal SCDT
-        {
-            get { return _Default.scdT; }
-            set { _Default.scdT = value; }
-        }
-
-        static decimal faltAlm;
-        public static decimal FaltAlm
-        {
-            get { return _Default.faltAlm; }
-            set { _Default.faltAlm = value; }
-        }
-        static decimal faltAlmT;
-        public static decimal FaltAlmT
-        {
-            get { return _Default.faltAlmT; }
-            set { _Default.faltAlmT = value; }
-        }
-
-        static decimal fap;
-        public static decimal FAP
-        {
-            get { return _Default.fap; }
-            set { _Default.fap = value; }
-        }
-        static decimal fapT;
-        public static decimal FAPT
-        {
-            get { return _Default.fapT; }
-            set { _Default.fapT = value; }
-        }
-
-        static decimal rMTS;
-        public static decimal RMTS
-        {
-            get { return _Default.rMTS; }
-            set { _Default.rMTS = value; }
-        }
-        static decimal rMTST;
-        public static decimal RMTST
-        {
-            get { return _Default.rMTST; }
-            set { _Default.rMTST = value; }
-        }
-
-        static decimal rtarima;
-        public static decimal RTarima
-        {
-            get { return _Default.rtarima; }
-            set { _Default.rtarima = value; }
-        }
-        static decimal rtarimat;
-        public static decimal RTarimaT
-        {
-            get { return _Default.rtarimat; }
-            set { _Default.rtarimat = value; }
-        }
-
-        static decimal demRes;
-        public static decimal DemRes
-        {
-            get { return _Default.demRes; }
-            set { _Default.demRes = value; }
-        }
-        static decimal demResT;
-        public static decimal DemResT
-        {
-            get { return _Default.demResT; }
-            set { _Default.demResT = value; }
-        }
-
-        static decimal tempDispo;
-        public static decimal TempDispo
-        {
-            get { return _Default.tempDispo; }
-            set { _Default.tempDispo = value; }
-        }
-        static decimal tempDispoT;
-        public static decimal TempDispoT
-        {
-            get { return _Default.tempDispoT; }
-            set { _Default.tempDispoT = value; }
-        }
-
-        static decimal excPedido;
-        public static decimal ExcPedido
-        {
-            get { return _Default.excPedido; }
-            set { _Default.excPedido = value; }
-        }
-        static decimal excPedidoT;
-        public static decimal ExcPedidoT
-        {
-            get { return _Default.excPedidoT; }
-            set { _Default.excPedidoT = value; }
-        }
-
-        static decimal exdBod;
-        public static decimal ExdBod
-        {
-            get { return _Default.exdBod; }
-            set { _Default.exdBod = value; }
-        }
-        static decimal exdBodT;
-        public static decimal ExdBodT
-        {
-            get { return _Default.exdBodT; }
-            set { _Default.exdBodT = value; }
-        }
-
-        static decimal sse;
-        public static decimal SSE
-        {
-            get { return _Default.sse; }
-            set { _Default.sse = value; }
-        }
-        static decimal sseT;
-        public static decimal SSET
-        {
-            get { return _Default.sseT; }
-            set { _Default.sseT = value; }
-        }
-
-        static decimal sbe;
-        public static decimal SBE
-        {
-            get { return _Default.sbe; }
-            set { _Default.sbe = value; }
-        }
-        static decimal sbeT;
-        public static decimal SBET
-        {
-            get { return _Default.sbeT; }
-            set { _Default.sbeT = value; }
-        }
-
-        static decimal mRollo;
-        public static decimal MRollo
-        {
-            get { return _Default.mRollo; }
-            set { _Default.mRollo = value; }
-        }
-        static decimal mRolloT;
-        public static decimal MRolloT
-        {
-            get { return _Default.mRolloT; }
-            set { _Default.mRolloT = value; }
-        }
         string mensaje = "";
         int? error = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["user_cve"] != null)
@@ -279,33 +84,33 @@ namespace WebAppBasicosParisina
                 {
                     DataTable dt = (e.Row.DataItem as DataRowView).DataView.Table;
                     string orderId = dt.Rows[e.Row.RowIndex]["telanom"].ToString();
-                    Grand_Total[3] += InvIntTran;
+                    Grand_Total[3] += variables.InvIntTran;
                     Grand_Total[4] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir"].ToString());
                     Grand_Total[5] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_xsurtir_old"].ToString());
                     Grand_Total[6] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_ped_surtidos"].ToString());
-                    Grand_Total[7] += ExisTotalC;
-                    Grand_Total[8] += CST;
-                    Grand_Total[9] += SCD;
-                    Grand_Total[10] += FaltAlm;
-                    Grand_Total[11] += FAP;
+                    Grand_Total[7] += variables.ExisTotalC;
+                    Grand_Total[8] += variables.CST;
+                    Grand_Total[9] += variables.SCD;
+                    Grand_Total[10] += variables.FaltAlm;
+                    Grand_Total[11] += variables.FAP;
                     Grand_Total[12] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["max_tarima"].ToString());
                     Grand_Total[13] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["preorden_tarima"].ToString());
                     Grand_Total[14] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["temporada_tarima"].ToString());
                     Grand_Total[15] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["dispo_tarima"].ToString());
                     Grand_Total[16] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["resurtido_rollos"].ToString());
-                    Grand_Total[17] += RMTS;
-                    Grand_Total[18] += RTarima;
-                    Grand_Total[21] += DemRes;
+                    Grand_Total[17] += variables.RMTS;
+                    Grand_Total[18] += variables.RTarima;
+                    Grand_Total[21] += variables.DemRes;
                     Grand_Total[22] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["compra_sugerida"].ToString());
                     Grand_Total[23] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["temporada_tarima"].ToString());
-                    Grand_Total[24] += TempDispo;
-                    Grand_Total[25] += ExcPedido;
-                    Grand_Total[26] += ExdBod;
-                    Grand_Total[27] += SSE;
-                    Grand_Total[28] += SBE;
+                    Grand_Total[24] += variables.TempDispo;
+                    Grand_Total[25] += variables.ExcPedido;
+                    Grand_Total[26] += variables.ExdBod;
+                    Grand_Total[27] += variables.SSE;
+                    Grand_Total[28] += variables.SBE;
                     Grand_Total[29] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["contSku_cve"].ToString());
                     Grand_Total[30] += Convert.ToDecimal(dt.Rows[e.Row.RowIndex]["rollos_tarima"].ToString());
-                    Grand_Total[31] += MRollo;
+                    Grand_Total[31] += variables.MRollo;
                     if (orderId.Equals(currentId) == false)
                     {
                         if (e.Row.RowIndex > 0)
@@ -321,21 +126,21 @@ namespace WebAppBasicosParisina
                                     }
                                 }
                             }
-                            Sub_Totales[3] += InvIntTranT;
-                            Sub_Totales[7] += ExisTotalCT;
-                            Sub_Totales[8] += CSTT;
-                            Sub_Totales[9] += SCDT;
-                            Sub_Totales[10] += FaltAlmT;
-                            Sub_Totales[11] += FAPT;
-                            Sub_Totales[17] += RMTST;
-                            Sub_Totales[18] += RTarimaT;
-                            Sub_Totales[21] += DemResT;
-                            Sub_Totales[24] += TempDispoT;
-                            Sub_Totales[25] += ExcPedidoT;
-                            Sub_Totales[26] += ExdBodT;
-                            Sub_Totales[27] += SSET;
-                            Sub_Totales[28] += SBET;
-                            Sub_Totales[31] += MRolloT;
+                            Sub_Totales[3] += variables.InvIntTranT;
+                            Sub_Totales[7] += variables.ExisTotalCT;
+                            Sub_Totales[8] += variables.CSTT;
+                            Sub_Totales[9] += variables.SCDT;
+                            Sub_Totales[10] += variables.FaltAlmT;
+                            Sub_Totales[11] += variables.FAPT;
+                            Sub_Totales[17] += variables.RMTST;
+                            Sub_Totales[18] += variables.RTarimaT;
+                            Sub_Totales[21] += variables.DemResT;
+                            Sub_Totales[24] += variables.TempDispoT;
+                            Sub_Totales[25] += variables.ExcPedidoT;
+                            Sub_Totales[26] += variables.ExdBodT;
+                            Sub_Totales[27] += variables.SSET;
+                            Sub_Totales[28] += variables.SBET;
+                            Sub_Totales[31] += variables.MRolloT;
 
                             AddTotalRow("Total", "");
                             subTotalRowIndex = e.Row.RowIndex;
@@ -383,21 +188,21 @@ namespace WebAppBasicosParisina
                     }
                 }
             }
-            Sub_Totales[3] += InvIntTranT;
-            Sub_Totales[7] += ExisTotalCT;
-            Sub_Totales[8] += CSTT;
-            Sub_Totales[9] += SCDT;
-            Sub_Totales[10] += FaltAlmT;
-            Sub_Totales[11] += FAPT;
-            Sub_Totales[17] += RMTST;
-            Sub_Totales[18] += RTarimaT;
-            Sub_Totales[21] += DemResT;
-            Sub_Totales[24] += TempDispoT;
-            Sub_Totales[25] += ExcPedidoT;
-            Sub_Totales[26] += ExdBodT;
-            Sub_Totales[27] += SSET;
-            Sub_Totales[28] += SBET;
-            Sub_Totales[31] += MRolloT;
+            Sub_Totales[3] += variables.InvIntTranT;
+            Sub_Totales[7] += variables.ExisTotalCT;
+            Sub_Totales[8] += variables.CSTT;
+            Sub_Totales[9] += variables.SCDT;
+            Sub_Totales[10] += variables.FaltAlmT;
+            Sub_Totales[11] += variables.FAPT;
+            Sub_Totales[17] += variables.RMTST;
+            Sub_Totales[18] += variables.RTarimaT;
+            Sub_Totales[21] += variables.DemResT;
+            Sub_Totales[24] += variables.TempDispoT;
+            Sub_Totales[25] += variables.ExcPedidoT;
+            Sub_Totales[26] += variables.ExdBodT;
+            Sub_Totales[27] += variables.SSET;
+            Sub_Totales[28] += variables.SBET;
+            Sub_Totales[31] += variables.MRolloT;
             AddTotalRow("Total", "");
             AddTotalRow("Grand Total", "");
         }
@@ -492,22 +297,22 @@ namespace WebAppBasicosParisina
                                 });
                 row.BorderColor = System.Drawing.Color.FromArgb(144, 160, 175);
             }
-            
-            InvIntTranT = 0;
-            ExisTotalCT = 0;
-            CSTT = 0;
-            SCDT = 0;
-            FaltAlmT = 0;
-            FAPT = 0;
-            RMTST = 0;
-            RTarimaT = 0;
-            DemResT = 0;
-            TempDispoT = 0;
-            ExcPedidoT = 0;
-            ExdBodT = 0;
-            SSET = 0;
-            SBET = 0;
-            MRolloT = 0;
+
+            variables.InvIntTranT = 0;
+            variables.ExisTotalCT = 0;
+            variables.CSTT = 0;
+            variables.SCDT = 0;
+            variables.FaltAlmT = 0;
+            variables.FAPT = 0;
+            variables.RMTST = 0;
+            variables.RTarimaT = 0;
+            variables.DemResT = 0;
+            variables.TempDispoT = 0;
+            variables.ExcPedidoT = 0;
+            variables.ExdBodT = 0;
+            variables.SSET = 0;
+            variables.SBET = 0;
+            variables.MRolloT = 0;
             gvBP.Controls[0].Controls.Add(row);
         }
 
@@ -528,8 +333,8 @@ namespace WebAppBasicosParisina
             {
                 result = 0;
             }
-            InvIntTran = result;
-            InvIntTranT += InvIntTran;
+            variables.InvIntTran = result;
+            variables.InvIntTranT += variables.InvIntTran;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
@@ -541,8 +346,8 @@ namespace WebAppBasicosParisina
             decimal rollos_ped_xsurtir = decimal.Parse(valor3);
             decimal rollos_ped_xsurtir_old = decimal.Parse(valor4);
             result = stock + rollos_ped_surtidos + rollos_ped_xsurtir + rollos_ped_xsurtir_old;
-            ExisTotalC = result;
-            ExisTotalCT += ExisTotalC;
+            variables.ExisTotalC = result;
+            variables.ExisTotalCT += variables.ExisTotalC;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
@@ -559,27 +364,27 @@ namespace WebAppBasicosParisina
             {
                 result = 0;
             }
-            
-            CST = result;
-            CSTT += CST;
+
+            variables.CST = result;
+            variables.CSTT += variables.CST;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
         public decimal restaColumnas()
         {
             decimal result = 0;
-            result = ExisTotalC - CST;
-            SCD = result;
-            SCDT += SCD;
+            result = variables.ExisTotalC - variables.CST;
+            variables.SCD = result;
+            variables.SCDT += variables.SCD;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
         
         public decimal restaExistSobrante()
         {
             decimal result = 0;
-            result = ExisTotalC - SCD;
-            FaltAlm = result;
-            FaltAlmT += FaltAlm;
+            result = variables.ExisTotalC - variables.SCD;
+            variables.FaltAlm = result;
+            variables.FaltAlmT += variables.FaltAlm;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
         
@@ -587,9 +392,9 @@ namespace WebAppBasicosParisina
         {
             decimal result = 0;
             decimal rollos_ped_xsurtir = decimal.Parse(valor1);
-            result = FaltAlm + rollos_ped_xsurtir;
-            FAP = result;
-            FAPT += FAP;
+            result = variables.FaltAlm + rollos_ped_xsurtir;
+            variables.FAP = result;
+            variables.FAPT += variables.FAP;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
@@ -600,15 +405,15 @@ namespace WebAppBasicosParisina
             decimal mtsRollos = decimal.Parse(valor2) * 0.9144m;
             if (rollo_tarima > 0)
             {
-                result = (ExisTotalC / rollo_tarima) * mtsRollos;
+                result = (variables.ExisTotalC / rollo_tarima) * mtsRollos;
             }
             else
             {
                 result = 0;
             }
-            
-            RMTS = result;
-            RMTST += RMTS;
+
+            variables.RMTS = result;
+            variables.RMTST += variables.RMTS;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
@@ -625,8 +430,8 @@ namespace WebAppBasicosParisina
             {
                 result = 0;
             }
-            RTarima = result;
-            RTarimaT += RTarima;
+            variables.RTarima = result;
+            variables.RTarimaT += variables.RTarima;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
@@ -654,9 +459,9 @@ namespace WebAppBasicosParisina
             {
                 result = 0;
             }
-            
-            TempDispo = result;
-            TempDispoT += TempDispo;
+
+            variables.TempDispo = result;
+            variables.TempDispoT += variables.TempDispo;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
@@ -686,8 +491,8 @@ namespace WebAppBasicosParisina
                 result = 0;
             }
 
-            ExcPedido = result;
-            ExcPedidoT += excPedido;
+            variables.ExcPedido = result;
+            variables.ExcPedidoT += variables.ExcPedido;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
@@ -705,8 +510,8 @@ namespace WebAppBasicosParisina
             {
                 result = 0;
             }
-            ExdBod = result;
-            ExdBodT += ExdBod;
+            variables.ExdBod = result;
+            variables.ExdBodT += variables.ExdBod;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 
@@ -724,8 +529,8 @@ namespace WebAppBasicosParisina
             {
                 result = 0;
             }
-            SSE = result;
-            SSET += SSE;
+            variables.SSE = result;
+            variables.SSET += variables.SSE;
             return result;
         }
 
@@ -736,7 +541,7 @@ namespace WebAppBasicosParisina
             decimal min_parisina = decimal.Parse(valor3);
             int contSku_cve = Int32.Parse(valor2);
 
-            if (stock > 0 && ExisTotalC < min_parisina)
+            if (stock > 0 && variables.ExisTotalC < min_parisina)
             {
                 result = contSku_cve;
             }
@@ -744,8 +549,8 @@ namespace WebAppBasicosParisina
             {
                 result = 0;
             }
-            SBE = result;
-            SBET += SBE;
+            variables.SBE = result;
+            variables.SBET += variables.SBE;
             return result;
         }
 
@@ -754,8 +559,8 @@ namespace WebAppBasicosParisina
             decimal result = 0;
             decimal rollo_yardas = decimal.Parse(valor1);
             result = rollo_yardas * 0.9144m;
-            MRollo = result;
-            MRolloT += MRollo;
+            variables.MRollo = result;
+            variables.MRolloT += variables.MRollo;
             return decimal.Round(result, 2, MidpointRounding.AwayFromZero);
         }
 

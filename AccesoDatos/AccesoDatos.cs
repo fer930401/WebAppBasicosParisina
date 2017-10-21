@@ -16,7 +16,7 @@ namespace AccesoDatos
         }
         public List<string> ListaUser_cve()
         {
-            return ((from u in contexto.xcdconapl_cl where u.tipdoc_cve.Equals("appweb") && u.sp_cve.Equals("ots") select u.spd_cve).ToList());
+            return ((from u in contexto.xcdconapl_cl where u.tipdoc_cve.Equals("appweb") && u.sp_cve.Equals("WAREPA") select u.spd_cve).ToList());
         }
         public List<xcuser> ListaUsuarios(List<string> Usuarios)
         {
